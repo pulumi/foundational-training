@@ -16,6 +16,8 @@ locals {
     "${data.aws_region.current.name}b",
     "${data.aws_region.current.name}c",
   ]
+  public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  private_subnet_cidrs = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
 }
 
 provider "aws" {
@@ -41,30 +43,18 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-variable "public_subnet_cidrs" {
-  type        = list(string)
-  description = "Public Subnet CIDR values"
-  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-}
-
-variable "private_subnet_cidrs" {
-  type        = list(string)
-  description = "Private Subnet CIDR values"
-  default     = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
-}
-
 resource "aws_subnet" "public" {
-  count             = length(var.public_subnet_cidrs)
+  count             = length(local.public_subnet_cidrs)
   vpc_id            = aws_vpc.main.id
   availability_zone = element(local.azs, count.index)
-  cidr_block        = element(var.public_subnet_cidrs, count.index)
+  cidr_block        = element(local.public_subnet_cidrs, count.index)
   tags = {
     Name = "convert-tf-public-${count.index + 1}"
   }
 }
 
 resource "aws_route_table" "public" {
-  count  = length(var.public_subnet_cidrs)
+  count  = length(local.public_subnet_cidrs)
   vpc_id = aws_vpc.main.id
   tags = {
     Name = "convert-tf-public-${count.index + 1}"
@@ -72,13 +62,13 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table_association" "public" {
-  count          = length(aws_subnet.public)
+  count          = length(local.public_subnet_cidrs)
   subnet_id      = element(aws_subnet.public[*].id, count.index)
   route_table_id = aws_route_table.public[0].id
 }
 
 resource "aws_route" "public_internet_gateway" {
-  count                  = length(aws_subnet.public)
+  count                  = length(local.public_subnet_cidrs)
   route_table_id         = aws_route_table.public[count.index].id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw.id
@@ -100,17 +90,18 @@ resource "aws_nat_gateway" "natgw" {
 }
 
 resource "aws_subnet" "private" {
-  count             = length(var.private_subnet_cidrs)
+  count             = length(local.private_subnet_cidrs)
   vpc_id            = aws_vpc.main.id
   availability_zone = element(local.azs, count.index)
-  cidr_block        = element(var.private_subnet_cidrs, count.index)
+  cidr_block        = element(local.private_subnet_cidrs, count.index)
   tags = {
     Name = "convert-tf-private-${count.index + 1}"
   }
+
 }
 
 resource "aws_route_table" "private" {
-  count  = length(aws_subnet.public)
+  count  = length(local.private_subnet_cidrs)
   vpc_id = aws_vpc.main.id
   tags = {
     Name = "convert-tf-private"
@@ -118,13 +109,13 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route_table_association" "private" {
-  count          = length(var.private_subnet_cidrs)
+  count          = length(local.private_subnet_cidrs)
   subnet_id      = element(aws_subnet.private[*].id, count.index)
   route_table_id = aws_route_table.private[count.index].id
 }
 
 resource "aws_route" "private_nat_gateway" {
-  count                  = length(aws_subnet.public)
+  count                  = length(local.private_subnet_cidrs)
   route_table_id         = aws_route_table.private[count.index].id
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.natgw.id
