@@ -8,9 +8,7 @@ Provision an EC2 instance in one of the private subnets and grant SSH access via
 
 ## Converting from Terraform to Pulumi and Importing from TF state
 
-TODO
-
-In this exercise, you will take a Terraform program containing a VPC and convert it to Pulumi code in the language of your choice.
+In this exercise, you will take a Terraform program containing a VPC and convert it to Pulumi code in the language of your choice:
 
 1. Ensure you have the latest version of the Pulumi Terraform converter:
 
@@ -43,17 +41,50 @@ In this exercise, you will take a Terraform program containing a VPC and convert
     pulumi convert --from terraform --out ../pulumi-convert-tf-py --language python
     ```
 
-1. Massage the generated Pulumi code: While the `pulumi convert` command does convert most Terraform code and gives you a very good starting point, it does not support all constructs in HCL, and it is normal to have to massage the code resulting from the `pulumi convert` command.
+    This command will generate code, but the resources will not yet be under Pulumi management because they have not been imported to your Pulumi state.
 
-    - Correct any instances of `notImpelented`/`not_implemented`.
+1. Import the resources from your TF state file into your Pulumi state file:
+
+    ```bash
+    cd ../pulumi-convert-tf-ts # or cd ../pulumi-convert-tf-py
+    pulumi import --from terraform ../terraform/terraform.tfstate --protect=false --generate-code=false
+    ```
+
+1. Check to see whether there any additional massaging is necessary. For example, you may need to change the tags from `name` to `Name`. (Loss of case-sensitivity for tag names in conversion from Terraform [is a known issue](https://github.com/pulumi/pulumi-converter-terraform/issues/100).)
+
+    Run the following command to see whether there is any drift between your Pulumi state file and your resources as declared in your Pulumi program:
+
+    ```bash
+    pulumi preview --diff
+    ```
+
+    If you see output similar to the following, you will need to massage your Pulumi code to resolve the drift:
+
+    ```text
+      ~ tags   : {
+          - Name: "convert-tf"
+          + name: "convert-tf"
+      }
+      ~ tagsAll: {
+          - Name: "convert-tf"
+          + name: [secret]
+        }
+    Resources:
+    ~ 16 to update
+    ```
+
+    Once all drift is resolved, you'll see output like the following:
+
+    ```text
+    Resources:
+        29 unchanged
+    ```
+
+1. Reformat and refactor the generated Pulumi code for improved readability:
+
     - Fix whitespacing to make the code more readable.
-    - Refactor the code to be more idiomatic and readable with a single `for` or `.forEach()` loop over the AZs.
+    - Refactor to use 2 loops: one for the public subnets (based of the list of public subnet CIDRs), and a similar loop for the private subnets.
 
-## Importing Terraform State
+    Throughout the process, you should continuously run `pulumi preview` to make sure you have not accidentally created drift.
 
-TODO
-
-```bash
-cd ../pulumi-convert-tf-ts
-pulumi import --from terraform ../terraform/terraform.tfstate --generate-code false
-```
+At this point, your resources are under Pulumi control and in a production scenario the Terraform state file should be archived to avoid any confusion as to the source of truth for your the state of your resources.
