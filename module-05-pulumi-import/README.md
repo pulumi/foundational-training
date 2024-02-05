@@ -1,12 +1,43 @@
 # Module 05: Pulumi Import
 
-## Consuming Terraform State File Outputs
+## Consuming CloudFormation Stack Outputs
 
 TODO
 
+## Bulk Importing Resources
+
+TODO
+
+## Coexist with Terraform by Consuming Terraform State File Outputs
+
+In this exercise, you'll learn how organizations with existing Terraform codebases can consume Terraform outputs to create new infrastructure using Pulumi.
+
+1. Deploy the Terraform config:
+
+    ```bash
+    cd terraform && terraform init && terraform apply
+    ```
+
+1. Create a new Pulumi program:
+
+    ```bash
+    cd ..
+    mkdir pulumi-tf-outputs
+    cd pulumi-tf-outputs
+    pulumi new typescript -y # or pulumi new python -y
+    ```
+
+1. Install the Pulumi Terraform Provider and the Pulumi AWS Provider:
+
+    ```bash
+    npm i @pulumi/terraform @pulumi/aws
+    ```
+
+1. Using the
+
 Provision an EC2 instance in one of the private subnets and grant SSH access via SSM Systems Manager.
 
-## Converting from Terraform to Pulumi and Importing from TF state
+## Replace Terraform by Converting from Terraform to Pulumi
 
 In this exercise, you will take a Terraform program containing a VPC and convert it to Pulumi code in the language of your choice:
 
