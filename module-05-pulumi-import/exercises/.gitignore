@@ -4,3 +4,4 @@ pulumi-tf-outputs/
 pulumi-convert-tf*/
 pulumi-import-tf*/
 terraform.tfstate*
+pulumi-cf-outputs/

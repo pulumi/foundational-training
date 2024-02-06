@@ -2,9 +2,27 @@
 
 ## Consuming CloudFormation Stack Outputs
 
-TODO
+In this exercise, you'll learn how organizations using CDK or CloudFormation can consume stack outputs using Pulumi.
 
-## Bulk Importing Resources
+1. Deploy the CDK stack:
+
+    ```bash
+    cd cdk && cdk deploy
+    ```
+
+1. Create a new Pulumi program:
+
+    ```bash
+    cd ..
+    mkdir pulumi-cf-outputs
+    cd pulumi-cf-outputs
+    pulumi new typescript -y # or pulumi new python -y
+    ```
+
+1. In your Pulumi program, use the `aws.cloudformaton.getStackOutput` resource to reference the `CdkStack` CloudFormation stack, read the value of the `vpcId` and `privateSubnet0` outputs and store them in local variables. (Note that the `Output` part of `getStackOutput` refers to the fact that the values returned are Pulumi Outputs. The function returns a CloudFormation stack, not its individual CloudFormation stack outputs.)
+1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpc_id` output to create a security group and the `private_subnets` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
+
+## Convert by Bulk Importing Resources
 
 TODO
 
@@ -33,9 +51,9 @@ In this exercise, you'll learn how organizations with existing Terraform codebas
     npm i @pulumi/terraform @pulumi/aws
     ```
 
-1. Using the
+1. In your Pulumi program, use the `terraform.state.RemoteStateReference` resource to reference the TF state file on disk, read the value of the `vpc_id` (a string) and `private_subnets` (an array of strings) outputs, and store them in local variables.
 
-Provision an EC2 instance in one of the private subnets and grant SSH access via SSM Systems Manager.
+1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpc_id` output to create a security group and the `private_subnets` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
 
 ## Replace Terraform by Converting from Terraform to Pulumi
 
