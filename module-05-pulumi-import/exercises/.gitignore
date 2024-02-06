@@ -5,3 +5,5 @@ pulumi-convert-tf*/
 pulumi-import-tf*/
 terraform.tfstate*
 pulumi-cf-outputs/
+pulumi-import.json
+pulumi-import-exercise/

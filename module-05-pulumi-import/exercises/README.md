@@ -24,11 +24,50 @@ In this exercise, you'll learn how organizations using CDK or CloudFormation can
 
 ## Exercise 3: Bulk Importing Resources
 
-In this exercise you will learn how to bulk import resources (typically created manually in the console or via CloudFormation).
+In this exercise you will learn how to bulk import resources (typically created manually in the console or via CloudFormation). This exercise uses a custom script using boto3 to generate a bulk import JSON file for use with the `pulumi import` command, but learners are welcome to take their own approach to gather resources for import, including handwriting the file.
 
-Note that this script will import all VPCs and associated resources (subnets, route tables, etc.) in the account/region in which you run it.
+1. Deploy the CDK stack if your account/region has no VPCs or similar resources:
 
-TODO
+    ```bash
+    cd cdk && cdk deploy && cd -
+    ```
+
+1. Install the dependencies for the account scraper script:
+
+    ```bash
+    # Modify the following command as necessary for your environment (venv, poetry, etc):
+    cd boto3 && pip install -r requirements.txt
+    ```
+
+1. Run the account scraper:
+
+    ```bash
+    python3 account_scraper.py > pulumi-import.json && cd -
+    ```
+
+    Note that this script will scan all VPCs and associated resources (subnets, route tables, etc.) in the account/region in which you run it.
+
+1. Create a Pulumi program:
+
+    ```bash
+    mkdir pulumi-import-exercise
+    cd pulumi-import-exercise
+    pulumi new aws-typescript -y
+    ```
+
+1. Import the resources you exported:
+
+    ```bash
+    pulumi import -f ../boto3/pulumi-import.json > index.ts -y
+    ```
+
+1. Run the `pulumi preview` command. Edit the program until the `pulumi preview` command shows no errors and no diff. The resources in this program are now under Pulumi management (although `pulumi import` protects them from deletion by default.)
+
+1. Finally, delete the stack with the imported resources in order to avoid accidentally modifying resources in your AWS environment:
+
+    ```bash
+    pulumi stack rm dev --force
+    ```
 
 ## Exercise 4: Coexist with Terraform by Consuming Terraform State File Outputs
 
