@@ -22,7 +22,7 @@ In this exercise, you'll learn how organizations using CDK or CloudFormation can
 1. In your Pulumi program, use the `aws.cloudformaton.getStackOutput` resource to reference the `CdkStack` CloudFormation stack, read the value of the `vpcId` and `privateSubnet0` outputs and store them in local variables. (Note that the `Output` part of `getStackOutput` refers to the fact that the values returned are Pulumi Outputs. The function returns a CloudFormation stack, not its individual CloudFormation stack outputs.)
 1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpc_id` output to create a security group and the `private_subnets` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
 
-## Exercise 3: Bulk Importing Resources
+## Exercise 2: Bulk Importing Resources
 
 In this exercise you will learn how to bulk import resources (typically created manually in the console or via CloudFormation). This exercise uses a custom script using boto3 to generate a bulk import JSON file for use with the `pulumi import` command, but learners are welcome to take their own approach to gather resources for import, including handwriting the file.
 
@@ -69,7 +69,7 @@ In this exercise you will learn how to bulk import resources (typically created 
     pulumi stack rm dev --force
     ```
 
-## Exercise 4: Coexist with Terraform by Consuming Terraform State File Outputs
+## Exercise 3: Coexist with Terraform by Consuming Terraform State File Outputs
 
 In this exercise, you'll learn how organizations with existing Terraform codebases can consume Terraform outputs to create new infrastructure using Pulumi.
 
@@ -98,7 +98,7 @@ In this exercise, you'll learn how organizations with existing Terraform codebas
 
 1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpc_id` output to create a security group and the `private_subnets` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
 
-## Exercise 5: Replace Terraform by Converting from Terraform to Pulumi
+## Exercise 4: Replace Terraform by Converting from Terraform to Pulumi
 
 In this exercise, you will take a Terraform program containing a VPC and convert it to Pulumi code in the language of your choice:
 
