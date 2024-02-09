@@ -189,4 +189,4 @@ const guestbook = new k8s.yaml.ConfigGroup("manifests", {
 * [kube2pulumi](https://www.pulumi.com/kube2pulumi/): Convert K8s YAML files into Pulumi resources.
 * [crd2pulumi](https://github.com/pulumi/crd2pulumi): Convert K8s CustomResourceDefinitions into Pulumi components.
 
-**Note:** These will likey be converted into `pulumi convert` plugins.
+**Note:** These will likely be converted into `pulumi convert` plugins.

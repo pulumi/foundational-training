@@ -8,6 +8,7 @@ In this exercise, you'll learn how organizations using CDK or CloudFormation can
 
     ```bash
     cd cdk && cdk deploy
+    # confirm the changes and wait a few seconds for the resource creation
     ```
 
 1. Create a new Pulumi program:
@@ -76,7 +77,8 @@ In this exercise, you'll learn how organizations with existing Terraform codebas
 1. Deploy the Terraform config:
 
     ```bash
-    cd terraform && terraform init && terraform apply
+    cd terraform && terraform init && terraform apply -auto-approve
+    # wait a few seconds while the resources are created
     ```
 
 1. Create a new Pulumi program:
