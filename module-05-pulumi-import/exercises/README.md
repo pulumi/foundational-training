@@ -155,7 +155,7 @@ Hint: Ensure the US region used in the Pulumi Stack matches that of the VPC.
     pulumi stack rm dev --force
     ```
 
-## Exercise 4: Replace Terraform by Converting from Terraform to Pulumi
+## Exercise 4: Replace Terraform by converting from Terraform to Pulumi
 
 In this exercise, you will take a Terraform program containing a VPC and convert it to Pulumi code in the language of your choice:
 
@@ -175,7 +175,8 @@ In this exercise, you will take a Terraform program containing a VPC and convert
 1. Deploy the Terraform config:
 
     ```bash
-    cd terraform && terraform init && terraform apply
+    cd terraform && terraform init && terraform apply -auto-approve
+    # Wait for the resource creation
     ```
 
 1. Convert the Terraform code to Pulumi
@@ -196,6 +197,7 @@ In this exercise, you will take a Terraform program containing a VPC and convert
 
     ```bash
     cd ../pulumi-convert-tf-ts # or cd ../pulumi-convert-tf-py
+    pulumi stack init dev
     pulumi import --from terraform ../terraform/terraform.tfstate --protect=false --generate-code=false
     ```
 

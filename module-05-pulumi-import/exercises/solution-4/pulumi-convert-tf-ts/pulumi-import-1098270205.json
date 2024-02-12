@@ -1,0 +1,172 @@
+{
+    "resources": [
+        {
+            "type": "aws:ec2/internetGateway:InternetGateway",
+            "name": "igw",
+            "id": "igw-025c318e1c3f280f2",
+            "logicalName": "igw"
+        },
+        {
+            "type": "aws:ec2/routeTable:RouteTable",
+            "name": "public_route_tables-0",
+            "id": "rtb-0d206891b860832db",
+            "logicalName": "public_route_tables-0"
+        },
+        {
+            "type": "aws:ec2/routeTable:RouteTable",
+            "name": "public_route_tables-1",
+            "id": "rtb-0419babb48fa73ca6",
+            "logicalName": "public_route_tables-1"
+        },
+        {
+            "type": "aws:ec2/routeTable:RouteTable",
+            "name": "public_route_tables-2",
+            "id": "rtb-098766c3aa3956a23",
+            "logicalName": "public_route_tables-2"
+        },
+        {
+            "type": "aws:ec2/routeTableAssociation:RouteTableAssociation",
+            "name": "private_route_table_associations-0",
+            "id": "subnet-0d5b20fdb786fdc81/rtb-0be297e3743dbd781",
+            "logicalName": "private_route_table_associations-0"
+        },
+        {
+            "type": "aws:ec2/routeTableAssociation:RouteTableAssociation",
+            "name": "private_route_table_associations-1",
+            "id": "subnet-0d2c69e85d2cab039/rtb-0f0518828e2610200",
+            "logicalName": "private_route_table_associations-1"
+        },
+        {
+            "type": "aws:ec2/routeTableAssociation:RouteTableAssociation",
+            "name": "private_route_table_associations-2",
+            "id": "subnet-0c2f55eb547071f23/rtb-0e697a93f6d9b683c",
+            "logicalName": "private_route_table_associations-2"
+        },
+        {
+            "type": "aws:ec2/subnet:Subnet",
+            "name": "private_subnets-0",
+            "id": "subnet-0d5b20fdb786fdc81",
+            "logicalName": "private_subnets-0"
+        },
+        {
+            "type": "aws:ec2/subnet:Subnet",
+            "name": "private_subnets-1",
+            "id": "subnet-0d2c69e85d2cab039",
+            "logicalName": "private_subnets-1"
+        },
+        {
+            "type": "aws:ec2/subnet:Subnet",
+            "name": "private_subnets-2",
+            "id": "subnet-0c2f55eb547071f23",
+            "logicalName": "private_subnets-2"
+        },
+        {
+            "type": "aws:ec2/subnet:Subnet",
+            "name": "public_subnets-1",
+            "id": "subnet-063c4b741aaafca3e",
+            "logicalName": "public_subnets-1"
+        },
+        {
+            "type": "aws:ec2/subnet:Subnet",
+            "name": "public_subnets-2",
+            "id": "subnet-0899dfc23f94aad32",
+            "logicalName": "public_subnets-2"
+        },
+        {
+            "type": "aws:ec2/subnet:Subnet",
+            "name": "public_subnets-0",
+            "id": "subnet-04ec74f0717db17ea",
+            "logicalName": "public_subnets-0"
+        },
+        {
+            "type": "aws:ec2/eip:Eip",
+            "name": "eip",
+            "id": "eipalloc-06f61a6a9b8c36375",
+            "logicalName": "eip"
+        },
+        {
+            "type": "aws:ec2/natGateway:NatGateway",
+            "name": "natgw",
+            "id": "nat-037d79fe9236a8b0e",
+            "logicalName": "natgw"
+        },
+        {
+            "type": "aws:ec2/route:Route",
+            "name": "private_natgw_routes-1",
+            "id": "rtb-0f0518828e2610200_0.0.0.0/0",
+            "logicalName": "private_natgw_routes-1"
+        },
+        {
+            "type": "aws:ec2/route:Route",
+            "name": "private_natgw_routes-2",
+            "id": "rtb-0e697a93f6d9b683c_0.0.0.0/0",
+            "logicalName": "private_natgw_routes-2"
+        },
+        {
+            "type": "aws:ec2/route:Route",
+            "name": "private_natgw_routes-0",
+            "id": "rtb-0be297e3743dbd781_0.0.0.0/0",
+            "logicalName": "private_natgw_routes-0"
+        },
+        {
+            "type": "aws:ec2/route:Route",
+            "name": "public_igw_route-0",
+            "id": "rtb-0d206891b860832db_0.0.0.0/0",
+            "logicalName": "public_igw_route-0"
+        },
+        {
+            "type": "aws:ec2/route:Route",
+            "name": "public_igw_route-1",
+            "id": "rtb-0419babb48fa73ca6_0.0.0.0/0",
+            "logicalName": "public_igw_route-1"
+        },
+        {
+            "type": "aws:ec2/route:Route",
+            "name": "public_igw_route-2",
+            "id": "rtb-098766c3aa3956a23_0.0.0.0/0",
+            "logicalName": "public_igw_route-2"
+        },
+        {
+            "type": "aws:ec2/routeTable:RouteTable",
+            "name": "private_route_tables-0",
+            "id": "rtb-0be297e3743dbd781",
+            "logicalName": "private_route_tables-0"
+        },
+        {
+            "type": "aws:ec2/routeTable:RouteTable",
+            "name": "private_route_tables-1",
+            "id": "rtb-0f0518828e2610200",
+            "logicalName": "private_route_tables-1"
+        },
+        {
+            "type": "aws:ec2/routeTable:RouteTable",
+            "name": "private_route_tables-2",
+            "id": "rtb-0e697a93f6d9b683c",
+            "logicalName": "private_route_tables-2"
+        },
+        {
+            "type": "aws:ec2/routeTableAssociation:RouteTableAssociation",
+            "name": "public_route_table_associations-0",
+            "id": "subnet-04ec74f0717db17ea/rtb-0d206891b860832db",
+            "logicalName": "public_route_table_associations-0"
+        },
+        {
+            "type": "aws:ec2/routeTableAssociation:RouteTableAssociation",
+            "name": "public_route_table_associations-1",
+            "id": "subnet-063c4b741aaafca3e/rtb-0d206891b860832db",
+            "logicalName": "public_route_table_associations-1"
+        },
+        {
+            "type": "aws:ec2/routeTableAssociation:RouteTableAssociation",
+            "name": "public_route_table_associations-2",
+            "id": "subnet-0899dfc23f94aad32/rtb-0d206891b860832db",
+            "logicalName": "public_route_table_associations-2"
+        },
+        {
+            "type": "aws:ec2/vpc:Vpc",
+            "name": "main",
+            "id": "vpc-09c152dce06e8f946",
+            "logicalName": "main"
+        }
+    ]
+}
