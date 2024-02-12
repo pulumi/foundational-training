@@ -1,5 +1,13 @@
 # Module 05: Pulumi Import
 
+## Prerequisities
+
+- Pulumi CLI
+- Python3 and pip3
+- npm
+- AWS CLI and CDK
+- Terraform CLI
+
 ## Exercise 1: Consuming CloudFormation Stack Outputs
 
 In this exercise, you'll learn how organizations using CDK or CloudFormation can consume stack outputs using Pulumi.
@@ -7,9 +15,24 @@ In this exercise, you'll learn how organizations using CDK or CloudFormation can
 1. Deploy the CDK stack:
 
     ```bash
-    cd cdk && cdk deploy
-    # confirm the changes and wait a few seconds for the resource creation
+    cd cdk
+    cdk bootstrap
+    cdk deploy
+    # Confirm with 'y'
+    # Wait a few seconds for the resource creation
     ```
+<!-- ✅  CdkStack
+
+✨  Deployment time: 157.57s
+
+Outputs:
+CdkStack.privateSubnetId0 = subnet-0a87f6ea77d3c3321
+CdkStack.privateSubnetId1 = subnet-0717b436cd86bdc60
+CdkStack.vpcId = vpc-0592b542a3d08a14b
+Stack ARN:
+arn:aws:cloudformation:us-east-1:886783038127:stack/CdkStack/b4bc4a10-c9bb-11ee-8ebb-0e673960798b
+
+✨  Total time: 160.33s -->
 
 1. Create a new Pulumi program:
 
@@ -20,8 +43,8 @@ In this exercise, you'll learn how organizations using CDK or CloudFormation can
     pulumi new typescript -y # or pulumi new python -y
     ```
 
-1. In your Pulumi program, use the `aws.cloudformaton.getStackOutput` resource to reference the `CdkStack` CloudFormation stack, read the value of the `vpcId` and `privateSubnet0` outputs and store them in local variables. (Note that the `Output` part of `getStackOutput` refers to the fact that the values returned are Pulumi Outputs. The function returns a CloudFormation stack, not its individual CloudFormation stack outputs.)
-1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpc_id` output to create a security group and the `private_subnets` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
+1. In your Pulumi program, use the `aws.cloudformaton.getStackOutput` resource to reference the `CdkStack` CloudFormation stack, read the value of the `vpcId` and `privateSubnetId0` outputs and store them in local variables. (Note that the `Output` part of `getStackOutput` refers to the fact that the values returned are Pulumi Outputs. The function returns a CloudFormation stack, not its individual CloudFormation stack outputs.)
+1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpcId` output to create a security group and the `private_subnets` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
 
 ## Exercise 2: Bulk Importing Resources
 
@@ -44,6 +67,7 @@ In this exercise you will learn how to bulk import resources (typically created 
 
     ```bash
     python3 account_scraper.py > pulumi-import.json && cd -
+    # AWS_DEFAULT_REGION=us-west-2 python3 account_scraper.py > pulumi-import.json && cd -
     ```
 
     Note that this script will scan all VPCs and associated resources (subnets, route tables, etc.) in the account/region in which you run it.
