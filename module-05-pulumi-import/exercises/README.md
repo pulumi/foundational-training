@@ -5,6 +5,7 @@
 - Pulumi CLI
 - Python3 and pip3
 - npm
+- jq
 - AWS CLI and CDK
 - Terraform CLI
 
@@ -45,14 +46,16 @@ arn:aws:cloudformation:us-east-1:886783038127:stack/CdkStack/b4bc4a10-c9bb-11ee-
 
 1. In your Pulumi program, use the `aws.cloudformaton.getStackOutput` resource to reference the `CdkStack` CloudFormation stack, read the value of the `vpcId` and `privateSubnetId0` outputs and store them in local variables. (Note that the `Output` part of `getStackOutput` refers to the fact that the values returned are Pulumi Outputs. The function returns a CloudFormation stack, not its individual CloudFormation stack outputs.)
 1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpcId` output to create a security group and the `private_subnets` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
+1. Clean up all the Pulumi resources with `pulumi destroy --yes --remove`
 
 ## Exercise 2: Bulk Importing Resources
 
-In this exercise you will learn how to bulk import resources (typically created manually in the console or via CloudFormation). This exercise uses a custom script using boto3 to generate a bulk import JSON file for use with the `pulumi import` command, but learners are welcome to take their own approach to gather resources for import, including handwriting the file.
+In this exercise you will bulk import resources (typically created manually in the console or via CloudFormation). This exercise uses a custom script using `boto3` to generate a bulk import JSON file for use with the `pulumi import` command, but learners are welcome to take their own approach to gather resources for import, including handwriting the file.
 
 1. Deploy the CDK stack if your account/region has no VPCs or similar resources:
 
     ```bash
+    # Skip this step if already deployed the CDK in the previous step
     cd cdk && cdk deploy && cd -
     ```
 
@@ -60,14 +63,18 @@ In this exercise you will learn how to bulk import resources (typically created 
 
     ```bash
     # Modify the following command as necessary for your environment (venv, poetry, etc):
-    cd boto3 && pip install -r requirements.txt
+    cd boto3
+    pip install -r requirements.txt # or pip3
     ```
 
 1. Run the account scraper:
 
     ```bash
+    # from the boto3 directory,
     python3 account_scraper.py > pulumi-import.json && cd -
-    # AWS_DEFAULT_REGION=us-west-2 python3 account_scraper.py > pulumi-import.json && cd -
+    #
+    # If your AWS region is not set then run as:
+    # AWS_DEFAULT_REGION=us-east-1 python3 account_scraper.py > pulumi-import.json && cd -
     ```
 
     Note that this script will scan all VPCs and associated resources (subnets, route tables, etc.) in the account/region in which you run it.
@@ -75,18 +82,18 @@ In this exercise you will learn how to bulk import resources (typically created 
 1. Create a Pulumi program:
 
     ```bash
-    mkdir pulumi-import-exercise
-    cd pulumi-import-exercise
-    pulumi new aws-typescript -y
+    pulumi new aws-typescript -y --dir pulumi-import-exercise
     ```
 
 1. Import the resources you exported:
 
     ```bash
+    cd pulumi-import-exercise
     pulumi import -f ../boto3/pulumi-import.json > index.ts -y
     ```
 
 1. Run the `pulumi preview` command. Edit the program until the `pulumi preview` command shows no errors and no diff. The resources in this program are now under Pulumi management (although `pulumi import` protects them from deletion by default.)
+
 
 1. Finally, delete the stack with the imported resources in order to avoid accidentally modifying resources in your AWS environment:
 
