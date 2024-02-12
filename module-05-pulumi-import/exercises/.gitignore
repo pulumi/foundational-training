@@ -1,9 +1,4 @@
 .terraform/
 .terraform.lock.hcl
-pulumi-tf-outputs/
-pulumi-convert-tf*/
-pulumi-import-tf*/
 terraform.tfstate*
-pulumi-cf-outputs/
 pulumi-import.json
-pulumi-import-exercise/

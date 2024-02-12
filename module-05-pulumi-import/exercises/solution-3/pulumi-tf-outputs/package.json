@@ -1,0 +1,12 @@
+{
+    "name": "pulumi-tf-outputs",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^18"
+    },
+    "dependencies": {
+        "@pulumi/aws": "^6.22.0",
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/terraform": "^5.13.4"
+    }
+}

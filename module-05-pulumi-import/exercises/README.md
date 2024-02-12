@@ -9,7 +9,7 @@
 - AWS CLI and CDK
 - Terraform CLI
 
-## Exercise 1: Consuming CloudFormation Stack Outputs
+## Exercise 1: Consuming CloudFormation stack outputs
 
 In this exercise, you'll learn how organizations using CDK or CloudFormation can consume stack outputs using Pulumi.
 
@@ -42,13 +42,14 @@ arn:aws:cloudformation:us-east-1:886783038127:stack/CdkStack/b4bc4a10-c9bb-11ee-
     mkdir pulumi-cf-outputs
     cd pulumi-cf-outputs
     pulumi new typescript -y # or pulumi new python -y
+    npm i @pulumi/aws
     ```
 
 1. In your Pulumi program, use the `aws.cloudformaton.getStackOutput` resource to reference the `CdkStack` CloudFormation stack, read the value of the `vpcId` and `privateSubnetId0` outputs and store them in local variables. (Note that the `Output` part of `getStackOutput` refers to the fact that the values returned are Pulumi Outputs. The function returns a CloudFormation stack, not its individual CloudFormation stack outputs.)
 1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpcId` output to create a security group and the `private_subnets` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
 1. Clean up all the Pulumi resources with `pulumi destroy --yes --remove`
 
-## Exercise 2: Bulk Importing Resources
+## Exercise 2: Bulk importing resources
 
 In this exercise you will bulk import resources (typically created manually in the console or via CloudFormation). This exercise uses a custom script using `boto3` to generate a bulk import JSON file for use with the `pulumi import` command, but learners are welcome to take their own approach to gather resources for import, including handwriting the file.
 
@@ -101,35 +102,58 @@ In this exercise you will bulk import resources (typically created manually in t
     pulumi stack rm dev --force
     ```
 
-## Exercise 3: Coexist with Terraform by Consuming Terraform State File Outputs
+## Exercise 3: Coexist with Terraform by consuming Terraform state file outputs
 
 In this exercise, you'll learn how organizations with existing Terraform codebases can consume Terraform outputs to create new infrastructure using Pulumi.
 
 1. Deploy the Terraform config:
 
     ```bash
-    cd terraform && terraform init && terraform apply -auto-approve
-    # wait a few seconds while the resources are created
+    cd terraform
+    terraform init && terraform apply -auto-approve
+    # Wait for the resource creation
+    cd ..
     ```
+<!-- Example output:
+Apply complete! Resources: 28 added, 0 changed, 0 destroyed.
 
+Outputs:
+
+private_subnet_ids = [
+  "subnet-0c5801154fa09880d",
+  "subnet-07f9b21b1f15d6afc",
+  "subnet-00245619dfb224d8d",
+]
+public_subnet_ids = [
+  "subnet-0ba871343ef60cddb",
+  "subnet-00741db0b2e464784",
+  "subnet-0ad3499f08e73f591",
+]
+vpc_id = "vpc-0bedecf2957cd7bc4" -->
 1. Create a new Pulumi program:
 
     ```bash
-    cd ..
-    mkdir pulumi-tf-outputs
-    cd pulumi-tf-outputs
-    pulumi new typescript -y # or pulumi new python -y
+    pulumi new typescript -y --dir pulumi-tf-outputs # or pulumi new python -y
     ```
 
 1. Install the Pulumi Terraform Provider and the Pulumi AWS Provider:
 
     ```bash
+    cd pulumi-tf-outputs
     npm i @pulumi/terraform @pulumi/aws
     ```
 
-1. In your Pulumi program, use the `terraform.state.RemoteStateReference` resource to reference the TF state file on disk, read the value of the `vpc_id` (a string) and `private_subnets` (an array of strings) outputs, and store them in local variables.
+1. In your Pulumi program, use the `terraform.state.RemoteStateReference` resource to reference the TF state file on disk, read the value of the `vpc_id` (a string) and `private_subnet_ids` (an array of strings) outputs, and store them in local variables.
 
-1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpc_id` output to create a security group and the `private_subnets` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
+1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpc_id` output to create a security group and the `private_subnet_ids` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
+
+Hint: Ensure the US region used in the Pulumi Stack matches that of the VPC.
+
+1. Finally, delete the stack with the imported resources:
+
+    ```bash
+    pulumi stack rm dev --force
+    ```
 
 ## Exercise 4: Replace Terraform by Converting from Terraform to Pulumi
 
