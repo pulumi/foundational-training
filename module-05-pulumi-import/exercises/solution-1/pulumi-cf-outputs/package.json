@@ -1,0 +1,11 @@
+{
+    "name": "pulumi-cf-outputs",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^18"
+    },
+    "dependencies": {
+        "@pulumi/aws": "^6.21.0",
+        "@pulumi/pulumi": "^3.0.0"
+    }
+}

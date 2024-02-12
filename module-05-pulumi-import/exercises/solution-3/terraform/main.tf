@@ -7,7 +7,9 @@ terraform {
   }
 }
 
-data "aws_region" "current" {}
+data "aws_region" "current" {
+  name = "us-west-2"
+}
 
 locals {
   name = "convert-tf"
@@ -20,7 +22,9 @@ locals {
   private_subnet_cidrs = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
 }
 
-provider "aws" {}
+provider "aws" {
+  region = "us-west-2"
+}
 
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
@@ -120,4 +124,16 @@ resource "aws_route" "private_natgw_routes" {
   timeouts {
     create = "5m"
   }
+}
+
+output "vpc_id" {
+  value = aws_vpc.main.id
+}
+
+output "private_subnet_ids" {
+  value = aws_subnet.private_subnets[*].id
+}
+
+output "public_subnet_ids" {
+  value = aws_subnet.public_subnets[*].id
 }
