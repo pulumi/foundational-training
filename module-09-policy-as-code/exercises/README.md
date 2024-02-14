@@ -49,9 +49,15 @@ TODO: Might come back to this later. Need more use cases.
 
 ## Using Compliance-Ready Policies
 
-In this exercise, you'll learn how to
+In this exercise, you'll learn how to use compliance ready policies to ensure that your resources are compliant with common frameworks like PCI-DSS, ISO 27001, and others.
+
+TODO
 
 ## Server-Side Policy Enforcement
+
+In this exercise, you'll learn how to use Pulumi Cloud's server-side enforcement of Pulumi Policy as Code to enable continuous compliance at scale.
+
+TODO
 
 ## Discussion
 
