@@ -1,5 +1,7 @@
 # Module 09: Policy as Code Exercises
 
+**NOTE:** The exercises in this module are designed to be completed in order. Performing the exercises out of order may require changes to the steps in order to work.
+
 ## Authoring and Using Resource Policies
 
 In this exercise, you will learn how to initialize policy packs, write a basic resource policy, and explore the various enforcement levels.
@@ -51,7 +53,31 @@ TODO: Might come back to this later. Need more use cases.
 
 In this exercise, you'll learn how to use compliance ready policies to ensure that your resources are compliant with common frameworks like PCI-DSS, ISO 27001, and others.
 
-TODO
+1. Create a new compliance ready policy pack:
+
+    ```bash
+    mkdir compliance-ready-policies
+    cd compliance-ready-policies
+    pulumi policy new
+    ```
+
+    Select the `aws-pcidss-compliance-policies-typescript` template from the list.
+
+1. Change the generated selector so that all issues pertaining to the `ec2` are `mandatory`.
+1. Add an additional selector that brings in all `pcidss` rules for the `s3` service as `advisory`.
+1. Run the policy pack:
+
+    ```bash
+    pulumi preview --policy-pack ../compliance-ready-policies
+    ```
+
+    You should see advisory warnings on your S3 bucket for a lack of cross-region replication and encryption, and an error on your EC2 instance for having a public IP address.
+1. Remediate the issues and re-run the policy pack.
+1. You can run both set the compliance ready policies and the policy pack you created earlier by specifying the `--policy-pack` flag twice:
+
+    ```bash
+    pulumi preview --policy-pack ../my-company-policies --policy-pack ../compliance-ready-policies
+    ```
 
 ## Server-Side Policy Enforcement
 
