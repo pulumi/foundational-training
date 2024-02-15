@@ -23,3 +23,10 @@ To view a preview of the deck:
 ```bash
 marp -s path/to/slides
 ```
+
+## Known Issues
+
+Some instructions in this repository assume that each attendee is running in their own Pulumi Cloud organization. To adjust for a single, shared org for the class:
+
+1. All pre-existing stacks (that is, those already in this codebase, not created by attendees) will need the following command to avoid a collision on the default `dev` stack: `pulumi stack init dev-your-name`.
+1. All new programs will need to be called `program-name-your-name`.
