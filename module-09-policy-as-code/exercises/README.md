@@ -63,6 +63,7 @@ In this exercise, you'll learn how to use compliance ready policies to ensure th
 
     Select the `aws-pcidss-compliance-policies-typescript` template from the list.
 
+1. Change the name of the policy pack to `compliance-ready-policies-your-name`.
 1. Change the generated selector so that all issues pertaining to the `ec2` are `mandatory`.
 1. Add an additional selector that brings in all `pcidss` rules for the `s3` service as `advisory`.
 1. Run the policy pack:
@@ -85,8 +86,79 @@ In this exercise, you'll learn how to use Pulumi Cloud's server-side enforcement
 
 TODO
 
-## Discussion
+1. **Pre-requisite:** This exercise requires (at the time of writing) a Pulumi Cloud organization on the Business Critical plan.
 
+    If you are completing this training individually, you can create an organization on a temporary free trial in the Pulumi Cloud console. Pulumi will not ask you for payment information.
+
+    If you are completing this training in a training session, your instructor should supply you with a Pulumi organization.
+
+    In either case, you should set your Pulumi default org:
+
+    ```bash
+    pulumi org set-default your-org-name
+    ```
+
+1. Publish the compliance policies policy pack:
+
+    ```bash
+    cd compliance-ready-policies
+    pulumi policy publish
+    ```
+
+1. Publish your custom policy pack:
+
+    ```bash
+    cd ../my-company-policy
+    pulumi policy publish
+    ```
+
+1. In the Pulumi Cloud console, create a Policy Group that includes both policy packs and the infrastructure stack.
+1. Run a Pulumi command against your stack:
+
+    ```bash
+    cd ../infra
+    pulumi preview
+    ```
+
+    Notice how the policy packs are run without having to specify the `--policy-pack` flag.
+1. Delete your policy group.
+
+### Exploring the Default Policy Group
+
+**Note:** Because Pulumi Cloud organizations can have only one default policy group, and that policy group automatically includes all stacks in the org, you may need to create a trial organization in the Pulumi Cloud console to complete this exercise. You can switch between Pulumi orgs with the following command:
+
+```bash
+pulumi org set-default your-org-name
+```
+
+1. If you are working in a new org, publish the policy packs you created earlier in this module to the new org:
+
+    ```bash
+    cd compliance-ready-policies
+    pulumi policy publish
+    cd ../my-company-policy
+    pulumi policy publish
+    ```
+
+1. Create a new stack:
+
+    ```bash
+    cd ../infra2
+    pulumi new aws-typescript -n module-09-policy-as-code-infra2-your-name
+    ```
+
+1. In the Pulumi Cloud console, locate the default policy group for your organization and add the 2 policy packs you published.
+1. Run a Pulumi command against your stack:
+
+    ```bash
+    pulumi preview
+    ```
+
+    Notice how your stack is automatically included in the default policy group.
+
+## Discussion Topics
+
+- What are some use cases for stack policies?
 - What are the most common needs for automated policy that you see in the field with customers? How would Pulumi Policy as Code fill this need? Where are the gaps?
 - What integrations would you like to see for Pulumi Policy as Code?
 - What additional features would be helpful within Pulumi Cloud for Policy as Code?
