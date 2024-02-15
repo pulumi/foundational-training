@@ -84,8 +84,6 @@ In this exercise, you'll learn how to use compliance ready policies to ensure th
 
 In this exercise, you'll learn how to use Pulumi Cloud's server-side enforcement of Pulumi Policy as Code to enable continuous compliance at scale.
 
-TODO
-
 1. **Pre-requisite:** This exercise requires (at the time of writing) a Pulumi Cloud organization on the Business Critical plan.
 
     If you are completing this training individually, you can create an organization on a temporary free trial in the Pulumi Cloud console. Pulumi will not ask you for payment information.
