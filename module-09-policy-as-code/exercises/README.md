@@ -2,7 +2,7 @@
 
 **NOTE:** The exercises in this module are designed to be completed in order. Performing the exercises out of order may require changes to the steps in order to work.
 
-## Authoring and Using Resource Policies
+## Exercise 01: Authoring and Using Resource Policies
 
 In this exercise, you will learn how to initialize policy packs, write a basic resource policy, and explore the various enforcement levels.
 
@@ -49,7 +49,7 @@ The `infra` directory contains a Pulumi program that contains some basic (contri
 
 TODO: Might come back to this later. Need more use cases.
 
-## Using Compliance-Ready Policies
+## Exercise 02: Using Compliance-Ready Policies
 
 In this exercise, you'll learn how to use compliance ready policies to ensure that your resources are compliant with common frameworks like PCI-DSS, ISO 27001, and others.
 
@@ -80,7 +80,7 @@ In this exercise, you'll learn how to use compliance ready policies to ensure th
     pulumi preview --policy-pack ../my-company-policies --policy-pack ../compliance-ready-policies
     ```
 
-## Server-Side Policy Enforcement
+## Exercise 03: Server-Side Policy Enforcement
 
 In this exercise, you'll learn how to use Pulumi Cloud's server-side enforcement of Pulumi Policy as Code to enable continuous compliance at scale.
 
