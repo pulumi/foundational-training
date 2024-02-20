@@ -11,12 +11,13 @@ The `infra` directory contains a Pulumi program that contains some basic (contri
 1. Initialize a new Pulumi policy pack based on the `aws-typescript` template:
 
     ```bash
-    mkdir my-company-policy
+    # Ensure you are in the /exercises directory
+    pulumi policy new aws-typescript --dir my-company-policy
+    # wait for dependencies to download
     cd my-company-policy
-    pulumi policy new aws-typescript
     ```
 
-1. Change the name of the policy pack to something like `my-company-policy-${YOUR_NAME}`. (Pulumi policy packs don't contain the name in `PulumiPolicy.yaml`, similar to Pulumi IaC programs - the name of the pack is instead in the code itself.) Also, remove the policy that comes with the template. Your code should look something like the following, assuming you are Bugs Bunny or similarly named:
+1. In the `index.ts` file, change the name of the policy pack to something like `my-company-policy-${YOUR_NAME}`. (Pulumi policy packs don't contain the name in `PulumiPolicy.yaml`, similar to Pulumi IaC programs - the pack's name is in the code.) Also, remove the policy that comes with the template. Your code should look something like the following, assuming you are Bugs Bunny or similarly named:
 
     ```typescript
     new PolicyPack("my-company-policy-bugs-bunny", {
@@ -29,14 +30,16 @@ The `infra` directory contains a Pulumi program that contains some basic (contri
 
     ```bash
     cd ../infra
-    # pulumi up will also work similarly, but will actually provision the 
+    # pulumi up will also work similarly, but will actually provision the resources
     pulumi preview --policy-pack ../my-company-policy
     ```
 
 1. Make the policy `disabled` and deploy the infrastructure (or just skip the `--policy-pack` flag) to deploy your non-compliant infrastructure:
 
     ```bash
-    pulumi up --policy-pack ../my-company-policy
+    pulumi up --policy-pack ../my-company-policy --yes
+    # or
+    pulumi up --yes
     ```
 
 1. Pulumi policy packs work against resources that are already deployed. To see this in action, set the S3 bucket tagging rule to `mandatory` and rerun a Pulumi command. It should fail (even on a preview):
