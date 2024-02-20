@@ -1,10 +1,10 @@
 # Module 09: Policy as Code Exercises
 
-**NOTE:** The exercises in this module are designed to be completed in order. Performing the exercises out of order may require changes to the steps in order to work.
+**NOTE:** The exercises in this module are designed to be completed in order. Performing the exercises out of order may require changes to the steps to work.
 
 ## Exercise 01: Authoring and Using Resource Policies
 
-In this exercise, you will learn how to initialize policy packs, write a basic resource policy, and explore the various enforcement levels.
+In this exercise, you will initialize policy packs, write a basic resource policy, and explore the various enforcement levels.
 
 The `infra` directory contains a Pulumi program that contains some basic (contrived) infrastructure resources. You will validate these resources against company policies.
 
@@ -16,7 +16,7 @@ The `infra` directory contains a Pulumi program that contains some basic (contri
     pulumi policy new aws-typescript
     ```
 
-1. Change the name of the policy pack to something like `my-company-policy-${YOUR_NAME}`. (Pulumi policy packs don't contain the name in `PulumiPolicy.yaml`, similar to Pulumi IaC programs - the name of the pack is instead in the code itself.) Also remove the policy that comes with the template. Your code should look something like the following, assuming you are Bugs Bunny or similarly named:
+1. Change the name of the policy pack to something like `my-company-policy-${YOUR_NAME}`. (Pulumi policy packs don't contain the name in `PulumiPolicy.yaml`, similar to Pulumi IaC programs - the name of the pack is instead in the code itself.) Also, remove the policy that comes with the template. Your code should look something like the following, assuming you are Bugs Bunny or similarly named:
 
     ```typescript
     new PolicyPack("my-company-policy-bugs-bunny", {
@@ -24,7 +24,7 @@ The `infra` directory contains a Pulumi program that contains some basic (contri
     });
     ```
 
-1. Add an `advisory` resource policy that ensures that all S3 buckets have a `Department` tag. (This example was covered in the slides, but you may want to try writing one from scratch.)
+1. Add an `advisory` resource policy ensuring all S3 buckets have a `Department` tag. (This example was covered in the slides, but you may want to try writing one from scratch.)
 1. Run the policy pack against your infrastructure:
 
     ```bash
@@ -33,17 +33,17 @@ The `infra` directory contains a Pulumi program that contains some basic (contri
     pulumi preview --policy-pack ../my-company-policy
     ```
 
-1. Make the policy `disabled` and deploy the infrastructure (or just skip the `--policy-pack` flag) in order to deploy your non-compliant infrastructure:
+1. Make the policy `disabled` and deploy the infrastructure (or just skip the `--policy-pack` flag) to deploy your non-compliant infrastructure:
 
     ```bash
     pulumi up --policy-pack ../my-company-policy
     ```
 
-1. Pulumi policy packs work against resources that are already deployed. To see this in action, set the S3 bucket tagging rule to `mandatory` and run a Pulumi command again. It should fail (even on a preview):
+1. Pulumi policy packs work against resources that are already deployed. To see this in action, set the S3 bucket tagging rule to `mandatory` and rerun a Pulumi command. It should fail (even on a preview):
 1. Change the `aws.s3.Bucket` resource to comply with the policy and make the policy pass.
 1. Now, change the tagging rule to `remediate` and write a `remediateResource` function for your tagging rule that adds the tag if it is missing.
-1. Remove the `Department` tag from the bucket in your Pulumi program, and a `Owner` tag with value `bugs-bunny`. You'll use this to verify the correctness of your remediation rule.
-1. Run your policy pack again. Your policy should pass because the remediation function will add the missing required tag. Note the diff created by the remediation function: Your function should _only_ add the `Department` tag and should not alter or remove the `Owner` tag.
+1. Remove the `Department` tag from the bucket in your Pulumi program and an `Owner` tag with the value `bugs-bunny`. You'll use this to verify the correctness of your remediation rule.
+1. Rerun your policy pack. Your policy should pass because the remediation function will add the missing required tag. Note the diff created by the remediation function: Your function should _only_ add the `Department` tag and should not alter or remove the `Owner` tag.
 
 ## Authoring Stack Policies
 
@@ -51,9 +51,9 @@ TODO: Might come back to this later. Need more use cases.
 
 ## Exercise 02: Using Compliance-Ready Policies
 
-In this exercise, you'll learn how to use compliance ready policies to ensure that your resources are compliant with common frameworks like PCI-DSS, ISO 27001, and others.
+In this exercise, you'll use compliance-ready policies to ensure your resources comply with common frameworks like PCI-DSS, ISO 27001, etc.
 
-1. Create a new compliance ready policy pack:
+1. Create a new compliance-ready policy pack:
 
     ```bash
     mkdir compliance-ready-policies
@@ -65,16 +65,16 @@ In this exercise, you'll learn how to use compliance ready policies to ensure th
 
 1. Change the name of the policy pack to `compliance-ready-policies-your-name`.
 1. Change the generated selector so that all issues pertaining to the `ec2` are `mandatory`.
-1. Add an additional selector that brings in all `pcidss` rules for the `s3` service as `advisory`.
+1. Add a selector that brings in all `pcidss` rules for the `s3` service as `advisory`.
 1. Run the policy pack:
 
     ```bash
     pulumi preview --policy-pack ../compliance-ready-policies
     ```
 
-    You should see advisory warnings on your S3 bucket for a lack of cross-region replication and encryption, and an error on your EC2 instance for having a public IP address.
+    You should see advisory warnings on your S3 bucket for lack of cross-region replication and encryption and an error on your EC2 instance for having a public IP address.
 1. Remediate the issues and re-run the policy pack.
-1. You can run both set the compliance ready policies and the policy pack you created earlier by specifying the `--policy-pack` flag twice:
+1. You can run both sets, the compliance-ready policies and the policy pack you created earlier, by specifying the `--policy-pack` flag twice:
 
     ```bash
     pulumi preview --policy-pack ../my-company-policies --policy-pack ../compliance-ready-policies
@@ -86,9 +86,9 @@ In this exercise, you'll learn how to use Pulumi Cloud's server-side enforcement
 
 1. **Pre-requisite:** This exercise requires (at the time of writing) a Pulumi Cloud organization on the Business Critical plan.
 
-    If you are completing this training individually, you can create an organization on a temporary free trial in the Pulumi Cloud console. Pulumi will not ask you for payment information.
+    If you complete this training individually, you can create an organization on a temporary free trial in the Pulumi Cloud console. Pulumi will not ask you for payment information.
 
-    If you are completing this training in a training session, your instructor should supply you with a Pulumi organization.
+    If you complete this training in a training session, your instructor should supply you with a Pulumi organization.
 
     In either case, you should set your Pulumi default org:
 
@@ -118,7 +118,7 @@ In this exercise, you'll learn how to use Pulumi Cloud's server-side enforcement
     pulumi preview
     ```
 
-    Notice how the policy packs are run without having to specify the `--policy-pack` flag.
+    Notice how the policy packs are run without specifying the `-`-policy-pack` flag.
 1. Delete your policy group.
 
 ### Exploring the Default Policy Group
@@ -145,7 +145,7 @@ pulumi org set-default your-org-name
     pulumi new aws-typescript -n module-09-policy-as-code-infra2-your-name
     ```
 
-1. In the Pulumi Cloud console, locate the default policy group for your organization and add the 2 policy packs you published.
+1. In the Pulumi Cloud console, locate the default policy group for your organization and add the two policy packs you published.
 1. Run a Pulumi command against your stack:
 
     ```bash
