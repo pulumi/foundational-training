@@ -14,7 +14,7 @@ marp: true
   * Run before a resource is provisioned.
   * Examples: Pulumi Policy as Code, AWS Service Control Policies
   * Good: Faster feedback.
-  * Bad: Doesn't catch resources created out-of-band (e.g. Console)
+  * Bad: Doesn't catch resources created out-of-band (e.g., Console)
 * **Detective controls:**
   * Run after a resource is provisioned.
   * Examples: AWS Config, Pulumi stack policies (on `update`, not `preview`)
@@ -34,7 +34,7 @@ marp: true
 * Output captured in CLI (and therefore Pulumi Cloud)
 * User guide: <https://www.pulumi.com/docs/using-pulumi/crossguard/core-concepts/>
 
-**Note:** OPA support is not production-ready and no plans to enhance
+**Note:** OPA support is not production-ready, and no plans to enhance
 
 ---
 
@@ -42,7 +42,7 @@ marp: true
 
 * `Disabled`: Do not run.
 * `Advisory`: Validate, print warning and always return zero.
-* `Mandatory`: Validate, print error and return non-zero if fails.
+* `Mandatory`: Validate, print error, and return non-zero if fails.
 * `Remediate`: Mutate the resource to try fix the issue, validate, print error and return non-zero if fails.
 * Can set a global default, or level per-policy
 * Consumers can override at the same levels
@@ -55,9 +55,9 @@ Each resource policy has the following fields:
 
 * `name`, `description`: (self-explanatory)
 * `enforcementLevel`: Default enforcement level
-* `remediateResource`: Function to fix a potential validation issue. Executes only if `enforcementLevel` set to `remediate`. Executes _before_ `validateResource`.
-* `validateResource`: Function to determine whether the resource is in compliance.
-  * Multiple functions can be defined in order to group similar resources, e.g. ALB and ELB log configuration.
+* `remediateResource`: Function to fix a potential validation issue. Executes only if `enforcementLevel` is set to `remediate`. Executes _before_ `validateResource`.
+* `validateResource`: Function to determine whether the resource complies.
+  * Multiple functions can be defined to group similar resources, e.g., ALB and ELB log configuration.
 
 ---
 
@@ -85,7 +85,7 @@ Each resource policy has the following fields:
 
 # Remediation Functions
 
-* If enforcement level is `remediate`, `remediateResource` runs before `validateResource`.
+* If the enforcement level is `remediate`, `remediateResource` runs before `validateResource`.
 * Must return the resource after mutating.
 * Example:
 
@@ -130,7 +130,7 @@ Each resource policy has the following fields:
 * `update`: Runs after resources have been provisioned (detective control)
 * `validateStack` instead of `validateResource`
 * Does not work with `remediate` (there's no `remediateStack`)
-* Useful for policies that depend on multiple resources (e.g. every X resource has a corresponding Y)
+* Useful for policies that depend on multiple resources (e.g., every X resource has a corresponding Y)
 
 ---
 
