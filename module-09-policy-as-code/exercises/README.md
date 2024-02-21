@@ -44,8 +44,8 @@ The `infra` directory contains a Pulumi program that contains some basic (contri
 
 1. Pulumi policy packs work against resources that are already deployed. To see this in action, set the S3 bucket tagging rule to `mandatory` and rerun a Pulumi command. It should fail (even on a preview):
 1. Change the `aws.s3.Bucket` resource to comply with the policy and make the policy pass.
-1. Now, change the tagging rule to `remediate` and write a `remediateResource` function for your tagging rule that adds the tag if it is missing.
-1. Remove the `Department` tag from the bucket in your Pulumi program and an `Owner` tag with the value `bugs-bunny`. You'll use this to verify the correctness of your remediation rule.
+1. Now, change the tagging rule to `remediate` and write a `remediateResource` function for your tagging rule that adds the tag if it is missing. Hint: Update your imports to include `remediateResourceOfType`
+1. Remove the `Department` tag from the bucket in your Pulumi program and add an `Owner` tag with the value `bugs-bunny`. You'll use this to verify the correctness of your remediation rule.
 1. Rerun your policy pack. Your policy should pass because the remediation function will add the missing required tag. Note the diff created by the remediation function: Your function should _only_ add the `Department` tag and should not alter or remove the `Owner` tag.
 
 ## Authoring Stack Policies
@@ -72,11 +72,25 @@ In this exercise, you'll use compliance-ready policies to ensure your resources 
 1. Run the policy pack:
 
     ```bash
+    # from the infra/ directory, run 
     pulumi preview --policy-pack ../compliance-ready-policies
     ```
 
     You should see advisory warnings on your S3 bucket for lack of cross-region replication and encryption and an error on your EC2 instance for having a public IP address.
-1. Remediate the issues and re-run the policy pack.
+
+    ```bash
+    # example output
+    Policies:
+    ⚠️ compliance-ready-policies-diana@v0.0.1 (local: ../compliance-ready-policies)
+        - [advisory]  aws-s3-bucket-enable-replication-configuration  (aws:s3/bucket:Bucket: policy-as-code-workshop-diana)
+          Checks that S3 Bucket have cross-region replication enabled.
+          S3 buckets should have cross-region replication enabled.
+        - [advisory]  aws-s3-bucket-enable-server-side-encryption  (aws:s3/bucket:Bucket: policy-as-code-workshop-diana)
+          Check that S3 Bucket Server-Side Encryption (SSE) is enabled.
+          S3 Buckets Server-Side Encryption (SSE) should be enabled.
+    ```
+
+1. Remediate the issues and re-run the policy pack. [Replication reqs link](https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html#replication-requirements)
 1. You can run both sets, the compliance-ready policies and the policy pack you created earlier, by specifying the `--policy-pack` flag twice:
 
     ```bash
@@ -85,7 +99,7 @@ In this exercise, you'll use compliance-ready policies to ensure your resources 
 
 ## Exercise 03: Server-Side Policy Enforcement
 
-In this exercise, you'll learn how to use Pulumi Cloud's server-side enforcement of Pulumi Policy as Code to enable continuous compliance at scale.
+In this exercise, you'll learn how to use Pulumi Cloud server-side enforcement of Pulumi Policy as Code to enable continuous compliance at scale.
 
 1. **Pre-requisite:** This exercise requires (at the time of writing) a Pulumi Cloud organization on the Business Critical plan.
 
