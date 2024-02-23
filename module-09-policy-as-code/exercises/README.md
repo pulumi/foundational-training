@@ -90,7 +90,7 @@ In this exercise, you'll use compliance-ready policies to ensure your resources 
           S3 Buckets Server-Side Encryption (SSE) should be enabled.
     ```
 
-1. Remediate the issues and re-run the policy pack. [Replication reqs link](https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html#replication-requirements)
+1. Remediate the mandatory issues and re-run the policy pack. [Replication reqs link](https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html#replication-requirements). Optionally, update the policy such that the advisory warnings are fully addressed.
 1. You can run both sets, the compliance-ready policies and the policy pack you created earlier, by specifying the `--policy-pack` flag twice:
 
     ```bash
@@ -136,6 +136,7 @@ In this exercise, you'll learn how to use Pulumi Cloud server-side enforcement o
     ```
 
     Notice how the policy packs are run without specifying the `-`-policy-pack` flag.
+
 1. Delete your policy group.
 
 ### Exploring the Default Policy Group
