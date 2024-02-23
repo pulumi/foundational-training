@@ -28,7 +28,7 @@ new aws.ec2.Instance("policy-as-code-workshop-" + name, {
 
 // [Replication reqs link](https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html#replication-requirements)
 // Create an IAM role for S3 to assume
-export const replicationRole = new aws.iam.Role("replicationRole", {
+const replicationRole = new aws.iam.Role("replicationRole", {
   assumeRolePolicy: JSON.stringify({
     Version: "2012-10-17",
     Statement: [{
@@ -42,13 +42,13 @@ export const replicationRole = new aws.iam.Role("replicationRole", {
 });
 
 // Attach the policy to the role for replication permissions
-export const replicationRolePolicyAttachment = new aws.iam.RolePolicyAttachment("replicationRolePolicyAttachment", {
+new aws.iam.RolePolicyAttachment("replicationRolePolicyAttachment", {
   role: replicationRole.id,
   policyArn: aws.iam.ManagedPolicy.AmazonS3FullAccess,
 });
 
 // Create a destination bucket in another region with versioning enabled
-export const destinationBucket = new aws.s3.Bucket("policy-as-code-workshop-dest-" + name, {
+const destinationBucket = new aws.s3.Bucket("policy-as-code-workshop-dest-" + name, {
   versioning: {
     enabled: true,
   },
@@ -62,6 +62,16 @@ export const destinationBucket = new aws.s3.Bucket("policy-as-code-workshop-dest
       bucketKeyEnabled: true,
     },
   },
+    // // replication config is needed for exercise 02
+    // replicationConfiguration: {
+    //   role: replicationRole.arn,
+    //   rules: [{
+    //     status: "Enabled",
+    //     destination: {
+    //       bucket: "",
+    //     },
+    //   }],
+    // },
 
 }, {
   provider: new aws.Provider("policy-as-code-workshop-dest" + name, {
