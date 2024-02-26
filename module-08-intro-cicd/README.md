@@ -8,7 +8,7 @@ In this workshop, you will learn the fundamentals of an infrastructure CI/CD pip
 
 This workshop introduces new users to DevOps best practices. You will become familiar with the core concepts needed to deploy cloud resources _continuously_. Walk through configuring Pulumi GitHub Actions to deploy AWS resources programmatically and accelerate your cloud projects with the skeleton code provided.
 
-## 🎯 Learning Objectives 
+## 🎯 Learning Objectives
 
 - The basics of the Pulumi programming model
 - The key components of a continuous pipeline
@@ -17,28 +17,27 @@ This workshop introduces new users to DevOps best practices. You will become fam
 
 ## Table of Contents  
 
-* [🧰 Prerequisites](#-prerequisites)
-* [<strong>Part 1</strong> Define infrastructure as code](#part-1-define-infrastructure-as-code)
-    * [🎯 Goal](#-goal)
-    * [📚 Concepts](#-concepts)
-    * [🎬 Steps](#-steps)
-        * [1. Set up a new directory](#1-set-up-a-new-directory)
-        * [2. Use a template](#2-use-a-template)
-        * [3. (Optional) Explore the program](#3-optional-explore-the-program)
-        * [4. Perform your first deployment](#4-perform-your-first-deployment)
-* [<strong>Part 2</strong> Automatically deploy the IaC](#part-2-automatically-deploy-the-iac)
-    * [🎯 Goal](#-goal-1)
-    * [📚 Concepts](#-concepts-1)
-    * [🎬 Steps](#-steps-1)
-        * [1. Add version control](#1-add-version-control)
-        * [2. Configure Pulumi GitHub Actions](#2-configure-pulumi-github-actions)
-        * [3. Create a Pull Request](#3-create-a-pull-request)
-* [(Optional) <strong>Part 3</strong> Make a fun PR!](#optional-part-3-make-a-fun-pr)
-    * [🎯 Goal](#-goal-2)
-    * [💡 Suggestions](#-suggestions)
-* [✨ Summary](#-summary)
-* [🚀 Next steps](#-next-steps)
-
+- [🧰 Prerequisites](#-prerequisites)
+- [<strong>Part 1</strong> Define infrastructure as code](#part-1-define-infrastructure-as-code)
+  - [🎯 Goal](#-goal)
+  - [📚 Concepts](#-concepts)
+  - [🎬 Steps](#-steps)
+    - [1. Set up a new directory](#1-set-up-a-new-directory)
+    - [2. Use a template](#2-use-a-template)
+    - [3. (Optional) Explore the program](#3-optional-explore-the-program)
+    - [4. Perform your first deployment](#4-perform-your-first-deployment)
+- [<strong>Part 2</strong> Automatically deploy the IaC](#part-2-automatically-deploy-the-iac)
+  - [🎯 Goal](#-goal-1)
+  - [📚 Concepts](#-concepts-1)
+  - [🎬 Steps](#-steps-1)
+    - [1. Add version control](#1-add-version-control)
+    - [2. Configure Pulumi GitHub Actions](#2-configure-pulumi-github-actions)
+    - [3. Create a Pull Request](#3-create-a-pull-request)
+- [(Optional) <strong>Part 3</strong> Make a fun PR!](#optional-part-3-make-a-fun-pr)
+  - [🎯 Goal](#-goal-2)
+  - [💡 Suggestions](#-suggestions)
+- [✨ Summary](#-summary)
+- [🚀 Next steps](#-next-steps)
 
 ## 🧰 Prerequisites
 
@@ -61,7 +60,6 @@ To go through this workshop with us, here is what you need
 1. The [`aws` CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) is installed in your development environment.
 2. [Set up your local AWS credentials](https://www.pulumi.com/registry/packages/aws/installation-configuration/#credentials).
 
-
 [**Click here to jump back to the Table of Contents**](#table-of-contents)
 
 ## **Part 1** Define infrastructure as code
@@ -69,15 +67,16 @@ To go through this workshop with us, here is what you need
 ### 🎯 Goal
 
 Attendees will be able to configure the basics of the Pulumi IaC programming model:
-* a project; 
-* a program; and
-* a stack.
+
+- a project;
+- a program; and
+- a stack.
 
 ### 📚 Concepts
 
-The *Pulumi programming model* is centered around defining infrastructure using familiar programming languages. 
+The _Pulumi programming model_ is centered around defining infrastructure using familiar programming languages.
 
-A *Pulumi template* refers to a configuration and infrastructure-as-code (IaC) project created using the Pulumi programming model so that it may be easily reused. At Pulumi, we have curated a list of 100s of out-of-the-box templates for the most popular providers at https://github.com/pulumi/templates. These are directly integrated with the CLI via `pulumi new`. Users can also create templates.
+A _Pulumi template_ refers to a configuration and infrastructure-as-code (IaC) project created using the Pulumi programming model so that it may be easily reused. At Pulumi, we have curated a list of 100s of out-of-the-box templates for the most popular providers at <https://github.com/pulumi/templates>. These are directly integrated with the CLI via `pulumi new`. Users can also create templates.
 
 ### 🎬 Steps
 
@@ -85,7 +84,7 @@ You will add cloud infrastructure to a Hello World web app so that it runs in an
 
 #### 1. Set up a new directory
 
-The Pulumi program needs an empty directory. Often, this is a subfolder within your application's repository named something like 'infra'. However, because Pulumi templates are standalone full-working solutions, you'll see the app folder nested. 
+The Pulumi program needs an empty directory. Often, this is a subfolder within your application's repository named something like 'infra'. However, because Pulumi templates are standalone full-working solutions, you'll see the app folder nested.
 
 ✅ Create a new project
 
@@ -95,7 +94,7 @@ mkdir cicd-workshop && cd cicd-workshop
 
 #### 2. Use a template
 
-You will use a Pulumi template to generate your program's scaffolding. 
+You will use a Pulumi template to generate your program's scaffolding.
 
 ✅ Run the following command in your terminal
 
@@ -131,7 +130,7 @@ Each time you create a new Pulumi program, you'll see the following:
 1. `Pulumi.yaml` contains the project and top-level configuration settings.
 2. A `Pulumi.<stackName>.yaml` file for each stack within your program. This is the stack configuration file, e.g., `Pulumi.test.yaml`
 3. A language-specific Pulumi program entry point. This is `index.ts` in our example.
-4. Other language-specific package and dependency files. 
+4. Other language-specific package and dependency files.
 
 For TypeScript, the tree structure is shown below:
 
@@ -151,8 +150,8 @@ For TypeScript, the tree structure is shown below:
 
 ✅ Inspect your `test` stack.
 
-> [!TIP] 
-> *Stacks*: Stacks are logical environments within your Pulumi project. Each stack can have its own configuration and resources. For example, you might have a development stack and a production stack within the same project.
+> [!TIP]
+> _Stacks_: Stacks are logical environments within your Pulumi project. Each stack can have its own configuration and resources. For example, you might have a development stack and a production stack within the same project.
 
 ```bash
 $ cat Pulumi.test.yaml        
@@ -162,27 +161,28 @@ config:
   cicd-workshop:indexDocument: index.html
   cicd-workshop:path: ./www
 ```
+
 Note the custom config settings we were prompted during the `pulumi new` are stored in the stack file.
 
 ✅ Inspect the `index.ts` file to identify its key elements.
 
-> [!TIP] 
-> *Pulumi program entrypoint*: Your Pulumi program starts with an entry point, typically a function written in your chosen programming language. This function defines the infrastructure resources and configurations for your project.
+> [!TIP]
+> _Pulumi program entrypoint_: Your Pulumi program starts with an entry point, typically a function written in your chosen programming language. This function defines the infrastructure resources and configurations for your project.
 
 The key elements in the Pulumi program entry point file are defined below.
 
-* **Providers** are a crucial part of Pulumi's infrastructure as code (IaC) framework, as they enable you to define and deploy resources in your target environment using familiar programming languages. There are over [150+ providers available](https://www.pulumi.com/registry/) that allow you to interact with and manage resources in a specific cloud or infrastructure environment, such as AWS, Azure, or Google Cloud. 
-* **Configurations**. Pulumi allows you to configure your infrastructure by setting variables. These variables can be set via command-line arguments, environment variables, configuration files (e.g., `Pulumi.test.yaml`), or secrets. This flexibility makes it easy to manage different configurations for different environments.
-* **Resources** represent cloud infrastructure components, like virtual machines, databases, networks, etc. You define resources using constructors specific to the cloud provider you're working with. For instance, in AWS, you might create an S3 bucket resource.
-* **Outputs**  You can define outputs in your Pulumi program to expose information about your infrastructure. These outputs can be used for debugging, integration with other services, or to provide information to other parts of your application. 
+- **Providers** are a crucial part of Pulumi's infrastructure as code (IaC) framework, as they enable you to define and deploy resources in your target environment using familiar programming languages. There are over [150+ providers available](https://www.pulumi.com/registry/) that allow you to interact with and manage resources in a specific cloud or infrastructure environment, such as AWS, Azure, or Google Cloud.
+- **Configurations**. Pulumi allows you to configure your infrastructure by setting variables. These variables can be set via command-line arguments, environment variables, configuration files (e.g., `Pulumi.test.yaml`), or secrets. This flexibility makes it easy to manage different configurations for different environments.
+- **Resources** represent cloud infrastructure components, like virtual machines, databases, networks, etc. You define resources using constructors specific to the cloud provider you're working with. For instance, in AWS, you might create an S3 bucket resource.
+- **Outputs**  You can define outputs in your Pulumi program to expose information about your infrastructure. These outputs can be used for debugging, integration with other services, or to provide information to other parts of your application.
 
 ```bash
 $ cat -n index.ts
 # stdout omitted
 ```
 
-> [!IMPORTANT] 
-> *Pulumi is declarative*: Pulumi allows you to define your desired infrastructure state using code in a declarative manner. In a declarative approach to infrastructure management, you **specify what you want** the infrastructure to look like, and the underlying system (Pulumi in this case) takes care of figuring out how to achieve that desired state.
+> [!IMPORTANT]
+> _Pulumi is declarative_: Pulumi allows you to define your desired infrastructure state using code in a declarative manner. In a declarative approach to infrastructure management, you **specify what you want** the infrastructure to look like, and the underlying system (Pulumi in this case) takes care of figuring out how to achieve that desired state.
 
 #### 4. Perform your first deployment
 
@@ -234,8 +234,8 @@ $ pulumi destroy --yes
 [**Click here to jump back to the Table of Contents**](#table-of-contents)
 
 ## **Part 2** Automatically deploy the IaC
- 
-In [Part 1](#part-1-define-infrastructure-as-code), you manually ran commands using the Pulumi CLI to get your application and cloud infrastructure running. In a DevOps fashion, however, you would deploy everything *programmatically*. 
+
+In [Part 1](#part-1-define-infrastructure-as-code), you manually ran commands using the Pulumi CLI to get your application and cloud infrastructure running. In a DevOps fashion, however, you would deploy everything _programmatically_.
 
 ![alt text](pipeline-example.png)
 
@@ -253,7 +253,7 @@ The three stages are depicted in the image below, namely:
 
 ### 📚 Concepts
 
-An **infrastructure CI/CD pipeline** is a set of automated processes and tools designed to manage and deploy infrastructure as code (IaC) consistently, efficiently, and reliably. It's an essential part of modern DevOps practices and is used to streamline the provisioning and maintenance of infrastructure resources, such as servers, networks, and cloud services. 
+An **infrastructure CI/CD pipeline** is a set of automated processes and tools designed to manage and deploy infrastructure as code (IaC) consistently, efficiently, and reliably. It's an essential part of modern DevOps practices and is used to streamline the provisioning and maintenance of infrastructure resources, such as servers, networks, and cloud services.
 
 ### 🎬 Steps
 
@@ -299,7 +299,7 @@ $ gh repo create "${repo}" --public  --push --source .
 
 #### 2. Configure Pulumi GitHub Actions
 
-With IaC and version control in place, we are one step closer to defining the infrastructure pipeline. As a next step, we need to add a trigger to run the IaC automatically. We'll use the [Pulumi GitHub Actions](https://github.com/pulumi/actions), responsible for instantiating the infrastructure and running the application. 
+With IaC and version control in place, we are one step closer to defining the infrastructure pipeline. As a next step, we need to add a trigger to run the IaC automatically. We'll use the [Pulumi GitHub Actions](https://github.com/pulumi/actions), responsible for instantiating the infrastructure and running the application.
 
 ✅ Add a secret to store your Pulumi access token to be used by Actions.
 
@@ -316,7 +316,7 @@ $ gh secret list
 # Press 'q' to exit
 ```
 
-And let's do the same for the `aws` credentials. 
+And let's do the same for the `aws` credentials.
 
 ```bash
 $ gh secret set AWS_ACCESS_KEY_ID -b abc123
@@ -327,6 +327,7 @@ $ gh secret set AWS_SESSION_TOKEN -b abc123
 ```
 
 Next, you will configure the pipeline so it is triggered by commits to PR against the `main` branch. For each commit, the pipeline will automatically:
+
 - Verify the Pulumi secret is configured; and
 - Test the IaC by running the `up` command.
 
@@ -382,7 +383,7 @@ $ gh pr create --base main --head feature-cicd --title "Adds IaC + pipeline" --b
 # Follow the link to see the Actions
 ```
 
-After creating the PR, the Actions will run shortly. 
+After creating the PR, the Actions will run shortly.
 ✅ Navigate and inspect the Actions' results in your browser.
 
 When Actions is running, you see the following in progress message in the PR:
@@ -393,21 +394,21 @@ Click on the "Details" link to see the progress. It is usual for this phase to a
 Once completed, notice all the checks have passed:
 ![PR Actions completed successfully](checks-passed.png)
 
-✅ Merge the PR 
+✅ Merge the PR
 
 ```bash
-$ gh pr merge 1 --squash
+gh pr merge 1 --squash
 ```
 
 [**Click here to jump back to the Table of Contents**](#table-of-contents)
 
-## (Optional) **Part 3** Make a fun PR!
+## (Optional) **Part 3** Make a fun PR
 
-At this point, you have 
+At this point, you have
 
-- a GitHub repository with a sample web application; 
+- a GitHub repository with a sample web application;
 - AWS resources using Pulumi IaC; and
-- a CI/CD pipeline to test any change automatically. 
+- a CI/CD pipeline to test any change automatically.
 
 We want to encourage you to modify your solution and watch the changes take effect programmatically.
 
@@ -459,7 +460,7 @@ Attendees will be able to practice enhancing the infrastructure CI/CD pipeline.
     ```bash
     pulumi destroy -s test
     ```
-    
+
     Now, use the Pulumi GitHub Actions to achieve the same result. Here is some helper code:
 
     ```yaml
@@ -487,16 +488,17 @@ Attendees will be able to practice enhancing the infrastructure CI/CD pipeline.
               env:
                 PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
     ```
+
   </details>
 
  > [!NOTE]
 > The advanced workshop will cover Pulumi ESC in a lot more detail.
 
-- (Advanced) Uses Pulumi ESC to connect to your AWS account via OIDC. 
+- (Advanced) Uses Pulumi ESC to connect to your AWS account via OIDC.
   <details>
     <summary>🧩 Click here for a hint </summary>
     Add a reference to an ESC environment in your stack file:
-   
+
     ```yaml
     environment:
     - pulumi-cicd-workshop
