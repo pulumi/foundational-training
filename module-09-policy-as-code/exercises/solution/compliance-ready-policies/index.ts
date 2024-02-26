@@ -1,40 +1,49 @@
 import { PolicyPack, ReportViolation, StackValidationArgs, StackValidationPolicy } from "@pulumi/policy";
 import { policyManager } from "@pulumi/compliance-policy-manager";
 import * as aws from "@pulumi/aws";
-// import { ResolvedResource } from "@pulumi/pulumi/queryable";
 
-const name = "diana"
+const name = "bugs-bunny"
+
 const enableReplicationConfigurationExceptDestinationBuckets: StackValidationPolicy = {
-    name: "policy-as-code-workshop-dest" + name,
-    description: "enableReplicationConfigurationExceptDestinationBuckets",
+    name: "pulumi-stackvalidation-example-" + name,
+    description: "every bucket must have at least one enabled replication rule or be a destination bucket of an enabled rule",
     enforcementLevel: "mandatory",
     validateStack: (args: StackValidationArgs, reportViolation: ReportViolation) => {
 
-        const unreplicatedBucketList = args.resources.map(r => r.asType(aws.s3.Bucket)).filter(r =>
-            r?.replicationConfiguration === undefined ||
-            r?.replicationConfiguration?.rules === undefined ||
-            r?.replicationConfiguration?.rules.length < 1 ||
-            r?.replicationConfiguration?.rules.every(rule => rule.status === "Disabled")
-        );
+        const buckets = args.resources
+            //StackValidationArgs.PolicyResource[]
+            .map(resource => resource.asType(aws.s3.Bucket))
+            // Returns the resource if the type of this resource is the same as resourceClass, otherwise undefined.
+            // Filter out the undefined values and keep only the ResolvedResource<aws.s3.Bucket> values
+            .filter((bucket): bucket is ResolvedResource<aws.s3.Bucket> => bucket !== undefined) ?? [];
+
 
         let destinationBucketARNList: string[] = [];
+        let sansReplicationBucketARNList: string[] = [];
 
-        const replicatedBucketList = args.resources.map(r => r.asType(aws.s3.Bucket)).filter(r =>
-            (r?.replicationConfiguration?.rules?.length ?? 0) > 0 &&
-            r?.replicationConfiguration?.rules.some(rule => rule.status === "Enabled")
-        );
-        for (const replicatedBucket of replicatedBucketList) {
-            for (const rule of replicatedBucket?.replicationConfiguration?.rules ?? []) {
-                if (rule.status == "Enabled") {
-                    destinationBucketARNList.push(rule.destination.bucket);
+        for (const bucket of buckets) {
+            // Buckets that have at least one enabled replication rule...
+            let noRules = true;
+            if (bucket.replicationConfiguration != null) {
+                const brc = bucket.replicationConfiguration;
+                if (brc.rules != null) {
+                    for (const rule of brc.rules) {
+                        if (rule.status === "Enabled") {
+                            noRules = false;
+                            destinationBucketARNList.push(rule.destination.bucket);
+                        }
+                    }
                 }
+            }
+            if (noRules) {
+                sansReplicationBucketARNList.push(bucket.arn);
             }
         }
 
-        for (const bucket of unreplicatedBucketList) {
-            let arnie: string = bucket?.arn ?? "";
-            if (!destinationBucketARNList.includes(arnie)) {
-                reportViolation(`every bucket must have at least one enabled replication rule or be a destination bucket of an enabled rule. ${arnie}`);
+        // Report violations for unreplicated buckets that are not destinations of enabled replication rules
+        for (const arn of sansReplicationBucketARNList) {
+            if (!destinationBucketARNList.includes(arn)) {
+                reportViolation(arn);
             }
         }
     },

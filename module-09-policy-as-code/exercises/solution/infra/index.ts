@@ -158,7 +158,7 @@ const bucketReplicationRolePolicy = new aws.iam.Policy("policy-as-code-workshop-
     ),
 });
 
-new aws.iam.RolePolicyAttachment("policy-as-code-workshop-" + name, {
+new aws.iam.RolePolicyAttachment("policy-as-code-workshop-1-" + name, {
   role: replicationRole.name,
   policyArn: bucketReplicationRolePolicy.arn,
 });
