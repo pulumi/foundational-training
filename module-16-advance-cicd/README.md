@@ -83,47 +83,11 @@ Attendees will be able to authenticate using Dynamic Credentials by adding a Pul
 
 ### 🎬 Steps
 
-✅ Clone the Getting Started workshop solution
+✅ Clone the CI/CD Getting Started workshop solution located at `TODO` to your machine.
+✅ Add a GitHub Action secret to store your Pulumi access token as `PULUMI_ACCESS_TOKEN`
+✅ Use a Pulumi ESC Environment to configure AWS Dynamic Credentials.
 
-```bash
-# Update the owner value to your GitHub handle
-$ owner=desteves 
-$ repo=cicd-workshop-advanced
-
-# Login to GitHub, if necessary
-$ gh auth login
-
-# Clone the Getting Started repo to ${repo}
-$ gh repo clone desteves/cicd-workshop "${repo}"
-
-# Create your own repo
-$ gh repo create "${repo}" --public
-$ cd "${repo}"
-
-# Add your remote repo
-$ git remote set-url origin "https://github.com/${owner}/${repo}.git"
-
-# Push your clone
-$ git push -u origin main
-```
-
-✅ Add a secret to store your Pulumi access token to be used by Actions.
-
-```bash
-# Login to GitHub, if necessary
-$ gh auth login
-
-# Create the secret
-$ gh secret set PULUMI_ACCESS_TOKEN -b pul-abcdef1234567890abcdef1234567890abcdef12
-# ✓ Set Actions secret PULUMI_ACCESS_TOKEN ...
-
-# Verify it's there
-$ gh secret list
-# Press 'q' to exit
-```
-
-✅ Use a Pulumi ESC Environment to configure AWS Dynamic Credentials
-
+Hint:
 ```bash
 # Ensure you're in the project, `cicd-workshop-advanced/infra`, directory
 
@@ -145,36 +109,7 @@ $ echo "  - ${e}" >> Pulumi.test.yaml
 $ pulumi preview
 ```
 
-<!-- Note to presenter: run pulumi up ahead to save time. -->
-
-✅ Commit the changes 
-
-```bash
-# Ensure you're in the project, `cicd-workshop-advanced`, directory
-
-# Commit your changes
-$ git add .
-$ git commit -m "add esc"
-
-# Create a new feature branch
-$ git checkout -b feature-esc
-
-# Push the changes
-$ git push --set-upstream origin feature-esc
-
-# Create a PR 
-$ gh pr create --base main --head feature-esc --title "Adds Pulumi ESC for AWS OIDC" --body ""
-# Follow the link to see the Actions
-# It can take a few minutes for the GHA Runner to complete
-
-# Merge the PR 
-# Update the PR merge number as needed
-$ m=1  
-$ gh pr merge $m --squash
-
-$ git checkout main
-```
-<!-- EXAMPLE https://github.com/desteves/cicd-workshop-advanced/pull/1 -->
+✅ Commit the changes by creating a feature branch and PR.
 
 [**Click here to jump back to the Table of Contents**](#table-of-contents)
 
@@ -186,11 +121,11 @@ Attendees will be able to add compliance checks to the CI/CD pipeline using [Pul
 
 ### 📚 Concepts
 
-*Cloud compliance* 
+*Cloud compliance* refers to the process of ensuring that cloud-based systems, services, and data storage adhere to relevant laws, regulations, standards, and best practices governing security, privacy, and data protection. 
 
-*Policy as Code*
+*Policy as Code* involves codifying policy definitions, which allows for their automated enforcement and evaluation within various stages of IT operations and development pipelines. This method leverages version control systems, automation tools, and continuous integration/continuous deployment (CI/CD) pipelines to ensure that policies governing security, compliance, resource usage, and access controls are consistently applied across the entire ecosystem.
 
-*Built-in packs*
+*Built-in packs* bundle compliance policies that are easily extendable with the aim to speed up development and ensure best practices from day one.
 
 ### 🎬 Steps
 
@@ -227,10 +162,10 @@ $ vi .github/workflows/branch.yml
         working-directory: ./infra/policypack
         run: npm install
 
-      - name: Create the resources
+      - name: Preview the resources
         uses: pulumi/actions@v5
         with:
-          command: up
+          command: preview
           stack-name: zephyr/cicd-workshop/test # UPDATE THIS
           work-dir: ./infra
           policyPacks: policypack
@@ -240,32 +175,7 @@ $ vi .github/workflows/branch.yml
 
 <!-- Note to presenter: run pulumi up ahead to save time. -->
 
-✅ Commit the changes 
-
-```bash
-# Ensure you're in the project, `cicd-workshop-advanced`, directory
-
-# Commit your changes
-$ git add .
-$ git commit -m "add pac"
-
-# Create a new feature branch
-$ git checkout -b feature-pac
-
-# Push the changes
-$ git push --set-upstream origin feature-pac
-
-# Create a PR 
-$ gh pr create --base main --head feature-pac --title "Adds Policy as Code" --body ""
-# Follow the link to see the Actions
-# It can take a few minutes for the GHA Runner to complete
-
-# Merge the PR 
-# Update the PR merge number as needed
-$ m=2 #  
-$ gh pr merge $m --squash
-# ✓ Squashed and merged pull request #2 (Adds Policy as Code)
-```
+✅ Commit the changes by creating a feature branch and PR.
 
 [**Click here to jump back to the Table of Contents**](#table-of-contents)
 
@@ -277,99 +187,43 @@ Attendees will be able to programmatically identify when a drift has occurred in
 
 ### 📚 Concepts
 
-*Drift* TODO 
+*Drift* refers to the phenomenon where the actual state of your infrastructure diverges from the expected or declared state as defined in your code. This can occur for a variety of reasons, such as manual changes made directly to the infrastructure (outside of the IaC processes), external processes modifying the environment, or discrepancies in the execution of IaC scripts.
 
-*Drift detection* TODO 
+*Drift detection* refers to the process of identifying discrepancies between the actual state of your infrastructure and its expected state as defined by your IaC configurations. This process is crucial for maintaining consistency, reliability, and security in cloud environments, where infrastructure components are dynamically provisioned and managed through code.
 
-*Reconciling the infrastructure* TODO
+*Reconciling the infrastructure* Once drift is detected, the next step is to reconcile the infrastructure, which means resolving the differences between the actual state and the intended state. Reconciliation can be approached in different ways but two common approaches are to update the infrastructure to match the code or update the code to reflect the detected changes.
+
+Both drift detection and infrastructure reconciliation are fundamental to the practice of infrastructure as code, allowing teams to maintain control over their environments and ensure that their infrastructure remains in a known, good state.
 
 ### 🎬 Steps
 
-✅  Add a cronjob to your workflow
+✅ Trigger the drift detection manually
+
+In one terminal run
 
 ```bash
-# Ensure you're in the project, `cicd-workshop-advanced`, directory
-
-$ git checkout main
-
-$ vi .github/workflows/drift.yml
-#   paste the contents of drift.yml shown below
-#   update `stack-name`
-#   save the file.
+# TODO
+pulumi update --refresh -y
 ```
 
-```yaml
-name: drift
-on:
-  schedule:
-    # Runs at 06:00
-    # Actions schedules run at most every 5 minutes.
-    - cron: '0 6 * * *'
-  workflow_dispatch: {}
+In another terminal, run
 
-env:
-  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+```bash
 
-jobs:
-  main:
-    runs-on: ubuntu-latest
-    name: Drift Detection
-    steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
-            
-      - name: setup node 18
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Install Dependencies
-        working-directory: ./infra
-        run: npm install
-        
-      - name: Install PaC Dependencies
-        working-directory: ./infra/policypack
-        run: npm install
-        
-      - name: pulumi preview
-        uses: pulumi/actions@v5
-        with:
-          command: preview
-          refresh: true
-          stack-name: zephyr/cicd-workshop/test ## Update this
-          expect-no-changes: true
-          work-dir: ./infra
+# TODO
 ```
+
+✅  Add a cronjob to your workflow named `drift.yml` that runs every 5 minutes.
+
+Hint: 
+ The cronjob does a preview with the `expect-no-changes: true`
+More Hint:
 
 Alternatively, navigate to the [drift.yml](./solution/.github/workflows/drift.yml) file to copy its contents.
 
-✅ Commit the changes 
+✅ Commit the changes by creating a feature branch and PR.
+✅ Run the drift detection action from the browser.
 
-```bash
-# Ensure you're in the project, `cicd-workshop-advanced`, directory
-
-# Commit your changes
-$ git add .
-$ git commit -m "add dd"
-
-# Create a new feature branch
-$ git checkout -b feature-dd
-
-# Push the changes
-$ git push --set-upstream origin feature-dd
-
-# Create a PR 
-$ gh pr create --base main --head feature-dd --title "Adds Drift Detection" --body ""
-# Follow the link to see the Actions
-# It can take a few minutes for the GHA Runner to complete
-
-# Merge the PR 
-# Update the PR merge number as needed
-$ m=3 #  
-$ gh pr merge $m --squash
-```
-
-✅ Run the drift detection action from the browser
 
 <!-- https://github.com/desteves/cicd-workshop-advanced/actions/workflows/drift.yml-->
 
@@ -381,9 +235,9 @@ Attendees will be able to configure ephemeral dedicated cloud environments to de
 
 ### 📚 Concepts
 
-*Test in isolation*
+*Test in isolation* refers to the practice of testing components or units of an application without the interference from other parts of the system.
 
-*Pulumi Deployments Review Stacks*
+*Pulumi Deployments Review Stacks* An ephemeral isolated Pulumi Stack to test your IaC via a number of configurations.
 
 ### 🎬 Steps
 
@@ -391,7 +245,7 @@ Attendees will be able to configure ephemeral dedicated cloud environments to de
 
 Check your repository has been added to the access list https://github.com/settings/installations/46735415
 
-✅ Add Review Stacks
+✅ Add Review Stack.
 
 ```bash 
 # Ensure you're in the project, `cicd-workshop-advanced/infra`, directory
@@ -417,31 +271,7 @@ $ pulumi up --yes --cwd deployment-settings
 # wait for the resource to get created; this can take a couple of seconds
 ```
 
-✅ Commit the changes 
-
-```bash
-# Ensure you're in the project, `cicd-workshop-advanced`, directory
-
-# Commit your changes
-$ git add .
-$ git commit -m "add rs"
-
-# Create a new feature branch
-$ git checkout -b feature-rs
-
-# Push the changes
-$ git push --set-upstream origin feature-rs
-
-# Create a PR 
-$ gh pr create --base main --head feature-rs --title "Adds Review Stacks" --body ""
-# Follow the link to see the Actions
-# It can take a few minutes for the GHA Runners to complete
-
-# Merge the PR 
-# Update the PR merge number as needed
-$ m=5 #  
-$ gh pr merge $m --squash
-```
+✅ Commit the changes by creating a feature branch and PR.
 
 [**Click here to jump back to the Table of Contents**](#table-of-contents)
 
