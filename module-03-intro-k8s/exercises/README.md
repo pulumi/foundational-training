@@ -123,4 +123,15 @@
 
     You should see the default NGINX welcome page in the output of the second command.
 
-## Server-Side Apply
+    If time allows, try all the mentioned methods for creating the resources.
+
+## Exercise 02: Server-Side Apply
+
+**NOTE:** This exercise assumes you are using the Kubernetes cluster from the previous exercise. If you are not continuing from Exercise 01, you can use the Pulumi EKS Architecture Template:
+
+```bash
+pulumi new kubernetes-aws-typescript
+pulumi up -y
+```
+
+1. 
