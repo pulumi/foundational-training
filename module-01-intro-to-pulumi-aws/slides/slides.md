@@ -37,6 +37,16 @@ marp: true
 
 ---
 
+# Pulumi CLI: Key Commands
+
+* `pulumi new`: Bootstrap a Pulumi program
+* `pulumi preview`: Do a dry run of the Pulumi program, show the user what _would_ change
+* `pulumi up`: Run the Pulumi program, perform any necessary changes (includes `preview` by default)
+* `pulumi destroy`: Delete all resources in the state file
+* `pulumi refresh`: Refresh the state file (not done by default for performance reasons)
+
+---
+
 # Inputs, Outputs, and Apply
 
 * **Inputs:** Values that may or may not be known, e.g. `aws.ec2.Instance.ami` is type `Input<string>`
