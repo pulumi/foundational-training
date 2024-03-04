@@ -33,7 +33,18 @@ marp: true
 
 ---
 
-![Pulumi Physicakl Model](./images/pulumi-physical-model.png "Pulumi Physical Model")
+# Pulumi Programming Model, Key Terms
+
+* **Project:** A folder containing a Pulumi program (contains the file `Pulumi.yaml`)
+* **Program:** A collection of resources, written in a supported language
+* **Stack:** An instance of a Pulumi program, typically with its own configuration
+* **Provider:** Performs CRUD operations for a specific infrastructure backend (e.g. AWS, GitHub, Docker). Physically, contains 2 things:
+  1. A binary that does the work (written in Go, FYI)
+  1. An SDK for a given language (which uses gRPC to communicate with the binary)
+
+---
+
+![Pulumi Physical Model](./images/pulumi-physical-model.png "Pulumi Physical Model")
 
 ---
 
