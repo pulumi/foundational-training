@@ -131,7 +131,7 @@ marp: true
 
 * Common use cases:
   * `dependsOn`: Set an explicit dependency where no implicit one exists, i.e. there's no (output on Resource A) -> (input on Resource B)
-  * `protect`: Precent a resource from being deleted, e.g. prod DB
+  * `protect`: Prevent a resource from being deleted, e.g. prod DB
   * `provider`: Set an explicit provider for a resource, e.g. multi-region or multi-account in AWS
 
 More info: <https://www.pulumi.com/docs/concepts/options/>
