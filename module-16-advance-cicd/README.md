@@ -86,29 +86,6 @@ Attendees will be able to authenticate using Dynamic Credentials by adding a Pul
 ✅ Clone the CI/CD Getting Started workshop solution located at `TODO` to your machine.
 ✅ Add a GitHub Action secret to store your Pulumi access token as `PULUMI_ACCESS_TOKEN`
 ✅ Use a Pulumi ESC Environment to configure AWS Dynamic Credentials.
-
-Hint:
-```bash
-# Ensure you're in the project, `cicd-workshop-advanced/infra`, directory
-
-# Use a Pulumi template to create AWS OIDC Resources
-$ pulumi new https://github.com/desteves/aws-oidc-typescript/infra --dir aws-oidc
-# Go through the wizard and update the defaults as necessary
-
-$ pulumi up --yes --cwd aws-oidc
-# wait for the resources to get created; this can take a couple of minutes
-
-# Obtain the name of the ESC Environment
-$ e=$(pulumi stack output escEnv --cwd aws-oidc)
-
-# Add the ESC Environment to your Stack
-$ echo "environment:" >> Pulumi.test.yaml
-$ echo "  - ${e}" >> Pulumi.test.yaml
-
-# Test the changes locally
-$ pulumi preview
-```
-
 ✅ Commit the changes by creating a feature branch and PR.
 
 [**Click here to jump back to the Table of Contents**](#table-of-contents)
@@ -132,7 +109,8 @@ Attendees will be able to add compliance checks to the CI/CD pipeline using [Pul
 By adding a default policy pack, your workflow will automatically ensure your stack is not violating any cloud infrastructure best practices.
 
 ✅ Add the CIS compliance framework
-
+<details>
+    <summary>🧩 Click here for a hint </summary>
 ```bash
 # Ensure you're in the project, `cicd-workshop-advanced/infra`, directory
 
@@ -150,12 +128,16 @@ $ pulumi up  --policy-pack policypack
 # Policies:
 #    ✅ aws-cis-compliance-ready-policies-typescript@v0.0.1 (local: policypack)
 
+```
+
+</details>
+✅ Add the CIS compliance framework
 # Modify the workflow file to test programmatically
 $ vi .github/workflows/branch.yml
 #   edit the last step as shown below
 #   save the file.
 ```
-
+</details>
 `branch.yml` code snippet:
 ```yaml
       - name: Install PaC Dependencies
