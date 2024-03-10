@@ -18,11 +18,13 @@ To install the MARP CLI:
 npm i -g @marp-team/marp-cli
 ```
 
-To view a preview of the deck:
+To view a preview of the deck, run the following command:
 
 ```bash
-marp -s path/to/slides
+marp -s .
 ```
+
+Then open <http://localhost:8080> and browse to the relevant module.
 
 ## Known Issues
 
