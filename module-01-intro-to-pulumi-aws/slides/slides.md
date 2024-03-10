@@ -56,6 +56,8 @@ marp: true
 - `pulumi destroy`: Delete all resources in the state file
 - `pulumi refresh`: Refresh the state file to detect drift (not done by default for performance reasons)
 
+Full list: <https://www.pulumi.com/docs/cli/>
+
 ---
 
 # Resources Overview
