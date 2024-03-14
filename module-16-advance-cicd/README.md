@@ -2,7 +2,7 @@
 
 In this module, you will learn advanced topics that make up a robust infrastructure CI/CD pipeline through guided exercises. You will use Pulumi tooling to take your cloud infrastructure pipeline one step closer to production.
 
-This module introduces users to advanced DevOps best practices. You will add compliance checks via policies, drift detection, and isolated test environments to an existing GitHub Actions pipeline. This will help accelerate your AWS projects with the code examples provided.
+This module introduces users to advanced DevOps best practices. You will add compliance checks via policies, drift detection, and isolated test environments to an existing GitHub Actions pipeline.
 
 ---
 
@@ -28,7 +28,7 @@ Set up your GitHub project with Pulumi ESC to authenticate using Dynamic Credent
 
 ### 📚 Concepts
 
-*Dynamic Credentials* Unlike static credentials, dynamic credentials are generated on-the-fly and have a short validity period, enhancing security by reducing the risk of unauthorized access from credential theft or misuse. It also eliminates the need for developers to manage the lifecycle of individual access keys for instances.
+*Dynamic Credentials* Unlike static credentials, dynamic credentials are generated on the fly and have a short validity period, enhancing security by reducing the risk of unauthorized access from credential theft or misuse. It also eliminates the need for developers to manage the lifecycle of individual access keys for instances.
 
 *OIDC* OpenID Connect (OIDC) is an authentication protocol built on the OAuth 2.0 framework. It enables clients to authenticate users confidently while supporting single sign-on (SSO) and other identity-related functionalities.
 
@@ -59,12 +59,11 @@ Add compliance checks to the CI/CD pipeline using [Pulumi CrossGuard](https://ww
 
 ### 📚 Concepts
 
-*Cloud compliance* refers to the process of ensuring that cloud-based systems, services, and data storage adhere to relevant laws, regulations, standards, and best practices governing security, privacy, and data protection. 
+*Cloud compliance* refers to ensuring that cloud-based systems, services, and data storage adhere to relevant laws, regulations, standards, and best practices governing security, privacy, and data protection. 
 
-*Policy as Code* involves codifying policy definitions, which allows for their automated enforcement and evaluation within various stages of IT operations and development pipelines. This method leverages version control systems, automation tools, and continuous integration/continuous deployment (CI/CD) pipelines to ensure that policies governing security, compliance, resource usage, and access controls are consistently applied across the entire ecosystem.
+*Policy as Code* involves codifying policy definitions, allowing for automated enforcement and evaluation within various stages of IT operations and development pipelines. This method leverages version control systems, automation tools, and continuous integration/continuous deployment (CI/CD) pipelines to ensure that policies governing security, compliance, resource usage, and access controls are consistently applied across the entire ecosystem.
 
-*Built-in packs* bundle compliance policies that are easily extendable with the aim to speed up development and ensure best practices from day one.
-
+*Built-in packs* bundle compliance policies that are easily extendable to speed up development and ensure best practices from day one.
 
 ---
 
@@ -74,7 +73,7 @@ Add compliance checks to the CI/CD pipeline using [Pulumi CrossGuard](https://ww
 
 By adding a default policy pack, your workflow will automatically ensure your stack is not violating any cloud infrastructure best practices.
 
-1. Add the CIS compliance framework, `aws-cis-compliance-policies-typescript`, under the policypack/ subfolder.
+1. Add the CIS compliance framework, `aws-cis-compliance-policies-typescript`, under the `policypack/` subfolder.
 2. Add dependencies
 ```bash
 $ cd policypack
@@ -100,9 +99,9 @@ Identify when a drift has occurred in their infrastructure via an Actions cronjo
 
 ### 📚 Concepts
 
-*Drift* refers to the phenomenon where the actual state of your infrastructure diverges from the expected or declared state as defined in your code. This can occur for a variety of reasons, such as manual changes made directly to the infrastructure (outside of the IaC processes), external processes modifying the environment, or discrepancies in the execution of IaC scripts.
+*Drift* refers to the phenomenon where the actual state of your infrastructure diverges from the expected or declared state as defined in your code. This can occur for various reasons, such as manual changes made directly to the infrastructure (outside of the IaC processes), external processes modifying the environment, or discrepancies in executing IaC scripts.
 
-*Drift detection* refers to the process of identifying discrepancies between the actual state of your infrastructure and its expected state as defined by your IaC configurations. This process is crucial for maintaining consistency, reliability, and security in cloud environments, where infrastructure components are dynamically provisioned and managed through code.
+*Drift detection* refers to identifying discrepancies between the actual state of your infrastructure and its expected state as defined by your IaC configurations. This process is crucial for maintaining consistency, reliability, and security in cloud environments, where infrastructure components are dynamically provisioned and managed through code.
 
 --- 
 
@@ -110,10 +109,9 @@ Identify when a drift has occurred in their infrastructure via an Actions cronjo
 
 ### 📚 Concepts (cont.)
 
-*Reconciling the infrastructure* Once drift is detected, the next step is to reconcile the infrastructure, which means resolving the differences between the actual state and the intended state. Reconciliation can be approached in different ways but two common approaches are to update the infrastructure to match the code or update the code to reflect the detected changes.
+*Reconciling the infrastructure* Once a drift is detected, the next step is reconciling the infrastructure, which means resolving the delta between the actual and the intended state. Reconciliation can be approached in different ways, but two common approaches are updating the infrastructure to match the code or updating the code to reflect the detected changes.
 
 Both drift detection and infrastructure reconciliation are fundamental to the practice of infrastructure as code, allowing teams to maintain control over their environments and ensure that their infrastructure remains in a known, good state.
-
 
 --- 
 
