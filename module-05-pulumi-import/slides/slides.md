@@ -27,18 +27,18 @@ marp: true
 # Get Functions
 
 ```typescript
-const vpc = aws.ec2.Vpc.get("existing-vpc", "vpc-0d37c121152ebd437");
+const vpc = aws.ec2.Vpc.get("existing-vpc", "vpc-aefe77d6");
 
 new aws.ec2.SecurityGroup("security-group", {
-  description: "Don't allow any traffic!",
+  description: "No traffic for you",
   vpcId: vpc.id
 });
 ```
 
-* Every Pulumi resource has a `get` function.
-* Takes 2 parameters: `name`, and `id`.
-* The `id` parameter is resource-specific and identical to the id used in `pulumi import`.
-* `get` will fail in preview if the ID is bad.
+- Every Pulumi resource has a `get` function.
+- Takes 2 parameters: `name`, and `id`.
+- The `id` parameter is resource-specific and identical to the id used in `pulumi import`.
+- `get` will fail in preview if resource cannot be found.
 
 Docs: <https://www.pulumi.com/docs/concepts/resources/get/>
 
@@ -47,19 +47,19 @@ Docs: <https://www.pulumi.com/docs/concepts/resources/get/>
 # `pulumi import` Command
 
 ```bash
-pulumi import aws:ec2/vpc:Vpc test_vpc vpc-0f12a82357335a28f
+pulumi import aws:ec2/vpc:Vpc my-vpc vpc-0f12a82357335a28f
 ```
 
 Does two things:
 
 1. Brings resources into Pulumi state file.
-2. Generates complete code (all properties).
+1. Generates complete code (all properties).
 
 For each resource:
 
-1. Type identifier
-1. Logical name
-1. ID (specific to resource type, e.g. VPC ID)
+1. Type identifier: `aws:ec2/vpc:Vpc`
+1. Resource name (for Pulumi program): `my-vpc`
+1. ID (specific to resource type, e.g. VPC ID): `vpc-0f12a82357335a28f`
 
 ---
 
@@ -90,12 +90,12 @@ pulumi import -f path/to/file.json -o file.ts -y
 
 # Scenario 1: ClickOps
 
-* **Coexist:** Get Functions
-* **Replace:** `pulumi import`
+- **Coexist:** Get Functions
+- **Replace:** `pulumi import`
 
 Additional Resources:
 
-* [Automating Pulumi Import with Manually Created Resources](https://www.pulumi.com/blog/automating-pulumi-import-to-bring-manually-created-resources-into-iac/)
+- [Automating Pulumi Import with Manually Created Resources](https://www.pulumi.com/blog/automating-pulumi-import-to-bring-manually-created-resources-into-iac/)
 
 ---
 
@@ -166,27 +166,28 @@ new aws.ec2.SecurityGroup("security-group", {
 
 # Scenario 4: Kubernetes YAML (Coexist)
 
-Single YAML File:
+1. Single YAML File:
 
-```typescript
-new k8s.yaml.ConfigFile("manifest", {
-    file: "manifest.yaml",
-});
-```
+    ```typescript
+    new k8s.yaml.ConfigFile("manifest", {
+        file: "manifest.yaml",
+    });
+    ```
 
-Directory of YAML files:
+1. Directory of YAML files:
 
-```typescript
-const guestbook = new k8s.yaml.ConfigGroup("manifests", {
-    files: [ path.join("yaml", "*.yaml") ],
-});
-```
+    ```typescript
+    const guestbook = new k8s.yaml.ConfigGroup("manifests", {
+        files: [ path.join("yaml", "*.yaml") ],
+    });
+    ```
+
+1. `k8s.helm.v3.Chart`: Like `helm template`
+1. `k8s.helm.v3.Release`: Like `helm install`
 
 ---
 
 # Scenario 4: Kubernetes YAML (Replace)
 
-* [kube2pulumi](https://www.pulumi.com/kube2pulumi/): Convert K8s YAML files into Pulumi resources.
-* [crd2pulumi](https://github.com/pulumi/crd2pulumi): Convert K8s CustomResourceDefinitions into Pulumi components.
-
-**Note:** These will likely be converted into `pulumi convert` plugins.
+- [kube2pulumi](https://www.pulumi.com/kube2pulumi/): Convert K8s YAML files into Pulumi resources.
+- [crd2pulumi](https://github.com/pulumi/crd2pulumi): Convert K8s CustomResourceDefinitions into Pulumi components.
