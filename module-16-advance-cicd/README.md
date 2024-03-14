@@ -119,27 +119,9 @@ Both drift detection and infrastructure reconciliation are fundamental to the pr
 
 ### 🎬 Steps
 
-1. Trigger the drift detection manually
-
-In one terminal run
-
-```bash
-# TODO
-pulumi update --refresh -y
-```
-
-In another terminal, run
-
-```bash
-
-# TODO
-```
-
---- 
-
-## Module 08 - Advanced CI/CD - **Exercise 3** 
-
-### 🎬 Steps (cont.)
+1. Trigger the drift detection manually:
+ a. In the console, add a tag to one of your Pulumi-defined AWS resources.
+ b. Run `pulumi update --refresh -y`
 
 2.  Add a cronjob to your workflow named `drift.yml` that runs every 5 minutes.
 
@@ -147,6 +129,7 @@ Hint: The cronjob does a preview with the `expect-no-changes: true` flag.
 
 3. Commit the changes by creating a feature branch and PR.
 4. Run the drift detection action from the browser.
+5. Modify a resource's tag and re-run the action.
 
 --- 
 
