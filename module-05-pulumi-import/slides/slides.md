@@ -118,7 +118,7 @@ Additional Resources:
     });
     ```
 
-**Note:** Pulumi/CDK Interop is not feasible for production, no plans to enhance.
+**Note:** Pulumi/CDK interop is experimental
 
 ---
 
@@ -126,7 +126,7 @@ Additional Resources:
 
 `pulumi import`
 
-**Note:** Pulumi/CDK Interop is not feasible for production, no plans to enhance.
+**Note:** Pulumi/CDK interop is experimental
 
 ---
 
@@ -191,3 +191,5 @@ new aws.ec2.SecurityGroup("security-group", {
 
 - [kube2pulumi](https://www.pulumi.com/kube2pulumi/): Convert K8s YAML files into Pulumi resources.
 - [crd2pulumi](https://github.com/pulumi/crd2pulumi): Convert K8s CustomResourceDefinitions into Pulumi components.
+
+**Note:** These will likely be converted into `pulumi convert` plugins.
