@@ -141,8 +141,16 @@ const tfState = new terraform.state.RemoteStateReference("tf-state", {
 });
 
 new aws.ec2.SecurityGroup("security-group", {
-  description: "Don't allow any traffic!",
+  description: "Allow all egress",
   vpcId: tfState.getOutput("vpc_id"),
+  egress: [
+        {
+            fromPort: 0,
+            toPort: 0,
+            protocol: "-1",
+            cidrBlocks: ["0.0.0.0/0"],
+        },
+    ],
 });
 ```
 
@@ -159,7 +167,7 @@ new aws.ec2.SecurityGroup("security-group", {
 1. Import Terraform state:
 
     ```bash
-    pulumi import --from terraform .path/to/terraform.tfstate
+    pulumi import --from terraform path/to/terraform.tfstate
     ```
 
 ---
