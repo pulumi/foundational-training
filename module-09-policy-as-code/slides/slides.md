@@ -53,19 +53,11 @@ marp: true
 
 Each resource policy has the following fields:
 
-<<<<<<< HEAD
 - `name`, `description`: (self-explanatory, required)
 - `enforcementLevel`: Default enforcement level (optional)
 - `remediateResource`: Function to fix a potential validation issue. Executes only if `enforcementLevel` is set to `remediate`. Executes _before_ `validateResource` (optional).
 - `validateResource`: Function to determine whether the resource complies. (required)
   - Multiple functions can be defined to group similar resources, e.g., ALB and ELB log configuration.
-=======
-* `name`, `description`: (self-explanatory)
-* `enforcementLevel`: Default enforcement level
-* `remediateResource`: Function to fix a potential validation issue. Executes only if `enforcementLevel` set to `remediate`. Executes _before_ `validateResource`.
-* `validateResource`: Function to determine whether the resource is in compliance.
-  * Multiple functions can be defined in order to group similar resources, e.g. ALB and ELB log configuration.
->>>>>>> f4b1b74 (WIP)
 
 ---
 
@@ -98,14 +90,8 @@ Each resource policy has the following fields:
 
 # Remediation Functions
 
-<<<<<<< HEAD
 - If the enforcement level is `remediate`, `remediateResource` runs before `validateResource`.
 - Must `return` the resource after transforming.
-=======
-* If enforcement level is `remediate`, `remediateResource` runs before `validateResource`.
-* Must return the resource after mutating.
-* Example:
->>>>>>> f4b1b74 (WIP)
 
 ```typescript
 remediateResource: remediateResourceOfType(aws.s3.Bucket, (bucket, args) => {

@@ -134,4 +134,39 @@ pulumi new kubernetes-aws-typescript
 pulumi up -y
 ```
 
-1. 
+## Exercise 03: Stateful workloads on EKS
+
+In this exercise, you'll learn how to run a stateful workload on EKS by installing the EBS CSI add-on which enables EKS to fulfill Kubernetes persistent volume requests by provisioning EBS volumes. The add-on installs a Kubernetes controller running under a service account. The service account in turn can assume an IAM role in order to provision storage in EBS via IAM Roles for Service Accounts (IRSA). EKS clusters can be set up as OIDC provider, which provides the glue infrastructure between the Kubernetes service account's identity and the IAM role.
+
+Using the Pulumi program from Exercise 01:
+
+1. Alter the EKS cluster component so that it creates an OIDC provider.
+1. Create a role with the following assume role policy. You can use whatever Pulumi resources you like to accomplish this, but you will need to use the outputs of the EKS cluster in order to avoid hard-coding values:
+
+    ```json
+    {
+      "Statement": [
+        {
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringEquals": {
+              "<YOUR_CLUSTER_OIDC_URL>:aud": "sts.amazonaws.com",
+              "<YOUR_CLUSTER_OIDC_URL>:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+            }
+          },
+          "Effect": "Allow",
+          "Principal": {
+            "Federated": "<YOUR_CLUSTER_OIDC_PROVIDER_ARN>"
+          },
+          "Sid": "AllowAssumeRoleWithWebIdentity"
+        }
+      ],
+      "Version": "2012-10-17"
+    }
+    ```
+
+1. Attach the `AmazonEBSCSIDriverPolicy` policy to the role.
+1. Install the EBS CSI driver EKS add on. (This is a resource in the AWS Classic provider.)
+1. In order to verify that the add-on correctly installed, install a stateful workload on your EKS cluster. One popular example is the Wordpress Helm chart. (If the MariaDB service fails to spin up relatively quickly, it's likely because the EBS CSI driver is not able to correctly assume the IRSA role.)
+
+**NOTE:** Be sure to keep the code from this exercise as we will refactor the IRSA tole into a Pulumi component in a future exercise.
