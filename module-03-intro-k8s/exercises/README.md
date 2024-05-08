@@ -125,16 +125,7 @@
 
     If time allows, try all the mentioned methods for creating the resources.
 
-## Exercise 02: Server-Side Apply
-
-**NOTE:** This exercise assumes you are using the Kubernetes cluster from the previous exercise. If you are not continuing from Exercise 01, you can use the Pulumi EKS Architecture Template:
-
-```bash
-pulumi new kubernetes-aws-typescript
-pulumi up -y
-```
-
-## Exercise 03: Stateful workloads on EKS
+## Exercise 02: Stateful workloads on EKS
 
 In this exercise, you'll learn how to run a stateful workload on EKS by installing the EBS CSI add-on which enables EKS to fulfill Kubernetes persistent volume requests by provisioning EBS volumes. The add-on installs a Kubernetes controller running under a service account. The service account in turn can assume an IAM role in order to provision storage in EBS via IAM Roles for Service Accounts (IRSA). EKS clusters can be set up as OIDC provider, which provides the glue infrastructure between the Kubernetes service account's identity and the IAM role.
 
