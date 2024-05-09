@@ -11,11 +11,9 @@
 
 ## Module 16 - Advanced CI/CD - **Exercise 1**
 
-### 🎯 Goal - Exercise 1
+**🎯 Goal**: Set up your GitHub project with Pulumi ESC to authenticate using Dynamic Credentials with an AWS OIDC configuration.
 
-Set up your GitHub project with Pulumi ESC to authenticate using Dynamic Credentials with an AWS OIDC configuration.
-
-### 🎬 Steps - Exercise 1
+**🎬 Steps**:
 
 1. Clone the Module 08 solution to your machine.
 2. Add a GitHub Action secret to store your Pulumi access token as `PULUMI_ACCESS_TOKEN`
@@ -26,37 +24,21 @@ Set up your GitHub project with Pulumi ESC to authenticate using Dynamic Credent
 
 ## Module 16 - Advanced CI/CD - **Exercise 2**
 
-### 🎯 Goal - Exercise 2
+**🎯 Goal**: By adding a default policy pack, your workflow will automatically ensure your stack is not violating any cloud infrastructure best practices. You'll add compliance checks to the CI/CD pipeline using [Pulumi CrossGuard](https://www.pulumi.com/crossguard/).
 
-Add compliance checks to the CI/CD pipeline using [Pulumi CrossGuard](https://www.pulumi.com/crossguard/).
-
-### 🎬 Steps - Exercise 2
-
-By adding a default policy pack, your workflow will automatically ensure your stack is not violating any cloud infrastructure best practices.
+**🎬 Steps**:
 
 1. Add the CIS compliance framework, `aws-cis-compliance-policies-typescript`, under the `policypack/` subfolder.
-2. Add dependencies
-
-    ```bash
-    cd policypack
-    npm install @pulumi/policy @pulumi/compliance-policy-manager @pulumi/aws-compliance-policies
-    pulumi up
-    cd ../
-    ```
-
-3. Test locally, `pulumi up  --policy-pack policypack`
-4. Add the CIS compliance framework to the pipeline.
-5. Commit the changes by creating a feature branch and PR.
+2. Test locally, `pulumi up  --policy-pack policypack`
+3. Add the CIS compliance framework to the pipeline.
+4. Commit the changes by creating a feature branch and PR.
 
 ---
 
 ## Module 16 - Advanced CI/CD - **Exercise 3**
 
-### 🎯 Goal - Exercise 3
-
-Identify when a drift has occurred in their infrastructure via an Actions cronjob.
-
-### 🎬 Steps - Exercise 3
+**🎯 Goal**: Identify when a drift has occurred in their infrastructure via an Actions cronjob.
+**🎬 Steps**:
 
 1. Trigger the drift detection manually:
  a. In the console, add a tag to one of your Pulumi-defined AWS resources.
@@ -71,11 +53,9 @@ Identify when a drift has occurred in their infrastructure via an Actions cronjo
 
 ## Module 16 - Advanced CI/CD - **Exercise 4**
 
-### 🎯 Goal - Exercise 4
+**🎯 Goal**: Configure ephemeral environments using Pulumi Deployments Review Stacks.
 
-Configure ephemeral dedicated cloud environments to deploy the infrastructure using Pulumi Deployments Review Stacks.
-
-### 🎬 Steps - Exercise 4
+**🎬 Steps**:
 
 1. [Install the Pulumi GitHub App](https://www.pulumi.com/docs/using-pulumi/continuous-delivery/github-app/#installation-and-configuration)
 2. Add Review Stack by using the given Pulumi template.

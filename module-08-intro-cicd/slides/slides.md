@@ -37,6 +37,8 @@ The three stages of infra CI/CD are:
 2. Continuously Test+Commit
 3. Continuously Build+Deploy
 
+---
+
 ## Module 08 - Intro to CI/CD - 📚 Stage 1
 
 Define Infrastructure as Code

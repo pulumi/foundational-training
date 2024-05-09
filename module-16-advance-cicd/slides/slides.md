@@ -2,15 +2,10 @@
 
 In this module, you will learn advanced topics that make up a robust infrastructure CI/CD pipeline through guided exercises. You will use Pulumi tooling to introduce production features to an infra CI/CD pipeline.
 
----
-
-## Module 16 - Advanced CI/CD - 🎯 Learning Objectives
-
-- Learn how to build an advanced CI pipeline to enforce compliance and correct drift.
-- Add dynamic credentials to your stack by configuring Pulumi ESC.
-- Add policy checks to test your infrastructure before each deployment.
-- Add a cron job to the pipeline to check for changes periodically (drift)
-- Configure a dedicated cloud environment with Review Stacks
+- Dynamic Credentials
+- Compliance Checks
+- Drift detection
+- Ephemeral infrastructure
 
 ---
 
@@ -44,8 +39,6 @@ In this module, you will learn advanced topics that make up a robust infrastruct
 
 ## Module 16 - Advanced CI/CD - **Reconciling** (cont'd)
 
-### 📚 Concepts (cont.)
-
 *Reconciling the infrastructure* Once a drift is detected, the next step is reconciling the infrastructure, which means resolving the delta between the actual and the intended state. Reconciliation can be approached in different ways, but two common approaches are updating the infrastructure to match the code or updating the code to reflect the detected changes.
 
 Both drift detection and infrastructure reconciliation are fundamental to the practice of infrastructure as code, allowing teams to maintain control over their environments and ensure that their infrastructure remains in a known, good state.
@@ -62,11 +55,6 @@ Both drift detection and infrastructure reconciliation are fundamental to the pr
 
 ## Module 16 - Advanced CI/CD - ✨ Summary
 
-You introduced advanced elements to your continuous infrastructure pipeline to make it more robust. In particular, you:
-
-- Added a Pulumi ESC environment to retrieve dynamic credentials for AWS;
-- Added policy checks to test your infrastructure for compliance;
-- Added a drift detection cron job to the pipeline; and
-- Configured dedicated cloud environments with Review Stacks.
+You were introduced to various production needs of an infrastructure pipeline. Head over to the exercises to obtain hands-on practice for each.
 
 Questions?
