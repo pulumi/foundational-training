@@ -1,6 +1,0 @@
-[submodule "module-08-intro-cicd/solution"]
-	path = module-08-intro-cicd/solution
-	url = https://github.com/desteves/cicd-workshop
-[submodule "module-16-advance-cicd/solution"]
-	path = module-16-advance-cicd/solution
-	url = https://github.com/desteves/cicd-workshop-advanced
