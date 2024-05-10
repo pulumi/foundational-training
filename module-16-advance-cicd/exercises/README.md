@@ -29,7 +29,7 @@
 **🎬 Steps**:
 
 1. Add the CIS compliance framework, `aws-cis-compliance-policies-typescript`, under the `policy/` subfolder.
-2. Test locally, `pulumi up  --policy-pack policypack`
+2. Test locally, `pulumi up  --policy-pack policy`
 3. Add the CIS compliance framework to the pipeline.
 4. Commit the changes by creating a feature branch and PR.
 
