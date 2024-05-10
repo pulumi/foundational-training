@@ -19,7 +19,7 @@ Create:
   With IaC and version control in place, we are one step closer to defining the infrastructure pipeline. As a next step, we need to add a trigger to run the IaC automatically. We'll use the [Pulumi GitHub Actions](https://github.com/pulumi/actions), responsible for instantiating the infrastructure and running the application.
 3. Configure Pulumi GitHub Actions
   a. Add a secret, `PULUMI_ACCESS_TOKEN` to store your Pulumi access token to be used by Actions.
-  b. Add your `aws` credentials.
+    b. Add your `aws` credentials.
 
 ---
 
