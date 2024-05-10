@@ -54,7 +54,7 @@
     });
     ```
 
-1. Using the YAML at the end of this step as a reference, create a NGINX Kubernetes Deployment and a corresponding `LoadBalancer` Service. There's several ways that you could go about this:
+1. Using the YAML at the end of this step as a reference, create an NGINX Kubernetes Deployment and a corresponding `LoadBalancer` Service named `nginxService`. There are several ways that you could go about this:
 
     1. Hand-author `kubernetes.apps.v1.Deployment` and `kubernetes.core.v1.Service` resources based off the YAML below.
     1. Put the YAML in a file and reference it via a `kubernetes.yaml.ConfigFile` or `kubernetes.yaml.ConfigGroup`.
@@ -114,6 +114,12 @@
     export const url = nginxService.status.loadBalancer.ingress[0].hostname;
     ```
 
+    Note: if you're using a `configGroup`, you can access the url as:
+
+    ```typescript
+    export const url = configGroup.getResource("v1/Service", "nginx-service").status.loadBalancer.ingress[0].hostname;
+    ```
+
 1. Deploy your program and verify that NGINX is working:
 
     ```bash
@@ -127,7 +133,7 @@
 
 ## Exercise 02: Stateful workloads on EKS
 
-In this exercise, you'll learn how to run a stateful workload on EKS by installing the EBS CSI add-on which enables EKS to fulfill Kubernetes persistent volume requests by provisioning EBS volumes. The add-on installs a Kubernetes controller running under a service account. The service account in turn can assume an IAM role in order to provision storage in EBS via IAM Roles for Service Accounts (IRSA). EKS clusters can be set up as OIDC provider, which provides the glue infrastructure between the Kubernetes service account's identity and the IAM role.
+In this exercise, you'll learn how to run a stateful workload on EKS by installing the EBS CSI add-on which enables EKS to fulfill Kubernetes persistent volume requests by provisioning EBS volumes. The add-on installs a Kubernetes controller running under a service account. The service account in turn can assume an IAM role to provision storage in EBS via IAM Roles for Service Accounts (IRSA). EKS clusters can be set up as OIDC provider, which provides the glue infrastructure between the Kubernetes service account's identity and the IAM role.
 
 Using the Pulumi program from Exercise 01:
 
@@ -157,7 +163,7 @@ Using the Pulumi program from Exercise 01:
     ```
 
 1. Attach the `AmazonEBSCSIDriverPolicy` policy to the role.
-1. Install the EBS CSI driver EKS add on. (This is a resource in the AWS Classic provider.)
-1. In order to verify that the add-on correctly installed, install a stateful workload on your EKS cluster. One popular example is the Wordpress Helm chart. (If the MariaDB service fails to spin up relatively quickly, it's likely because the EBS CSI driver is not able to correctly assume the IRSA role.)
+1. Install the EBS CSI driver EKS add-on. (This is a resource in the AWS Classic provider.)
+1. To verify that the add-on is correctly installed, install a stateful workload on your EKS cluster. One popular example is the WordPress Helm chart. (If the MariaDB service fails to spin up relatively quickly, it's likely because the EBS CSI driver is not able to correctly assume the IRSA role.)
 
 **NOTE:** Be sure to keep the code from this exercise as we will refactor the IRSA tole into a Pulumi component in a future exercise.
