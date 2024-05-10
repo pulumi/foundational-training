@@ -5,7 +5,7 @@
 - Add a Pulumi ESC environment to retrieve dynamic credentials for AWS;
 - Add policy checks to test your infrastructure for compliance;
 - Add a drift detection cron job to the pipeline; and
-- Configur dedicated cloud environments with Review Stacks.
+- Configure dedicated cloud environments with Review Stacks.
 
 ---
 
