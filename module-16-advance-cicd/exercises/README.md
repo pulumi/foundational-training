@@ -17,8 +17,8 @@
 
 1. Clone the Module 08 solution to your machine.
 2. Add a GitHub Action secret to store your Pulumi access token as `PULUMI_ACCESS_TOKEN`
-3. Use a Pulumi ESC Environment to configure AWS Dynamic Credentials.
-4. Commit the changes by creating a feature branch and PR.
+3. Use [this Pulumi template](https://github.com/desteves/aws-oidc-typescript) to create your AWS Resources for Pulumi OIDC.
+4. Use a Pulumi ESC Environment to [configure AWS Dynamic Credentials](https://www.pulumi.com/docs/esc/providers/aws-login/#example).
 
 ---
 
@@ -37,17 +37,14 @@
 
 ## Module 16 - Advanced CI/CD - **Exercise 3**
 
-**🎯 Goal**: Identify when a drift has occurred in their infrastructure via an Actions cronjob.
+**🎯 Goal**: Identify when a drift has occurred via an Actions cronjob.
 **🎬 Steps**:
 
-1. Trigger the drift detection manually:
- a. In the console, add a tag to one of your Pulumi-defined AWS resources.
- b. Run `pulumi update --refresh -y`
-2. Add a cronjob to your workflow named `drift.yml` that runs every 5 minutes.
-    Hint: The cronjob does a preview with the `expect-no-changes: true` flag.
-3. Commit the changes by creating a feature branch and PR.
-4. Run the drift detection action from the browser.
-5. Modify a resource's tag and re-run the action.
+1. Create a new Workflow that runs every 5 minutes
+2. Ensure the job does the equivalent of `pulumi preview --refresh --expect-no-changes`
+    Hint: you the CLI command to manually test drift detection.
+3. Trigger the Workflow (one option is to delete one of the bucket resources)
+4. Reconcile the state
 
 ---
 

@@ -14,16 +14,16 @@ You will also learn the fundamentals of an infrastructure CI/CD pipeline through
 
 ---
 
-## Module 08 - Intro to CI/CD - 📚 Concepts
+## Module 08 - Intro to CI/CD
 
-- **DevOps** streamline the software delivery process, accelerate the pace of development, and improve the quality and reliability of software deployments.
-- **GitOps** leverages Git as the single source of truth for defining and managing infrastructure and application deployments. It extends the principles of DevOps by using Git repositories as the primary interface for managing infrastructure as code (IaC) and application configurations.
+- Infra CI/CD differs from application CI/CD b/c it's stateful
 
----
+You have to see the code changes WITH the infra changes (pulumi preview) in order to properly review IaC code
 
-## Module 08 - Intro to CI/CD - 📚 Concepts (cont'd)
+Best practice:
 
-An **infrastructure CI/CD pipeline** is a set of automated processes and tools designed to manage and deploy (IaC) consistently, efficiently, and reliably. It's an essential part of modern DevOps practices and is used to streamline the provisioning and maintenance of infrastructure resources, such as servers, networks, and cloud services.
+- `preview` on a PR commit
+- `update` on a merge to the target branch
 
 ---
 
