@@ -1,7 +1,0 @@
-name: module-03-eks-helm
-runtime: nodejs
-description: A minimal TypeScript Pulumi program
-config:
-  pulumi:tags:
-    value:
-      pulumi:template: typescript

@@ -1,3 +1,0 @@
-config:
-  aws:region: us-west-2
-  module-09-policy-as-code-infra:MY_NAME: diana

@@ -1,2 +1,0 @@
-runtime: nodejs
-description: A minimal Policy Pack for Aws using Pulumi Compliance Ready Policies and TypeScript.
