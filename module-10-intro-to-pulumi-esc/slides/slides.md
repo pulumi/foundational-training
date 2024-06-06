@@ -1,27 +1,33 @@
 # Module 10 - Intro to Pulumi ESC - 🌐 Overview
 
-Learn the fundamentals Pulumi ESC.
+Pulumi ESC aims to consolidate secrets and config management sprawl under a single umbrella via Environments. It offers a uniform consumption interface regardless of where secrets may reside. ESC is equipped to handle the lifecycle of secrets and configs that need to be shared with developers, CI/CD systems, Pulumi programs, and more. It allows for secrets to be _CRUD'ed_ with minimal to no disruption to the consumer(s), which also paves the way for secret management migrations.
 
-- What is it?
-- Features
-- AWS OIDC
-- CRUD
+---
+
+## Module 10 - Intro to Pulumi ESC - Definitions
+
+- ESC -> Environments, Secrets, and Configuration
+- Environments: A YAML file that can import other Environments. Defines secrets/configs.
+- Secrets: Sensitive data such as API keys and passwords.
+  - Static: Values that do not change on the fly, may still be rotated.
+  - Dynamic: Generated on the fly and has a short validity period.
+- Configuration: Non-secret values such as AWS Regions
 
 ---
 
 ## Module 10 - Intro to Pulumi ESC
 
-- ESC -> Environments, Secrets, and Configuration
 - Centralized management solution for cloud apps + infra secrets, and configurations
 - A managed service within Pulumi Cloud (self-hosted offering at some point...)
 - Fully packed with enterprise features
   - RBAC
   - Auditing
-- Define _Environments_ as YAML files, which are collection of secrets and configurations.
+  - Versioning
+  - SDKs
 
 ---
 
-## Module 10 - Intro to Pulumi ESC - Advanced Features
+## Module 10 - Intro to Pulumi ESC - Advanced Features Overview
 
 - Ability to import other Pulumi ESC Environments
 - Store Dynamic Credentials, e.g., OIDC
@@ -31,7 +37,14 @@ Learn the fundamentals Pulumi ESC.
 
 ---
 
-## Module 10 - Intro to Pulumi ESC - AWS OIDC
+## Module 10 - Intro to Pulumi ESC - Integrations
+
+Integrations allow for existing Secrets Management solutions
+<!-- TODO -->
+
+---
+
+## Module 10 - Intro to Pulumi ESC - AWS OIDC Integration
 
 - Popular configuration for AWS + Dynamic Credentials
 
@@ -44,18 +57,19 @@ aws:
         sessionName: pulumi-environments-session
 ```
 
-Other configuration [options](https://www.pulumi.com/docs/esc/providers/aws-login/#configuring-oidc) available.
+See more configuration [options](https://www.pulumi.com/docs/esc/providers/aws-login/#configuring-oidc).
 
 ---
 
 ## Module 10 - Intro to Pulumi ESC - CRUD
 
-You can CRUD Pulumi ESC environments from
+You can CRUD Pulumi ESC Environments from
 
 - Pulumi ESC CLI
 - Pulumi CLI, via the `pulumi esc` command
 - Pulumi Cloud REST API
-- Pulumi Service Provider (in the works)
+- Pulumi Service Provider
+- ESC Provider
 
 ---
 
@@ -63,21 +77,21 @@ You can CRUD Pulumi ESC environments from
 
 ESC can be consumed:
 
-- As Enviornment Variables
+- As Enviornment variables
   - Loaded via the ESC CLI or the Pulumi CLI
 - Within Pulumi programs
   - Referenced in the Stack file
-- Via other ESC Environments
+- Via other ESC Environments (hierarchy model)
   - Defined in the `imports` section of the Environment file.
 
-The above allow for straightforward integration with CI/CD pipelines.
+The above allows for straightforward integration with CI/CD pipelines.
 
 ---
 
 ## Module 10 - Intro to Pulumi ESC - Other
 
-- Currently, in preview /expected to GA in September 2024
-- Pricing TBD, free during Preview
+- Currently in preview and expected to GA in September 2024
+- Pricing TBD, free during the preview phase
 - Other features
-  - Version control
+  - Versioning
   - Table UI editing capabilities
