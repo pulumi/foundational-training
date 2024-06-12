@@ -14,7 +14,7 @@ Obtain hands-on experience by managing Pulumi ESC Environments:
 
 ---
 
-## Exercise 1
+## Exercise 1 - Inheritance
 
 Create two Pulumi ESC Environments such that
 
@@ -34,7 +34,7 @@ Ensure you can open `env_child` in the Pulumi Cloud console. You'll test your wo
 
 ---
 
-## Exercise 2 - [R]ead
+## Exercise 2 - RBAC + Targets
 
 - Create a Read Only ESC Team token to read everything** in `env_child`
 - Use the token to Read the contents of `env_child` via:
@@ -47,12 +47,11 @@ Ensure you can open `env_child` in the Pulumi Cloud console. You'll test your wo
 
 ---
 
-## Exercise 3 - [U]pdate
+## Exercise 3 - AWS OIDC
 
 This exercise assumes you have a dedicated AWS sandbox account. The exercise can be adapted otherwise as a single OIDC IdP allows up to 100 audiences.
 
-- Update the `env_parent` with the AWS OIDC configuration
-- Update the `env_child` to read a secret from AWS Secrets Manager
+- Update the `env_parent` with AWS OIDC configuration
 
 To create necessary AWS resources in your AWS sandbox account feel free to use the instructor-provided Pulumi templates.
 
@@ -65,9 +64,19 @@ pulumi env open env_child
 
 ---
 
-## Exercise 4 - [D]elete
+## Exercise 4 - AWS Secrets Manager + Pulumi program
+
+- Update the `env_child` to read a secret from AWS Secrets Manager. Note, `env_child` should import `env_parent`.
+
+To create necessary AWS resources in your AWS sandbox account feel free to use the instructor-provided Pulumi templates.
+
+Test your Environment by exporting the secret as an Output in a Pulumi program.
+
+---
+
+## Exercise 5 - RBAC and Auditing
 
 - Create a dummy ESC Environment as `delete_this`
-- Create a Team with an ESC Token that can delete Environments
-- Use the ESC CLI to delete the `delete_this` Environment.
+- Create a Team with a Team Token that can delete the `delete_this` Environment
+- Using the above token, use the ESC CLI to delete the `delete_this` Environment.
 - Find the audit logs for the above activity to confirm the proper Team token was used.
