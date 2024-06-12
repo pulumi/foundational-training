@@ -1,10 +1,20 @@
-# Module 10 - Pulumi ESC - Exercises - 🎯 Goal
+---
+theme: default
+paginate: true
+header: "Pulumi ESC"
+---
+# Exercises - 🎯 Goal
 
-Obtain hands-on experience by CRUD'ing Pulumi ESC Environments.
+Obtain hands-on experience by managing Pulumi ESC Environments:
+
+- Use Environment inheritance
+- Configure AWS OIDC
+- Read a secret from AWS Secrets Manager
+- Read Config values
 
 ---
 
-## Module 10 - Pulumi ESC - Exercise 1 - [C]reate
+## Exercise 1
 
 Create two Pulumi ESC Environments such that
 
@@ -24,7 +34,7 @@ Ensure you can open `env_child` in the Pulumi Cloud console. You'll test your wo
 
 ---
 
-## Module 10 - Pulumi ESC - Exercise 2 - [R]ead
+## Exercise 2 - [R]ead
 
 - Create a Read Only ESC Team token to read everything** in `env_child`
 - Use the token to Read the contents of `env_child` via:
@@ -37,20 +47,25 @@ Ensure you can open `env_child` in the Pulumi Cloud console. You'll test your wo
 
 ---
 
-## Module 10 - Pulumi ESC - Exercise 3 - [U]pdate
+## Exercise 3 - [U]pdate
 
 This exercise assumes you have a dedicated AWS sandbox account. The exercise can be adapted otherwise as a single OIDC IdP allows up to 100 audiences.
 
-- Update the `env_parent` with the AWS OIDC provider
+- Update the `env_parent` with the AWS OIDC configuration
 - Update the `env_child` to read a secret from AWS Secrets Manager
 
 To create necessary AWS resources in your AWS sandbox account feel free to use the instructor-provided Pulumi templates.
 
-Test your Environment by opening it in the Pulumi Cloud console.
+Test your Environment by running:
+
+```bash
+esc env open env_parent -- aws s3 ls
+pulumi env open env_child
+```
 
 ---
 
-## Module 10 - Pulumi ESC - Exercise 4 - [D]elete
+## Exercise 4 - [D]elete
 
 - Create a dummy ESC Environment as `delete_this`
 - Create a Team with an ESC Token that can delete Environments
