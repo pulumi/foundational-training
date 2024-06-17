@@ -201,3 +201,56 @@ More info: <https://www.pulumi.com/docs/using-pulumi/crossguard/compliance-ready
 - **Policy Group:** (some # of versioned policy packs) (policy pack config) + (some # of stacks)
 - Default Policy Group automatically includes all stacks.
 - When running `pulumi preview` or `pulumi up`, Pulumi CLI downloads the applicable packs and runs them. (Don't need to specify `--policy-pack`.)
+
+---
+
+# Custom Configuration, Authoring
+
+Policy authors can define a config schema for each policy:
+
+```json
+configSchema: {
+    properties: {
+        "excludeBaseImageVulns": {
+            default: false,
+            type: "boolean"
+        },
+        "pulumiProgramAbsPath": {
+            type: "string"
+        },
+        "severityThreshold": {
+            default: "critical",
+            enum: ["low", "medium", "high", "critical"]
+        },
+    },
+```
+
+---
+
+# Custom Configuration, Consuming (Open Source)
+
+Consumers can author a JSON file with config values:
+
+```json
+{
+  "snyk-container-scan": { // policy name
+    "excludeBaseImageVulns": true,
+    "pulumiProgramAbsPath": "/Users/jkodroff/src/jkodroff/demo-pulumi-policy-snyk/infra",
+    "severityThreshold": "high"
+  }
+}
+```
+
+And pass via the CLI:
+
+```bash
+pulumi preview --policy-pack ../policy --policy-pack-config policy-config.json
+```
+
+---
+
+# Custom Configuration, Consuming (Server-Side Enforcement)
+
+Consumers can configure policy packs via the Pulumi Cloud UI:
+
+![width:275px](policy-pack-config.png)
