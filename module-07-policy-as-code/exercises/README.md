@@ -1,4 +1,4 @@
-# Module 09: Policy as Code Exercises
+# Module 07: Policy as Code Exercises
 
 **NOTE:** The exercises in this module are designed to be completed in order. Performing the exercises out of order may require changes to the steps to work.
 
@@ -160,7 +160,7 @@ pulumi org set-default your-org-name
 
     ```bash
     cd ../infra2
-    pulumi new aws-typescript -n module-09-policy-as-code-infra2-your-name
+    pulumi new aws-typescript -n module-07-policy-as-code-infra2-your-name
     ```
 
 1. In the Pulumi Cloud console, locate the default policy group for your organization and add the two policy packs you published.

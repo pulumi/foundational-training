@@ -1,4 +1,4 @@
-# Module 16 - Advanced CI/CD - 🌐 Overview
+# Module 11 - Advanced CI/CD - 🌐 Overview
 
 In this module, you will learn advanced topics that make up a robust infrastructure CI/CD pipeline through guided exercises. You will use Pulumi tooling to introduce production features to an infra CI/CD pipeline.
 
@@ -9,7 +9,7 @@ In this module, you will learn advanced topics that make up a robust infrastruct
 
 ---
 
-## Module 16 - Advanced CI/CD - **Credentials**
+## Advanced CI/CD - **Credentials**
 
 - The infra CI/CD pipeline should use short-term credentials for the cloud access
 - Leverage **Pulumi ESC** to configure AWS OIDC
@@ -19,7 +19,7 @@ In this module, you will learn advanced topics that make up a robust infrastruct
 
 ---
 
-## Module 16 - Advanced CI/CD - **Compliance**
+## Advanced CI/CD - **Compliance**
 
 - Use Pulumi CrossGuard - Policy as Code
 - Start with an existing Policy pack, and modify
@@ -28,7 +28,7 @@ In this module, you will learn advanced topics that make up a robust infrastruct
 
 ---
 
-## Module 16 - Advanced CI/CD - **Drift**
+## Advanced CI/CD - **Drift**
 
 - Infra changes out-of-band due to:
   - Disaster Recovery steps still use ClickOps
@@ -41,7 +41,7 @@ In this module, you will learn advanced topics that make up a robust infrastruct
 
 ---
 
-## Module 16 - Advanced CI/CD - **Reconciling**
+## Advanced CI/CD - **Reconciling**
 
 Option 1: Bring cloud changes into your Pulumi state
 
@@ -56,7 +56,7 @@ Option 2: Revert cloud changes to match the Pulumi state
 
 ---
 
-## Module 16 - Advanced CI/CD - **Ephemeral infrastructure**
+## Advanced CI/CD - **Ephemeral infrastructure**
 
 - Helpful when working on multiple feature branches
 - Need to test in isolation
@@ -65,7 +65,7 @@ Option 2: Revert cloud changes to match the Pulumi state
 
 ---
 
-## Module 16 - Advanced CI/CD - ✨ Summary
+## Advanced CI/CD - ✨ Summary
 
 You were introduced to various production needs of an infrastructure pipeline. Head over to the exercises to obtain hands-on practice for each.
 

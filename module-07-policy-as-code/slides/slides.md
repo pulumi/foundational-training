@@ -4,7 +4,7 @@ paginate: true
 marp: true
 ---
 
-# **Module 09: Policy as Code**
+# **Module 07: Policy as Code**
 
 ---
 

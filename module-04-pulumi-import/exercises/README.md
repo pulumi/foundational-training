@@ -1,4 +1,4 @@
-# Module 05: Pulumi Import
+# Module 04: Pulumi Import
 
 ## Prerequisities
 

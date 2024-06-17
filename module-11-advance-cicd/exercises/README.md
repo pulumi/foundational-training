@@ -1,4 +1,4 @@
-# Module 16 - Advanced CI/CD - 🌐 Overview
+# Module 11 - Advanced CI/CD - 🌐 Overview
 
 ## 🎯 Goals
 
@@ -9,7 +9,7 @@
 
 ---
 
-## Module 16 - Advanced CI/CD - **Exercise 1**
+## Advanced CI/CD - **Exercise 1**
 
 **🎯 Goal**: Set up your GitHub project with Pulumi ESC to authenticate using Dynamic Credentials with an AWS OIDC configuration.
 
@@ -22,7 +22,7 @@
 
 ---
 
-## Module 16 - Advanced CI/CD - **Exercise 2**
+## Advanced CI/CD - **Exercise 2**
 
 **🎯 Goal**: By adding a default policy pack, your workflow will automatically ensure your stack is not violating any cloud infrastructure best practices. You'll add compliance checks to the CI/CD pipeline using [Pulumi CrossGuard](https://www.pulumi.com/crossguard/).
 
@@ -35,7 +35,7 @@
 
 ---
 
-## Module 16 - Advanced CI/CD - **Exercise 3**
+## Advanced CI/CD - **Exercise 3**
 
 **🎯 Goal**: Identify when a drift has occurred via an Actions cronjob.
 **🎬 Steps**:
@@ -48,7 +48,7 @@
 
 ---
 
-## Module 16 - Advanced CI/CD - **Exercise 4**
+## Advanced CI/CD - **Exercise 4**
 
 **🎯 Goal**: Configure ephemeral environments using Pulumi Deployments Review Stacks.
 

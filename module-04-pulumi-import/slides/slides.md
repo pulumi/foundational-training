@@ -4,7 +4,7 @@ paginate: true
 marp: true
 ---
 
-# **Module 05: Import and Using Pulumi with other IaC Tools**
+# **Module 04: Import and Using Pulumi with other IaC Tools**
 
 ---
 
