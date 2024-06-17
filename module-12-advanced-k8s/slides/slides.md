@@ -4,4 +4,4 @@ paginate: true
 marp: true
 ---
 
-# **Module 14: Advanced Kubernetes**
+# **Module 12: Advanced Kubernetes**
