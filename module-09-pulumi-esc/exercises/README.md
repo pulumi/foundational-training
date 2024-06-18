@@ -76,6 +76,8 @@ Test your Environment by exporting the secret value as a `secretValue` Output in
 pulumi stack output secretValue
 ```
 
+Note: You'll need to update the IAM policy associated with the role to grant the necessary permissions (`secretsmanager:GetSecretValue`)
+
 ---
 
 ## Exercise 5 - RBAC and Auditing
