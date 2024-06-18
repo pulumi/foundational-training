@@ -80,6 +80,10 @@ aws:
     AWS_SESSION_TOKEN: ${aws.login.sessionToken}
 ```
 
+---
+
+## AWS OIDC Example cont'd
+
 Use:
 
 ```bash
@@ -92,9 +96,7 @@ For more configuration options, see the [Configuring OIDC](https://www.pulumi.co
 
 ## 1Password Example
 
-Store secrets in 1Password and consume them via ESC for a Golang app to use as environment variables.
-
-1Password resources needed:
+Store secrets in 1Password and consume them via ESC for a Golang app to use as environment variables. 1Password resources needed:
 
 - A Vault, `dev-vault`
 - A Service Account with read access to the Vault, `dev-vault-read-service-account`
@@ -180,12 +182,15 @@ ESC Environments can be consumed in various ways known as targets. Below are the
 - **Environment Variables**:
 
   - Loaded via the ESC CLI or the Pulumi CLI
-  - Great for app development, scripting, and shell commands
 
     ```bash
     esc run aws-oidc-env -- aws s3 ls
     pulumi env run aws-oidc-env -- aws s3 ls
+    ```
 
+  - Great for app development, scripting, and shell commands
+
+    ```bash
     esc run aws-oidc-env -i -- bash
     ```
 
@@ -213,23 +218,23 @@ ESC Environments can be consumed in various ways known as targets. Below are the
 
 ## Target Options - SDKs cont'd
 
-  - Example of using the SDK to open an ESC Environment:
+- Example of using the SDK to open an ESC Environment:
 
-    ```typescript
-    // File Name: index.ts
-    import * as esc from "@pulumi/esc-sdk";
-    async function main() {
-      const config = new esc.Configuration({ 
-        accessToken: process.env.PULUMI_ACCESS_TOKEN! 
-      });
-      const client = new esc.EscApi(config);
-      const orgName = process.env.PULUMI_ORG!;
-      const envName = "aws-oidc-env";
-      const openEnv = await client.openAndReadEnvironment(
-        orgName, 
-        envName);
-    }
-    ```
+  ```typescript
+  // File Name: index.ts
+  import * as esc from "@pulumi/esc-sdk";
+  async function main() {
+    const config = new esc.Configuration({ 
+      accessToken: process.env.PULUMI_ACCESS_TOKEN! 
+    });
+    const client = new esc.EscApi(config);
+    const orgName = process.env.PULUMI_ORG!;
+    const envName = "aws-oidc-env";
+    const openEnv = await client.openAndReadEnvironment(
+      orgName, 
+      envName);
+  }
+  ```
 
 ---
 
@@ -319,10 +324,9 @@ You can manage (CRUD) Pulumi ESC Environments in several ways. Below are common 
   - ESC Provider for managing ESC-related resources
 
 - **Pulumi Cloud**:
-  - **Console**:
-    - Great for getting started / browsing / ad-hoc testing.
-
-  - **REST API Endpoints**:
+  - Great for getting started / browsing / ad-hoc testing. Options:
+    - **Console**
+    - **REST API Endpoints**
 
 ---
 
