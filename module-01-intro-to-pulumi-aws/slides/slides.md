@@ -199,3 +199,11 @@ Full list: <https://www.pulumi.com/docs/concepts/options/>
     ```
 
   Use for multi-region deployments or e.g., creating a K8s cluster and deploying resources onto it in the same program.
+
+---
+
+# Automation API
+
+- Embed Pulumi into applications
+- Build custom workflows e.g. Web APIs, CLIs
+- More to come on day 3
