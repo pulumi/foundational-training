@@ -14,7 +14,7 @@ marp: true
 
 ---
 
-## What is Pulumi Cloud?
+## Overview
 
 * State management
 * Managing Access
@@ -45,8 +45,9 @@ marp: true
 * AWS S3
 * Azure Blob Storage
 * Google Cloud Storage
+* Services with S3 compatible APIs
 
-<!-- also services with S3 compatible APIs -->
+<!-- such as minio, ceph -->
 
 ### Managed by Pulumi
 
@@ -214,27 +215,6 @@ marp: true
 * Read - can view plaintext values set in the environment
 * Open - can read dynamic values, secrets and run functions
 * Write - can update the environment
-
----
-
-### Demo
-
----
-
-### ESC CLI
-
-* Standalone or available through the Pulumi CLI
-* Use OIDC with third party CLIs
-
----
-
-### Demo
-
----
-
-### Exercise
-
-<!-- using esc with AWS CLI -->
 
 ---
 
