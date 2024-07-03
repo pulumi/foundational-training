@@ -16,12 +16,57 @@ marp: true
 
 ## What is Pulumi Cloud?
 
+* State management
 * Managing Access
 * Collaboration
 * Search
 * Configuration
 * Deployments
 * Guardrails
+
+---
+
+## State management
+
+---
+
+### What is state?
+
+* Source of truth for what is deployed using Pulumi
+* Contains all inputs and outputs of all resources in stack
+* Secrets encrypted
+* Allows Pulumi to be declarative
+
+---
+
+### Self-managed
+
+* Local filesystem
+* AWS S3
+* Azure Blob Storage
+* Google Cloud Storage
+
+<!-- also services with S3 compatible APIs -->
+
+### Managed by Pulumi
+
+* Transactional checkpoints
+* Managed access
+* Full deployment history
+* Concurrent state locking
+
+---
+
+### Easy to migrate state
+
+* Export using the CLI
+* Import using the CLI
+
+---
+
+### Demo
+
+<!-- migrating between s3 and Pulumi Cloud -->
 
 ---
 
@@ -86,6 +131,12 @@ marp: true
 
 ---
 
+### Exercises
+
+<!-- Exploring activity history -->
+
+---
+
 ## Search
 
 * Every resource that you've deployed with Pulumi
@@ -94,11 +145,15 @@ marp: true
 
 ---
 
-### Demo of search
+### Demo
+
+<!-- resource search -->
 
 ---
 
 ### Exercises
+
+<!-- Login to Pulumi cloud and try different searches including property search -->
 
 ---
 
@@ -179,6 +234,8 @@ marp: true
 
 ### Exercise
 
+<!-- using esc with AWS CLI -->
+
 ---
 
 ## Deployments
@@ -256,3 +313,9 @@ marp: true
 ---
 
 ### Demo
+
+---
+
+### Exercises
+
+<!-- Running policy as code on the command line -->
