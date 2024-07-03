@@ -277,45 +277,14 @@ marp: true
 
 ---
 
-### Policy As Code
-
-* Rules to enforce company best pracitices across infrastructure updates
-* Written in Python or Typescript
-* Can be run from the command line
-* Published to Pulumi Cloud
-* Enforced on updates
-* Mandatory or advisory
-
----
-
-### Use cases
-
-* Security
-* Cost compliance
-* Reliability
-
----
-
-### Pre-built compliance packages
-
-* Open source
-* Built alongside guidelines from frameworks such as PCI and the AWS Well Architected Framework
-* Mix and match
-
----
-
 ### Integration with Pulumi Cloud
 
 * Publish the policy packs as part of your CI/CD workflow
 * Add your stacks to Policy Groups
 * Policy packs are run during updates and previews
 
+<!-- There's a whole module on PaC so just want to go into how it works with Pulumi Cloud -->
+
 ---
 
 ### Demo
-
----
-
-### Exercises
-
-<!-- Running policy as code on the command line -->
