@@ -270,3 +270,41 @@ marp: true
 ---
 
 ### Demo
+
+---
+
+## Pricing
+
+---
+
+### Resources Under Management
+
+* Everything is a resource
+* All resources cost the same
+
+---
+
+### Plans
+
+* Individual
+* Team
+* Enterprise
+* Business Critical
+
+---
+
+### What it looks like you're paying for
+
+<!-- add screenshot of lists of resources -->
+
+---
+
+### What you're actually paying for
+
+* State management
+* Managing Access
+* Collaboration
+* Search
+* Configuration
+* Deployments
+* Guardrails
