@@ -106,7 +106,7 @@ const privateSubnetIds = stackRef.getOutput("privateSubnetIds") as pulumi.Output
 
 - Align with team ownership and the org chart (Conway's Law)
 - Limit blast radius
-- Pulumi prevents concurrent stack updates
+- Pulumi Cloud automatically prevents concurrent stack updates
 - Things that change together should live together:
 
   If you see yourself consistently making changes in multiple repos (app or infra code) or multiple folders, then your code organization is probably not optimal.
