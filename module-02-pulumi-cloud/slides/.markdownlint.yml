@@ -1,0 +1,4 @@
+default: true
+MD025: false # One h1 per doc
+MD013: false # Line length
+MD024: false # Multiple headings with the same content
