@@ -158,6 +158,16 @@ marp: true
 
 ---
 
+### Copilot
+
+* Prompt-driven infrastructure information
+* Generate Pulumi programs
+* Cost savings
+* Deployment failures
+* Read-only
+
+---
+
 ### Exercises
 
 <!-- Login to Pulumi cloud and try different searches including property search -->
