@@ -58,6 +58,12 @@ marp: true
 
 ---
 
+### Pulumi Cloud provider
+
+* Manage your Pulumi Cloud organisation with Pulumi
+
+---
+
 ### Easy to migrate state
 
 * Export using the CLI
