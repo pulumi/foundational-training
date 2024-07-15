@@ -95,7 +95,7 @@ const image = new dockerBuild.Image(ownership.Project + "-image", {
 ## Docker Build image defaults
 
 - Docker Build image does **not** push images, set `push` to `true` to override.
-- Docker Build image builds images during previews, use `buildOnPreview` to override.
+- Docker Build image builds images during previews, set `buildOnPreview` to `false` to override.
 - Tags: Docker image tags are appended (rather than replaced) to the existing tag set for a given Image resource.
   - **Recommended** Use a separate tool (a lifetime policy or otherwise) to delete old tags. Verify ECR `imageTagMutability: "IMMUTABLE"` option.
   - It's possible to use the resource options `replaceOnChanges: [ "tags" ]` with `deleteBeforeReplace: true` however this may be excessive.
