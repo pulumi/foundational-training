@@ -86,19 +86,44 @@ const privateSubnetIds = stackRef.getOutput("privateSubnetIds") as pulumi.Output
 
 # Stack Outputs/References: Best Practices
 
-- **Do** share only what you _know_ is actually consumed downstream. (Limit fan-out.)
-- **Do not** share entire resources. Unnecessary performance hit and churn on values.
-- **Do** share _stable_ IDs and query for the resource in the downstream stack if other attribs are needed, e.g.:
+**Do** share only what you _know_ is actually consumed downstream. (Limit fan-out.)
 
-    ```typescript
-    const vpcId = stackRef.getOutput("vpcId");
-    const existingVpc = aws.ec2.Vpc.Get(vpcId);
-    const serviceSecGroup = new aws.ec2.SecurityGroup("security-group", {
-      vpcId: vpcId,
-      ingress: [{
-        cidrBlocks: [vpc.cidrBlock],
-        // ...
-    ```
+**Don't** add outputs "just in case". It's code and therefore is malleable. Submit a PR if a change is needed.
+
+This means:
+
+- Remove stack outputs when they are (definitively) no longer needed (code as documentation!)
+
+**Note:** Nuances apply if your organization is enormous where you can't possibly know all downstream consumers. In this case, be much more careful about breaking changes.
+
+---
+
+# Stack Outputs/References: Best Practices
+
+**Do not** share entire resources. Unnecessary performance hit and churn on values.
+
+```typescript
+// Do not do this:
+export const vpc = new awsx.ec2.Vpc("my-full-vpc");
+```
+
+**Do** share stable IDs and query for the entire object in the referencing stack, e.g.:
+
+```typescript
+// Parent stack:
+const vpc = new awsx.ec2.Vpc("my-full-vpc");
+export vpcId = vpc.vpcId;
+```
+
+```typescript
+const vpcId = stackRef.getOutput("vpcId");
+const existingVpc = aws.ec2.Vpc.Get(vpcId);
+const serviceSecGroup = new aws.ec2.SecurityGroup("security-group", {
+  vpcId: vpcId,
+  ingress: [{
+    cidrBlocks: [vpc.cidrBlock],
+    // ...
+```
 
 ---
 
