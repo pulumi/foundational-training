@@ -216,6 +216,8 @@ marp: true
 * Open - can read dynamic values, secrets and run functions
 * Write - can update the environment
 
+<!-- There's a whole module on PaC so just want to go into how it works with Pulumi Cloud -->
+
 ---
 
 ## Deployments
