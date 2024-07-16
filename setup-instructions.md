@@ -23,21 +23,30 @@ You can install Pulumi via one of the following methods:
 
 ## Set up Pulumi Cloud
 
-**Note:** You may be able to speed up these steps by running the `pulumi login` command after installing the Pulumi CLI.
+If you have never used Pulumi before, you should create a Pulumi Cloud account. Pulumi Cloud is free for individual use forever and makes learning Pulumi significantly easier.
 
-If you have not already done so, sign up for a Pulumi Cloud account at <https://pulumip.us/SignUp-Pulumi>. Pulumi Cloud accounts are free for individual use forever, and we will not ask you for payment information.
-
-Once your have your Pulumi Cloud account, you will need to add your Pulumi Cloud personal token to your environment. The token authenticates your personal identity with Pulumi Cloud. (You can use your personal token to authenticate with any Pulumi Cloud organization of which you are a member.) To obtain a Pulumi Cloud token, click here in [Pulumi Cloud](https://app.pulumi.com/):
-
-![Creating a personal access token](images/personal-access-token.png)
-
-Follow the instructions to create a Pulumi Cloud personal token. Place the token's value in your shell's environment, e.g.:
+The easiest way to create a Pulumi Cloud account and generate your access token is to run the following command:
 
 ```bash
-export PULUMI_ACCESS_TOKEN=pul-4a7028d227cd0f7fac6f3714fec1c3368921f25e
+pulumi login
 ```
 
-Be careful with your Pulumi access token. Anyone who has its value will be able to authenticate to Pulumi Cloud via the Pulumi CLI.
+Follow the prompts to configure your Pulumi Cloud account and access token.
+
+Alternatively, you can follow the following steps:
+
+1. Sign up for a Pulumi Cloud account at <https://pulumip.us/SignUp-Pulumi>. Pulumi Cloud accounts are free for individual use forever, and we will not ask you for payment information.
+1. Once your have your Pulumi Cloud account, you will need to add your Pulumi Cloud personal token to your environment. The token authenticates your personal identity with Pulumi Cloud. (You can use your personal token to authenticate with any Pulumi Cloud organization of which you are a member.) To obtain a Pulumi Cloud token, click here in [Pulumi Cloud](https://app.pulumi.com/):
+
+    ![Creating a personal access token](images/personal-access-token.png)
+
+1. Follow the instructions to create a Pulumi Cloud personal token. Place the token's value in your shell's environment, e.g.:
+
+    ```bash
+    export PULUMI_ACCESS_TOKEN=pul-4a7028d227cd0f7fac6f3714fec1c3368921f25e
+    ```
+
+**Note:** Be careful with your Pulumi access token. Anyone who has its value will be able to authenticate to Pulumi Cloud via the Pulumi CLI.
 
 To verify that Pulumi is working on your system and that your personal token is correctly configured, run the following command:
 
