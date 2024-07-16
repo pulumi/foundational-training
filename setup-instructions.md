@@ -63,14 +63,16 @@ josh-pulumi-corp
 
 ## Create a Pulumi Cloud Organization
 
-Some of the later exercises in the workshop will benefit from having your own Pulumi organization. If you don't already have a Pulumi Organization, create a trial organization by clicking here in the Pulumi Cloud UI:
+Some of the later exercises in the workshop will benefit from having your own Pulumi organization. If you don't already have a Pulumi Organization, create a trial organization by navigating to <https://app.pulumi.com/?create-organization=1> or by clicking here in the Pulumi Cloud UI:
 
 ![Creating a personal access token](images/create-org.png)
 
-Set your default org to your trial org.
+Give your trial organization a name like `aws-training-<your name>`, e.g. `aws-training-joshkodroff` or `aws-training-jkodroff`, etc.
+
+Set your default org to your trial org:
 
 ```bash
-pulumi org set-default your-demo-org
+pulumi org set-default aws-training-jkodroff
 ```
 
 ### Optional: Pre-Install Required Pulumi Plugins
