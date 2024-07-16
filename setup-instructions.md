@@ -90,6 +90,7 @@ In order verify that everything is set up correctly, you'll run a simple Pulumi 
     ```bash
     cd test-setup-py
     source venv/bin/activate
+    pip install -r requirements.txt
     pulumi up
     ```
 
