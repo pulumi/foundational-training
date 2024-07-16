@@ -18,8 +18,8 @@ header: "Pulumi + Docker"
 
 ## Docker provider v3 Image
 
-- `v3` exposes BuildKit functionality through raw command-line arguments. The `extraOptions` field became a catch-all for BuildKit then-experimental features.
-- Needs `DOCKER_BUILDKIT` to use the `extraOptions` Example,
+- `v3` exposed BuildKit functionality through raw command-line arguments. The `extraOptions` array field became a catch-all for BuildKit then-experimental features. It also needed `DOCKER_BUILDKIT` to be set to `1`.
+- This is now **obsolete**, folks should upgrade directly to the new Docker Build provider without losing any functionality. Example of a `v3` `docker.Image`,
 
   ```typescript
   const v3 = new docker.Image("v3-image", {
@@ -39,7 +39,7 @@ header: "Pulumi + Docker"
 
 ## Docker provider v4 Image
 
-- Does *not* support `extraOptions` (nor secrets).
+- Does *not* support `extraOptions` thereby does not have support for [Docker secrets](https://www.pulumi.com/registry/packages/docker-build/api-docs/image/#secrets).
 - `v4` uses the `build` Input to configure *some* BuildKit params. Example,
 
   ```typescript
@@ -104,7 +104,25 @@ const image = new dockerBuild.Image(ownership.Project + "-image", {
 
 ## Migrating to `docker_build.Image` from `docker.Image`
 
-- Use `.ref` instead of `.imageName` when referencing the Image in a service/container. (Or `digest`, if you have multiple tags. )
+- Unlike earlier providers, the `Image` resource can push multiple tags. As a convenience, it exposes a `ref` output consisting of a tag with digest as long as the image was pushed. For more specific tag reference, use the SHA256 `digest` output.
+- Use `.ref` instead of `.imageName` when referencing the Docker Image in a service/container. Example,
+
+```typescript
+const service = new awsx.ecs.FargateService("service", {
+  // ...
+    taskDefinitionArgs: {
+        container: {
+            image: image.ref,
+          // ...
+        },
+    },
+});
+```
+
+---
+
+## Migrating to `docker_build.Image` from `docker.Image` cont'd
+
 - `registry.server` is now `registries[].address`
 - Use `buildOnPreview` and `push` as needed to maintain existing behavior.
 - Consult the [registry docs](https://www.pulumi.com/registry/packages/docker-build/api-docs/image/) for other changes.
