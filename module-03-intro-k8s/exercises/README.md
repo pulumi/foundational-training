@@ -32,7 +32,7 @@
     KUBECONFIG=kubeconfig.yml k9s
     ```
 
-1. Import the Pulumi Kubernetes provider and add a reference to your Pulumi program:
+1. Install the Pulumi Kubernetes provider and add a reference to your Pulumi program:
 
     ```bash
     npm i @pulumi/kubernetes
