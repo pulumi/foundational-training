@@ -13,10 +13,13 @@ marp: true
 ComponentResources (e.g. `awsx.ec2.Vpc`) are like CustomResources (e.g. `aws.s3.Bucket`):
 
 - Analogous to TF modules or CDK constructs
-- Unlike CustomResources, ComponentResources encapsulate multiple resources, e.g. `awsx.ec2.Vpc`
-- Like CustomResources, ComponentResources may (usually) take input args, like other resources, e.g. `numberOfAvailabilityZones` input on `awsx.ec2.Vpc`
-- Like CustomResources, ComponentResources may have outputs, like other resources, e.g. `awsx.ec2.Vpc.privateSubnetIds`
-- Unlike CustomResources, ComponentResources take a specialized options class `pulumi.ComponentResourceOpts` (similar to `pulumi.CustomResourceOptions`)
+- Unlike CustomResources, ComponentResources:
+  - encapsulate multiple resources, e.g. `awsx.ec2.Vpc`
+  - take a specialized options class `pulumi.ComponentResourceOpts` (similar to `pulumi.CustomResourceOptions`)
+
+- Like CustomResources, ComponentResources:
+  - may (usually) take input args, like other resources, e.g. `numberOfAvailabilityZones` input on `awsx.ec2.Vpc`
+  - may have outputs, like other resources, e.g. `awsx.ec2.Vpc.privateSubnetIds`
 
 ---
 
@@ -26,7 +29,7 @@ When writing Component Resources:
 
 - Always call the parent constructor first.
 - Create resources in the constructor (functions are fine).
-- Each top-level resource should have component specified as `parent`, so it displays clearly in preview/update
+- Each top-level resource should have a component specified as `parent`, so it displays clearly in `preview`/`update`
 - Always call `registerOutputs` as the final line in the constructor
 
 ---
