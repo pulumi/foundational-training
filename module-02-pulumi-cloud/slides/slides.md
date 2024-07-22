@@ -73,7 +73,7 @@ marp: true
 
 ### Demo
 
-<!-- migrating between s3 and Pulumi Cloud -->
+<!-- migrating between backends and Pulumi Cloud -->
 
 ---
 
