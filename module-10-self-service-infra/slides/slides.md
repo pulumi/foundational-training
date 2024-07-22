@@ -32,7 +32,7 @@ marp: true
 * Pulumi templates
 * New Project Workflow
 * Automation API
-* Honorable Mention: Pulumi Backstage plugin
+* Honourable Mention: Pulumi Backstage plugin
 
 ---
 
