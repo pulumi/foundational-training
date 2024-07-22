@@ -26,7 +26,7 @@ This can be used as a playbook for useful links and docs to help you successfull
 
 ## Updates
 
-Make sure you're on the updates of the dev stack (<https://app.pulumi.com/stark-tech/aws-training-module-02-cluster/dev/updates>). Although this took place over a few hours, you can see how the stack has built up over time, with adding a removing resources. 
+Make sure you're on the updates of the dev stack (<https://app.pulumi.com/stark-tech/aws-training-module-02-cluster/dev/updates>). Although this took place over a few hours, you can see how the stack has built up over time, with adding a removing resources.
 
 Click on the commit for an update to see the code change in GitHub.
 

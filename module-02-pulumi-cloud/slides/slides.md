@@ -154,7 +154,13 @@ marp: true
 
 ### Demo
 
-<!-- resource search -->
+<!-- resource search 
+
+* type:"aws:ec2/securityGroup:SecurityGroup"
+* type:"aws:ec2/instance:Instance" (because we don't manage them)
+* "show me eks clusters in dev"
+
+-->
 
 ---
 
