@@ -179,4 +179,4 @@ Multi-language components are non-trivial to write and maintain, and are best su
 
 * **For internal use** in very large, high-functioning orgs with many teams that run their own infra and do not use the same language. (MAANG-scale or SaaS platform orgs, e.g. Uber.)
 * **For use with customers** for large system implementers that want to reuse components across multiple engagements.
-* **For external use** for cloud providers who want to publish their own constructs to be consumed in all Pulumi languages. (HINT)
+* **For external use** for cloud providers who want to publish their own constructs to be consumed in all Pulumi languages.
