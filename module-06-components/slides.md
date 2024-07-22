@@ -125,6 +125,37 @@ export class MyComponent extends pulumi.ComponentResource {
 
 ---
 
+## Component Resource Example: Python
+
+```python
+@dataclass
+class MyComponentArgs:
+    bucket_suffix: pulumi.Input[str]
+
+
+class MyComponent(pulumi.ComponentResource):
+  def __init__(self, name: str, args: MyComponentArgs, opts: pulumi.ResourceOptions = None) -> None:
+
+    # This must always be called first:
+    super().__init__("myPackage:index:MyComponent", name, None, opts)
+
+    # Create resources, remembering to template the resource name and set `parent`:
+    bucket = aws.s3.Bucket(
+      f"{name}-{args.bucket_suffix}",
+      pulumi.ResourceOptions()
+    )
+
+    # Create an output that can be accessed by the calling program:
+    self.bucket_domain_name = bucket.bucket_domain_name
+
+    # This must always be called last:
+    self.register_outputs({
+        "bucket_domain_name": self.bucket_domain_name
+    })
+```
+
+---
+
 ## Sharing Code in a Single Language
 
 * Publish packages via npm, PyPI, etc.
