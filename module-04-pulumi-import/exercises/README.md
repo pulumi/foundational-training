@@ -95,7 +95,6 @@ In this exercise you will bulk import resources (typically created manually in t
 
 1. Run the `pulumi preview` command. Edit the program until the `pulumi preview` command shows no errors and no diff. The resources in this program are now under Pulumi management (although `pulumi import` protects them from deletion by default.)
 
-
 1. Finally, delete the stack with the imported resources in order to avoid accidentally modifying resources in your AWS environment:
 
     ```bash
@@ -147,7 +146,7 @@ vpc_id = "vpc-0bedecf2957cd7bc4" -->
 
 1. Using the outputs from the previous step, provision an EC2 workload in one of the private subnets. Use the `vpc_id` output to create a security group and the `private_subnet_ids` output to place the EC2 instance. (Simple examples of workloads would be a t3.micro instance running NGINX, or a t3.micro running SSM Systems Manager.)
 
-Hint: Ensure the US region used in the Pulumi Stack matches that of the VPC.
+Hint: Ensure the AWS region used in the Pulumi Stack matches that of the VPC.
 
 1. Finally, delete the stack with the imported resources:
 
