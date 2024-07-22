@@ -2,6 +2,8 @@
 
 Welcome and thank you for participating in the Pulumi Zero to Hero Bootcamp! This document will take you through the steps to install and configure Pulumi for use with AWS.
 
+[**Update 1:** Additional Day 1 requirements](#update-1-additional-day-1-requirements)
+
 ## Overview
 
 In order to verify your setup, you'll need to do the following:
@@ -110,3 +112,12 @@ In order verify that everything is set up correctly, you'll run a simple Pulumi 
     ```bash
     pulumi destroy
     ```
+
+## Update 1: Additional Day 1 Requirements
+
+Module 04 - Pulumi Import has some additional tooling requirements as we demonstrate options for interoperability with or replacing other infrastructure as code tools:
+
+1. Install the AWS CLI: <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>
+1. Install CDK: <https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html>
+1. Install Terraform: <https://developer.hashicorp.com/terraform/install>
+1. Install JQ: <https://jqlang.github.io/jq/download/>
