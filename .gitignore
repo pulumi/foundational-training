@@ -1,0 +1,5 @@
+**terraform.tfstate
+**terraform.tfstate.backup
+slides.html
+**node_modules
+**bin/
