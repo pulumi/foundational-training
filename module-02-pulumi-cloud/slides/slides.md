@@ -164,7 +164,7 @@ marp: true
 * Generate Pulumi programs
 * Cost savings
 * Deployment failures
-* Read-only
+* Read-only currently
 
 ---
 
@@ -232,7 +232,7 @@ marp: true
 * Open - can read dynamic values, secrets and run functions
 * Write - can update the environment
 
-<!-- There's a whole module on PaC so just want to go into how it works with Pulumi Cloud -->
+<!-- There's a whole module on ESC so just want to go into how it works with Pulumi Cloud -->
 
 ---
 
@@ -306,12 +306,6 @@ marp: true
 * Team
 * Enterprise
 * Business Critical
-
----
-
-### What it looks like you're paying for
-
-<!-- add screenshot of lists of resources -->
 
 ---
 

@@ -14,7 +14,7 @@ Although you can click through to all the stacks, the one of interest is the `de
 
 ## Overview
 
-This tab shows the state of the stack since the last update. 
+This tab shows the state of the stack since the last update.
 
 Worth noting that the outputs are shown here, and the `kubeconfig` has been marked as a secret so you won't be able to view it here. Ever.
 
@@ -32,4 +32,6 @@ Click on the commit for an update to see the code change in GitHub.
 
 You can click on the "Details" link to view what actually changes, the outputs, resources and metadad at the time the update completed and any policies that were run (hint, none).
 
-There's also the deployments link to a deployment.
+## Resources
+
+The list of resources that makes up the current version of this stack.
