@@ -10,54 +10,116 @@ marp: true
 
 # Pulumi Kubernetes Provider
 
-* First native provider (no underlying TF provider dependency)
-* Strongly-typed standard resources:
+* Pulumi provides a Kubernetes provider to manage Kubernetes resources.
+* Resources are strongly-typed, meaning you get code completion and type checking.
+* Direct integration with Kubernetes API, ensuring high compatibility and reduced abstraction.
 
-    ```python
-    deployment = kubernetes.apps.v1.Deployment("deployment",
-        metadata={
-            "labels": {
+---
+
+**Why use the native Kubernetes provider?**
+* **Simplicity**: Directly interact with Kubernetes resources using familiar programming languages.
+* **Strong Typing**: Benefit from type checking, code completion, and inline documentation.
+* **Consistency**: Use the same tool for managing both cloud infrastructure and Kubernetes resources.
+* **Rich Ecosystem**: Leverage the full Pulumi ecosystem for Kubernetes management.
+
+---
+
+Example of creating a Deployment in Pulumi:
+
+```python
+import pulumi_kubernetes as k8s
+
+deployment = k8s.apps.v1.Deployment("nginx-deployment",
+    metadata={
+        "labels": {
+            "app": "nginx",
+        },
+    },
+    spec={
+        "replicas": 3,
+        "selector": {
+            "matchLabels": {
                 "app": "nginx",
             },
         },
-        spec={
-            "replicas": 3,
-            "selector": {
-                "matchLabels": {
+        "template": {
+            "metadata": {
+                "labels": {
                     "app": "nginx",
                 },
             },
-            # etc.
-        }
-    )
-    ```
+            "spec": {
+                "containers": [{
+                    "name": "nginx",
+                    "image": "nginx:1.19.10",
+                    "ports": [{
+                        "containerPort": 80,
+                    }],
+                }],
+            },
+        },
+    },
+)
+```
 
 ---
 
-# Amazon EKS Package
+**Amazon EKS Package**
 
-* Contains component resources for common EKS constructs:
-  * Clusters
-  * Node Groups
-* Best suited for proofs of concept, getting started quickly
+* Pulumi offers components to easily create and manage EKS clusters.
+* Key resources include Clusters and Node Groups.
+  
+---
+
+**Server-side Apply**
+
+**What is Server-side Apply?**
+  Server-side apply is a method to create or update Kubernetes resources directly on the Kubernetes server.
 
 ---
 
-# Server-side Apply
-
-* Upsert a resource by default (matching on `metadata.name`)
-* Most resources corresponding `XPatch` resources, e.g. `ConfigMapPatch`
-* Use the `pulumi.com/forcePatch` annotation to resolve conflicts with the existing version of the resource, rather than the patch that is being applied.
-* Default for SSA is `true`, can be turned off in provider config.
+**How does it work?**
+  Pulumi uses the resource's `metadata.name` to check if it already exists:
+  - If it exists, it updates the resource.
+  - If it doesn't exist, it creates a new one.
 
 ---
 
-# Consuming YAML
+**Why use it?**
+  This ensures that your changes are applied correctly, even if other tools or users are also modifying the same resources.
 
-`k8s.yaml.ConfigFile`: Component resource that takes a path to a manifest and creates a Pulumi resource for each K8s resource:
+**Handling Conflicts:**
+  When multiple changes occur on the same resource, conflicts might arise. You can resolve these conflicts using the `pulumi.com/forcePatch` annotation, which forces your changes to take precedence. 
+
+---
+
+**Example of Server-side Apply:**
+  ```python
+  import pulumi_kubernetes as k8s
+
+  config_map_patch = k8s.core.v1.ConfigMapPatch("example-configmap",
+      metadata={
+          "name": "example-configmap",
+      },
+      data={
+          "key": "new-value",
+      },
+      opts=pulumi.ResourceOptions(
+          custom_timeout=60,  # Optional: set a custom timeout for the operation
+          ignore_changes=["metadata"],  # Optional: ignore changes to metadata
+      )
+  )
+  ```
+  In this example, if the `ConfigMap` named `example-configmap` exists, it will be updated with the new data. If it doesn't exist, a new `ConfigMap` will be created.
+
+---
+
+**Consuming YAML**
+
+Use `k8s.yaml.ConfigFile` to create resources from YAML manifests:
 
 ```python
-config_file = k8s.yaml.ConfigFile("nginx", 
+config_file = k8s.yaml.ConfigFile("nginx",
     file="manifests/nginx.yaml"
 )
 ```
@@ -72,7 +134,7 @@ config_file = k8s.yaml.ConfigFile("nginx",
 
 # Consuming YAML, cont'd
 
-`k8s.yaml.ConfigGroup`: Component resource that takes a list of files and creates a `ConfigFile` for each file:
+Use `k8s.yaml.ConfigGroup` to create resources from multiple YAML files:
 
 ```python
 config_group = k8s.yaml.ConfigGroup("manifests", 
@@ -91,35 +153,9 @@ config_group = k8s.yaml.ConfigGroup("manifests",
 
 ---
 
-# Emitting YAML (Beta Feature)
+**Helm**
 
-Can configure the K8s provider to write YAML files to a given directory:
-
-```python
-k8s_provider = k8s.Provider("k8s-provider", 
-    kubeconfig=kubeconfig,
-    render_yaml_to_directory="./manifests"
-)
-
-config_map = k8s.core.v1.ConfigMap("config-map", 
-    # ...
-    opts=pulumi.ResourceOptions(provider=k8s_provider)
-)
-```
-
-```text
-$ tree manifests
-manifests
-├── 0-crd
-└── 1-manifest
-    └── v1-configmap-default-my-config-map.yaml
-```
-
----
-
-# Helm
-
-* `helm.v3.Chart`: Templates the chart locally like `helm template`. ComponentResource containing each of the constituent, templated resources:
+`helm.v3.Chart`: Templates the chart locally like `helm template`, and creates each resource.
 
     ```text
         ├─ kubernetes:helm.sh/v3:Chart                  wp-chart                             create      
@@ -131,6 +167,6 @@ manifests
         etc.
     ```
 
-* `helm.v3.Release`: Single resource, full functionality of Helm CLI (hooks, etc.)
+* `helm.v3.Release`: Single resource, full functionality of Helm CLI (hooks, etc.).
 * Guide: <https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case/#limitations>
 * Additional Helm Release options: <https://www.pulumi.com/registry/packages/kubernetes/api-docs/provider/#helmreleasesettings>
