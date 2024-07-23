@@ -8,7 +8,14 @@ marp: true
 
 ---
 
-# Big Picture
+# Demo/Exercise Prep
+
+1. Optional (demo only): Install CDK
+1. Required (for exercises): Install Terraform
+
+---
+
+# Big Picture: Pulumi in Brownfields
 
 ## Strategies
 
@@ -24,7 +31,7 @@ marp: true
 
 ---
 
-# Get Functions
+# Get Functions: Reference any existing resource
 
 ```typescript
 const vpc = aws.ec2.Vpc.get("existing-vpc", "vpc-aefe77d6");
@@ -44,6 +51,30 @@ Docs: <https://www.pulumi.com/docs/concepts/resources/get/>
 
 ---
 
+# Get Functions: Reference any existing resource
+
+```python
+vpc = aws.ec2.Vpc.get("name", "vpc-abc123")
+
+security_group = aws.ec2.SecurityGroup(
+    "my-security-group",
+    vpc_id=vpc.id
+    # etc.
+```
+
+- Every Pulumi resource has a `get` function.
+- Takes 2 parameters: `name`, and `id`.
+- The `id` parameter is resource-specific and identical to the id used in `pulumi import`.
+- `get` will fail in preview if resource cannot be found.
+
+Docs: <https://www.pulumi.com/docs/concepts/resources/get/>
+
+---
+
+# Quick Demo: Get Functions
+
+---
+
 # `pulumi import` Command
 
 ```bash
@@ -60,6 +91,10 @@ For each resource:
 1. Type identifier: `aws:ec2/vpc:Vpc`
 1. Resource name (for Pulumi program): `my-vpc`
 1. ID (specific to resource type, e.g. VPC ID): `vpc-0f12a82357335a28f`
+
+---
+
+# Quick Demo: `pulumi import` with a single resource
 
 ---
 
@@ -118,7 +153,7 @@ Additional Resources:
     });
     ```
 
-**Note:** Pulumi/CDK interop is experimental
+**Note:** Pulumi/CDK interop exists, but is experimental.
 
 ---
 
@@ -126,7 +161,11 @@ Additional Resources:
 
 `pulumi import`
 
-**Note:** Pulumi/CDK interop is experimental
+**Note:** `cf2pulumi` is experimental.
+
+---
+
+# Demo: Bulk Import with Pulumi
 
 ---
 
@@ -143,15 +182,32 @@ const tfState = new terraform.state.RemoteStateReference("tf-state", {
 new aws.ec2.SecurityGroup("security-group", {
   description: "Allow all egress",
   vpcId: tfState.getOutput("vpc_id"),
-  egress: [
-        {
-            fromPort: 0,
-            toPort: 0,
-            protocol: "-1",
-            cidrBlocks: ["0.0.0.0/0"],
-        },
-    ],
+  // etc
 });
+```
+
+---
+
+# Scenario 3: Terraform (Coexist)
+
+Reference TF state outputs with the Pulumi Terraform Provider (not in the Pulumi registry):
+
+```typescript
+import pulumi_aws as aws
+import pulumi_terraform as terraform
+
+tf_state = terraform.state.RemoteStateFile(
+    "tf-state",
+    backend_type="local",
+    path="/path/to/terraform.tfstate"
+)
+
+vpc_id = tf_state.get_output("vpc_id")
+
+security_group = aws.ec2.SecurityGroup(
+    "my-security-group",
+    vpc_id=vpc_id
+)
 ```
 
 ---

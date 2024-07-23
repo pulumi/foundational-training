@@ -17,7 +17,8 @@ In this exercise, you'll learn how organizations using CDK or CloudFormation can
 
     ```bash
     cd cdk
-    cdk bootstrap
+    npm i
+    cdk bootstrap # Only if never run in this environment
     cdk deploy
     # Confirm with 'y'
     # Wait a few seconds for the resource creation
