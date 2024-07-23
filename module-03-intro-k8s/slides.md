@@ -8,27 +8,58 @@ marp: true
 
 ---
 
-# Pulumi Kubernetes Provider
+# Pulumi Kubernetes Provider - TypeScript
 
 * First native provider (no underlying TF provider dependency)
 * Strongly-typed standard resources:
 
     ```typescript
     const deployment = new kubernetes.apps.v1.Deployment("deployment", {
-    metadata: {
-        labels: {
-            app: "nginx",
-        },
-    },
-    spec: {
-        replicas: 3,
-        selector: {
-            matchLabels: {
+        metadata: {
+            labels: {
                 app: "nginx",
             },
         },
-    // etc.
+        spec: {
+            replicas: 3,
+            selector: {
+                matchLabels: {
+                    app: "nginx",
+                },
+            },
+        // etc.
     ```
+
+---
+
+# Pulumi Kubernetes Provider - Python
+
+* First native provider (no underlying TF provider dependency)
+* Strongly-typed standard resources:
+
+```python
+deployment = k8s.apps.v1.Deployment(
+    "nginx-deployment",
+    spec=k8s.apps.v1.DeploymentSpecArgs(
+        replicas=3,
+        selector=k8s.meta.v1.LabelSelectorArgs(
+            match_labels={"app": "nginx"},
+        ),
+        template=k8s.core.v1.PodTemplateSpecArgs(
+            metadata=k8s.meta.v1.ObjectMetaArgs(labels={"app": "nginx"}),
+            spec=k8s.core.v1.PodSpecArgs(
+                containers=[
+                    k8s.core.v1.ContainerArgs(
+                        name="nginx",
+                        image="nginx:latest",
+                        ports=[k8s.core.v1.ContainerPortArgs(container_port=80)]
+                    )
+                ],
+            ),
+        ),
+    ),
+)
+```
 
 ---
 
@@ -60,6 +91,13 @@ const configFile = new k8s.yaml.ConfigFile("nginx", {
 });
 ```
 
+```python
+config_file = k8s.yaml.ConfigFile(
+    "nginx",
+    file="manifests/nginx.yaml"
+)
+```
+
 ```text
     +   ├─ kubernetes:yaml:ConfigFile           nginx                       create     
     +   │  ├─ kubernetes:core/v1:Service        nginx-service               create     
@@ -78,6 +116,13 @@ const configGroup = new k8s.yaml.ConfigGroup("manifests", {
 });
 ```
 
+```python
+config_group = k8s.yaml.ConfigGroup(
+    "manifests",
+    files=["manifests/*.yaml"]
+)
+```
+
 ```text
 +   └─ kubernetes:yaml:ConfigGroup          manifests                   create     
 +      ├─ kubernetes:yaml:ConfigFile        manifests/nginx.yaml        create     
@@ -90,7 +135,9 @@ const configGroup = new k8s.yaml.ConfigGroup("manifests", {
 
 ---
 
-# Emitting YAML (Beta Feature)
+# Emitting YAML (TypeScript)
+
+**Note:** This is a beta feature
 
 Can configure the K8s provider to write YAML files to a given directory:
 
@@ -105,6 +152,34 @@ const configMap = new k8s.core.v1.ConfigMap("config-map", {
 }, {
     provider: k8sProvider
 });
+```
+
+```text
+$ tree manifests
+manifests
+├── 0-crd
+└── 1-manifest
+    └── v1-configmap-default-my-config-map.yaml
+```
+
+---
+
+# Emitting YAML (Python)
+
+**Note:** This is a beta feature
+
+Can configure the K8s provider to write YAML files to a given directory:
+
+```python
+k8s_provider = k8s.Provider(
+    "k8s-provider",
+    render_yaml_to_directory="./manifests"
+)
+
+config_map = k8s.core.v1.ConfigMap(
+    # ...
+    opts=pulumi.ResourceOptions(provider=k8s_provider)
+)
 ```
 
 ```text
