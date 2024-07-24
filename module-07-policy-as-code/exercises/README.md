@@ -48,10 +48,6 @@ The `infra` directory contains a Pulumi program that contains some basic (contri
 1. Remove the `Department` tag from the bucket in your Pulumi program and add an `Owner` tag with the value `bugs-bunny`. You'll use this to verify the correctness of your remediation rule.
 1. Rerun your policy pack. Your policy should pass because the remediation function will add the missing required tag. Note the diff created by the remediation function: Your function should _only_ add the `Department` tag and should not alter or remove the `Owner` tag.
 
-## Authoring Stack Policies
-
-TODO: Might come back to this later. Need more use cases.
-
 ## Exercise 02: Using Compliance-Ready Policies
 
 In this exercise, you'll use compliance-ready policies to ensure your resources comply with common frameworks like PCI-DSS, ISO 27001, etc.
