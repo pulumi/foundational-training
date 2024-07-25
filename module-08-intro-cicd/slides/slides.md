@@ -1,92 +1,100 @@
-# Module 08 - Intro to CI/CD - 🌐 Overview
+---
+theme: default
+paginate: true
+marp: true
+---
 
-This module introduces new users to DevOps/GitOps best practices. You will become familiar with the core concepts needed to deploy cloud resources _continuously_ by configuring Pulumi GitHub Actions.
-
-You will also learn the fundamentals of an infrastructure CI/CD pipeline through guided exercises. You will be introduced to Pulumi to define cloud infrastructure using familiar programming languages.
+# **Module 08: CI/CD**
 
 ---
 
-## Module 08 - Intro to CI/CD - 🎯 Learning Objectives
+# Pulumi CI/CD: Foundations
 
-- The key components of a continuous pipeline
-- How to build your own infrastructure CI/CD pipeline
-- Configuring the Pulumi GitHub Actions to deploy AWS resources
+Infra CI/CD differs from application CI/CD b/c it's _stateful_
 
----
+You have to see the code changes _in context with the infrastructure changes_ (i.e. `pulumi preview`) in order to properly review IaC code
 
-## Module 08 - Intro to CI/CD
+MVP of a Pulumi pipeline:
 
-- Infra CI/CD differs from application CI/CD b/c it's stateful
-
-You have to see the code changes WITH the infra changes (pulumi preview) in order to properly review IaC code
-
-Best practice:
-
-- `preview` on a PR commit
-- `update` on a merge to the target branch
+1. `pulumi preview` on a PR open
+1. `pulumi update` on a merge to the target branch
 
 ---
 
-## Module 08 - Intro to CI/CD - 📚 Stages
+# Pulumi CI/CD: Integrations
 
-In other modules, you manually ran commands using the Pulumi CLI to get your application and cloud infrastructure running. In a DevOps fashion, however, you would deploy everything _programmatically_.
-
-The three stages of infra CI/CD are:
-
-1. Define Infrastructure as Code
-2. Continuously Test+Commit
-3. Continuously Build+Deploy
+- GitHub Action: <https://github.com/marketplace/actions/pulumi-cli-action>
+- GitLab integration: <https://about.gitlab.com/blog/2024/01/10/managing-gitlab-resources-with-pulumi/>
+- Anything else: `pulumi` is just a CLI...
 
 ---
 
-## Module 08 - Intro to CI/CD - 📚 Stage 1
+# Pulumi CI/CD: Building on Foundations
 
-Define Infrastructure as Code
-
-Why?: GitOps best practices
-How?: Via **Pulumi**, CDK, CloudFormation, Terraform, etc.
-
-Use-cases:
-
-- Internal Developer Platforms / self-serve solutions,
-- Tenant management for PaaS/SaaS customers
-- Multi-Cloud/Multi-region Applications
+1. Improve pipeline security posture
+1. Add in policy as code
+1. Drift detection
+1. Ephemeral infra (Review Stacks)
 
 ---
 
-## Module 08 - Intro to CI/CD - 📚 Stage 2
+# Pulumi CI/CD: Improve Security Posture w/ESC
 
-Continuously Test+Commit
-
-Why?: Qualtiy
-How?: Version control, trunk-based development
-      Unit/Integration/E2E Testing
-      Code linting / Static analysis for Vulns
-
-Solutions:
-
-- ESLint
-- Snyk / OWASP
-- Jenkins, Travis CI, or GitHub Actions
-- Postman API testing
+- Use a team or org Pulumi Token with least priv (RBAC)
+- Configure AWS OIDC to grab short-lived credentials
+- Only keep the Pulumi Token in GitHub Secrets, no additional config needed
+- Token can be generated with the Pulumi Cloud provider, written with the GH/GL provider
 
 ---
 
-## Module 08 - Intro to CI/CD - 📚 Stage 3
+# Pulumi CI/CD: Policy as Code
 
-Continuously Build+Deploy
+## Advanced CI/CD - **Compliance**
 
-Why? Time-to-market
-How?: By automating builds for typically containarized applications
-
-Solutions:
-
-- Jenkins, Travis CI, CircleCI, and GitLab CI/CD
-- Docker, Kubernetes, Ansible, and Makefiles
-- Monitor/Alerting/Rollback integration
+- Add to the GitHub Actions pipeline via `policyPacks`
+- Server-side enforcement via Policy Groups
 
 ---
 
-## Module 08 - Intro to CI/CD - ✨ Summary
+# Drift: Stuff Happens
 
-We briefly discussed DevOps/GitOps and dived into each of the major components that make up an infra CI/CD pipeline. Head over to the exercises to obtain hands-on experience across the three major elements of an infrastructure CI/CD pipeline.
+Drift may occur due to:
+
+- Informed ClickOps (e.g., during an outage)
+- Uninformed ClickOps (i.e., people not yet hip to the wonders of IaC)
+- Out-of-band automated processes (e.g. tags applied to subnet by EKS)
+
+---
+
+# Drift Detection in CI/CD
+
+Run `pulumi refresh --expect-no-changes` on a schedule:
+
+- Errors out if drift detected
+- Optionally, use a webhook to notify, e.g. Slack
+- Pulumi Deployments excels here
+
+Opinion: Do not automatically remediate drift. Alert and have a conversation. (But it does need to be remediated eventually.)
+
+---
+
+# Drift Remediation
+
+- Informed ClickOps:
+  - If permanent solution: update Pulumi code to match cloud state
+  - If temporary solution: `pulumi up` to revert changes
+- Uninformed ClickOps:
+  - Refer the offender to a Pulumi workshop on YouTube _immediately_
+  - Consider tagging, e.g. `managed-by: Pulumi` `repo: org/repo-name`
+- Automated, out-of-band processes:
+  - Use `resourceOptions.ignoreChanges`: <https://www.pulumi.com/docs/concepts/options/ignorechanges/>
+
+---
+
+# Review Stacks: Ephemeral infrastructure
+
+Review Stacks are a Pulumi Deployments feature:
+
+- Helpful when working on multiple feature branches
+- Need to test in isolation
+- Auto destroy once PR merges
