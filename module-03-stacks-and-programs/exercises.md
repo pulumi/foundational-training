@@ -16,7 +16,7 @@ In this exercise, you will start with a single stack that contains a VPC, and al
     ```bash
     cd ../
     mkdir fargate-workloads
-    pulumi new typescript # or Python
+    pulumi new typescript # or python
     # Complete all the prompts
     ```
 
