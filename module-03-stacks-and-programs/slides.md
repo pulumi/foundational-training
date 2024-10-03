@@ -4,7 +4,7 @@ paginate: true
 marp: true
 ---
 
-# **Module 05: Organizing Programs and Stacks**
+# **Module 03: Organizing Stacks and Programs**
 
 ---
 
