@@ -4,7 +4,7 @@ paginate: true
 marp: true
 ---
 
-# **Module 02: Pulumi Cloud**
+# **Module 06: Pulumi Cloud**
 
 ---
 

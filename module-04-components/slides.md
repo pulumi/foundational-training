@@ -4,7 +4,7 @@ paginate: true
 marp: true
 ---
 
-# **Module 06: Components and Modularity**
+# **Module 04: Components and Modularity**
 
 ---
 
