@@ -19,8 +19,8 @@ Pulumi ESC aims to:
 
 - **ESC**: Environments, Secrets, and Configuration
 - **Environments**:
-  - YAML files that can import other Environments
-  - Defines secrets and configurations
+  - Configuration values: plaintext, stored in Pulumi Cloud
+  - Comp secrets and configurations
 - **Secrets**: Sensitive data such as API keys and passwords
   - **Static**: Values that do not change frequently but may be rotated
   - **Dynamic**: Fetched (or generated) on the fly and may have a short validity period
@@ -62,12 +62,9 @@ You can use a Pulumi program to create the above AWS Resources.
 
 ---
 
-## AWS OIDC Example cont'd
-
-Create an Environment with AWS OIDC configuration:
+## AWS OIDC
 
 ```yaml
-# File Name: aws-oidc
 aws:
   login:
     fn::open::aws-login:
