@@ -84,7 +84,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
     ```yaml
     $ cat Pulumi.dev.yaml
     environment:
-    - default/aws-oidc-env
+    - aws/aws-oidc-admin
     ```
 
     Your Pulumi IaC program will now use your OIDC credentials to manage AWS resources.
