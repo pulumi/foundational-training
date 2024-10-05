@@ -1,6 +1,6 @@
-# aws-training
+# Pulumi Foundational Training
 
-Training materials for SA Enablement training 2024.
+Training materials for Pulumi Foundational Training
 
 ## Slides
 
