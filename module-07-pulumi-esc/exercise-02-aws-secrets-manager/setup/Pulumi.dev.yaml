@@ -1,0 +1,5 @@
+config:
+  esc-ex-02-aws-secrets-setup:githubToken:
+    secure: AAABAE9sd8/OIs5yZ0WTSONmV6zr2RDwR4L11+lYmHT+B6kahuYAXfGjKZbZ/U8W9tcMDL4p2gFdo/GejWPRXNIbsZ2YQ6jcFXuEuZzqDZUffdFx1TqhUvblj9vVgNF8X7+odhv4BlcAzMj52jbzGEu6ZgD5KKu62KPOTaY=
+environment:
+  - aws/aws-oidc-admin

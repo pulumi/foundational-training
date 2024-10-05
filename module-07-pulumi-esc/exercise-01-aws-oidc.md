@@ -10,6 +10,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
     mkdir aws-ts-oidc-provider-pulumi-cloud
     cd aws-ts-oidc-provider-pulumi-cloud
     pulumi new https://github.com/pulumi/examples/tree/master/aws-ts-oidc-provider-pulumi-cloud
+    # Accept the default answers to the prompts.
     pulumi up -y
     ```
 
@@ -30,7 +31,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
 1. Run a command line command with the OIDC environment you ran:
 
     ```bash
-    pulumi env run default/aws-oidc-env -- aws sts get-caller-identity
+    pulumi env run aws/aws-oidc-admin -- aws sts get-caller-identity
     ```
 
     Note that the name of your ESC project/environment may be different in the preceding command.
@@ -76,7 +77,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
 1. Configure your Pulumi IaC program to use your ESC environment:
 
     ```bash
-    pulumi config env add default/aws-oidc-env
+    pulumi config env add aws/aws-oidc-admin
     ```
 
 1. Check out the contents of `Pulumi.dev.yaml`. It should look something like the following:
@@ -84,7 +85,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
     ```yaml
     $ cat Pulumi.dev.yaml
     environment:
-      - aws/aws-oidc-admin
+    - aws/aws-oidc-admin
     ```
 
     Your Pulumi IaC program will now use your OIDC credentials to manage AWS resources.
