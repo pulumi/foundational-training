@@ -7,10 +7,13 @@ Welcome and thank you for participating in Pulumi Foundational Training! This do
 In order to verify your setup, you'll need to do the following:
 
 1. Make sure you have an AWS account to which you have administrator access and have configured AWS CLI credentials to use the principal with administrator access.
+1. Install either Node.js (<http://nodejs.org/en/download/package-manager>) or Python (<https://www.python.org/downloads/>)
+1. Install the AWS CLI: <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>
+1. Install Terraform: <https://developer.hashicorp.com/terraform/install>
+1. Install JQ: <https://jqlang.github.io/jq/download/>
 1. [Install Pulumi](#install-pulumi)
 1. [Set up Pulumi Cloud](#set-up-pulumi-cloud): Sign up for Pulumi Cloud and configure a Pulumi token
 1. [Create a Pulumi Cloud Organization](#create-a-pulumi-cloud-organization): Create a trial Pulumi organization
-1. Install either Node.js (<http://nodejs.org/en/download/package-manager>) or Python (<https://www.python.org/downloads/>)
 
 ## Install Pulumi
 
@@ -65,12 +68,12 @@ Some of the later exercises in the workshop will benefit from having your own Pu
 
 ![Creating a personal access token](images/create-org.png)
 
-Give your trial organization a name like `aws-training-<your name>`, e.g. `aws-training-joshkodroff` or `aws-training-jkodroff`, etc.
+Give your trial organization a name like `training-<your name>`, e.g. `training-joshkodroff` or `training-jkodroff`, etc.
 
 Set your default org to your trial org:
 
 ```bash
-pulumi org set-default aws-training-jkodroff
+pulumi org set-default training-jkodroff
 ```
 
 ### Optional: Pre-Install Required Pulumi Plugins
@@ -81,11 +84,3 @@ Some Pulumi providers can take a while to download when they are used for the fi
 pulumi plugin install resource aws
 pulumi plugin install resource awsx
 ```
-
-## Update 1: Additional Day 1 Requirements
-
-Module 02 - Pulumi Import has some additional tooling requirements as we demonstrate options for interoperability with or replacing other infrastructure as code tools:
-
-1. Install the AWS CLI: <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>
-1. Install Terraform: <https://developer.hashicorp.com/terraform/install>
-1. Install JQ: <https://jqlang.github.io/jq/download/>
