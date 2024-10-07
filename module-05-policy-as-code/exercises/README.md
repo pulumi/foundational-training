@@ -152,15 +152,15 @@ pulumi org set-default your-org-name
     pulumi policy publish
     ```
 
-2. Create a new stack:
+1. Create a new stack:
 
     ```bash
     cd ../infra2
     pulumi new aws-typescript -n module-07-policy-as-code-infra2-your-name
     ```
 
-3. In the Pulumi Cloud console, locate the default policy group for your organization and add the two policy packs you published.
-4. Run a Pulumi command against your stack:
+1. In the Pulumi Cloud console, locate the default policy group for your organization and add the two policy packs you published.
+1. Run a Pulumi command against your stack:
 
     ```bash
     pulumi preview

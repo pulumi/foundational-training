@@ -13,7 +13,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
     pulumi up -y
     ```
 
-2. Ensure you have no valid AWS credentials in your current shell:
+1. Ensure you have no valid AWS credentials in your current shell:
 
     ```bash
     unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_PROFILE
@@ -27,7 +27,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
     Unable to locate credentials. You can configure credentials by running "aws configure".
     ```
 
-3. Run a command line command with the OIDC environment you ran:
+1. Run a command line command with the OIDC environment you ran:
 
     ```bash
     pulumi env run default/aws-oidc-env -- aws sts get-caller-identity
@@ -47,7 +47,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
     pulumi new aws-typescript -y
     ```
 
-2. Ensure you have no valid AWS credentials in your current shell:
+1. Ensure you have no valid AWS credentials in your current shell:
 
     ```bash
     unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_PROFILE
@@ -61,7 +61,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
     Unable to locate credentials. You can configure credentials by running "aws configure".
     ```
 
-3. Deploying your Pulumi program should fail with Pulumi saying it's unable to find any credentials, e.g.:
+1. Deploying your Pulumi program should fail with Pulumi saying it's unable to find any credentials, e.g.:
 
     ```bash
     $ pulumi preview
@@ -73,13 +73,13 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
             error: pulumi:providers:aws resource 'default_6_54_2' has a problem: No valid credential sources found.
     ```
 
-4. Configure your Pulumi IaC program to use your ESC environment:
+1. Configure your Pulumi IaC program to use your ESC environment:
 
     ```bash
     pulumi config env add default/aws-oidc-env
     ```
 
-5. Check out the contents of `Pulumi.dev.yaml`. It should look something like the following:
+1. Check out the contents of `Pulumi.dev.yaml`. It should look something like the following:
 
     ```yaml
     $ cat Pulumi.dev.yaml
@@ -89,7 +89,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
 
     Your Pulumi IaC program will now use your OIDC credentials to manage AWS resources.
 
-6. Try running a Pulumi command again:
+1. Try running a Pulumi command again:
 
     ```bash
     pulumi preview
