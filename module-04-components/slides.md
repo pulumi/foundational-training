@@ -10,27 +10,27 @@ marp: true
 
 ## Overview
 
-* What is a Custom Resource?
-* What is a Component Resource?
-* Building Component Resources
-* Sharing Component Resources
-* Multi-Language Components
+- What is a Custom Resource?
+- What is a Component Resource?
+- Building Component Resources
+- Sharing Component Resources
+- Multi-Language Components
 
 ---
 
 ## What is a Custom Resource?
 
-* Base resource of a provider
-* Has inputs and outputs
+- Base resource of a provider
+- Has inputs and outputs
 
 ---
 
 ## What is a Component Resource?
 
-* **Re-usable** group of custom resources that will usually be deployed together
-* Similar to TF module or CDK construct
-* Gives ability to create abstractions over commonly used goals
-* Can have inputs and outputs
+- **Re-usable** group of custom resources that will usually be deployed together
+- Similar to TF module or CDK construct
+- Gives ability to create abstractions over commonly used goals
+- Can have inputs and outputs
 
 <!-- Re-usable emphasis -->
 
@@ -38,9 +38,9 @@ marp: true
 
 ## Building a Component Resource
 
-* Class that extends `pulumi.ComponentResource`
-* Create resources in or via constructor
-* Outputs are properties of the class
+- Class that extends `pulumi.ComponentResource`
+- Create resources in or via constructor
+- Outputs are properties of the class
 
 ---
 
@@ -158,8 +158,8 @@ class MyComponent(pulumi.ComponentResource):
 
 ## Sharing Code in a Single Language
 
-* Publish packages via npm, PyPI, etc.
-* Consumable only in the same language as they are authored
+- Publish packages via npm, PyPI, etc.
+- Consumable only in the same language as they are authored
 
 ---
 
@@ -167,9 +167,9 @@ class MyComponent(pulumi.ComponentResource):
 
 Multi-Language Components are ComponentResources that are compiled to a provider-like binary, have a schema, and SDKs generated in all Pulumi languages
 
-* Examples: `awsx`, `eks`, etc.
-* Requires authoring a schema (less mature tooling compared to authoring providers)
-* Requires producing an SDK in every supported language (need credentials for each language's package feed)
+- Examples: `awsx`, `eks`, etc.
+- Requires authoring a schema (less mature tooling compared to authoring providers)
+- Requires producing an SDK in every supported language (need credentials for each language's package feed)
 
 ---
 
@@ -177,6 +177,6 @@ Multi-Language Components are ComponentResources that are compiled to a provider
 
 Multi-language components are non-trivial to write and maintain, and are best suited for components that are consumed by a wide audience in multiple languages:
 
-* **For internal use** in very large, high-functioning orgs with many teams that run their own infra and do not use the same language (MAANG-scale or SaaS platform orgs, e.g. Uber)
-* **For use with customers** for large system implementers that want to reuse components across multiple engagements
-* **For external use** for cloud providers who want to publish their own constructs to be consumed in all Pulumi languages
+- **For internal use** in very large, high-functioning orgs with many teams that run their own infra and do not use the same language (MAANG-scale or SaaS platform orgs, e.g. Uber)
+- **For use with customers** for large system implementers that want to reuse components across multiple engagements
+- **For external use** for cloud providers who want to publish their own constructs to be consumed in all Pulumi languages
