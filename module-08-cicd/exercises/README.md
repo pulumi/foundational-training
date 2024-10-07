@@ -15,9 +15,9 @@ Create:
 ## Module 08 - Intro to CI/CD - **Exercise 1**
 
 1. Create a new Pulumi program using the `static-website-aws-typescript` template
-2. Add GitHub for version control
+1. Add GitHub for version control
   With IaC and version control in place, we are one step closer to defining the infrastructure pipeline. As a next step, we need to add a trigger to run the IaC automatically. We'll use the [Pulumi GitHub Actions](https://github.com/pulumi/actions), responsible for instantiating the infrastructure and running the application
-3. Configure Pulumi GitHub Actions
+1. Configure Pulumi GitHub Actions
     a. Add a secret, `PULUMI_ACCESS_TOKEN` to store your Pulumi access token to be used by Actions
     b. Add your `aws` credentials
 
@@ -28,10 +28,10 @@ Create:
 Next, configure the pipeline so it is triggered by commits to PR against the `main` branch
 
 1. Add a `.github/workflows/branch.yaml` file
-2. Navigate to the [branch.yml](./solution/.github/workflows/branch.yml) file to copy its contents
-3. Commit all the changes as a PR
-4. Navigate and inspect the Actions' results in your browser
-5. Merge the PR
+1. Navigate to the [branch.yml](./solution/.github/workflows/branch.yml) file to copy its contents
+1. Commit all the changes as a PR
+1. Navigate and inspect the Actions' results in your browser
+1. Merge the PR
 
 ---
 

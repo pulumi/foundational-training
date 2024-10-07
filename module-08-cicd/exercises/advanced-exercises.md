@@ -16,9 +16,9 @@
 **🎬 Steps**:
 
 1. Clone the Module 08 solution to your machine
-2. Add a GitHub Action secret to store your Pulumi access token as `PULUMI_ACCESS_TOKEN`
-3. Use [this Pulumi template](https://github.com/desteves/aws-oidc-typescript) to create your AWS Resources for Pulumi OIDC
-4. Use a Pulumi ESC Environment to [configure AWS Dynamic Credentials](https://www.pulumi.com/docs/esc/providers/aws-login/#example)
+1. Add a GitHub Action secret to store your Pulumi access token as `PULUMI_ACCESS_TOKEN`
+1. Use [this Pulumi template](https://github.com/desteves/aws-oidc-typescript) to create your AWS Resources for Pulumi OIDC
+1. Use a Pulumi ESC Environment to [configure AWS Dynamic Credentials](https://www.pulumi.com/docs/esc/providers/aws-login/#example)
 
 ---
 
@@ -29,9 +29,9 @@
 **🎬 Steps**:
 
 1. Add the CIS compliance framework, `aws-cis-compliance-policies-typescript`, under the `policy/` subfolder
-2. Test locally, `pulumi up  --policy-pack policy`
-3. Add the CIS compliance framework to the pipeline
-4. Commit the changes by creating a feature branch and PR
+1. Test locally, `pulumi up  --policy-pack policy`
+1. Add the CIS compliance framework to the pipeline
+1. Commit the changes by creating a feature branch and PR
 
 ---
 
