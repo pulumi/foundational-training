@@ -23,7 +23,7 @@ marp: true
 # The Pulumi Product Landscape
 
 - **Pulumi IaC:** Infrastructure as code, any language, any cloud, open source
-- **Pulumi PaC:** Author compliance and security controls in NodeJS or Python, works against any Pulumi program, open-source
+- **Pulumi PaC:** Author compliance and security controls in NodeJS or Python, works against any Pulumi program, open source
 - **Pulumi ESC (environments, secrets, config):** Compose environments of static config, static and dynamic secrets, pass to Pulumi programs or CLI commands
 - **Pulumi Cloud:** Pulumi's managed SaaS product
 
@@ -64,7 +64,7 @@ Full list: <https://www.pulumi.com/docs/cli/>
 
 Every resource takes the same 3 parameters:
 
-1. **name:** Logical identifier for the resource in the Pulumi program. Must be unique per-type in a Pulumi program, e.g. no 2 VPCs named `andy`, but ok to name a VPC and Bucket both `andy`.
+1. **name:** Logical identifier for the resource in the Pulumi program. Must be unique per-type in a Pulumi program, e.g. no 2 VPCs named `andy`, but ok to name a VPC and Bucket both `andy`
 1. **args:** Resource-specific inputs, e.g. Bucket name, website config, lifecycle
 1. **options:** Common properties that control the resource lifecycle
 
@@ -74,7 +74,7 @@ Resources are immutable!
 
 # Resources: Auto-naming
 
-- Auto-naming allows multiple stacks in the same environment (AWS account + region):
+- Auto-naming allows multiple stacks in the same environment (AWS account + region)
 - The Pulumi name will influence the physical name, e.g. `new aws.s3.Bucket("my-bucket", ...` -> A bucket named `my-bucket-abc123`
 - Explicit naming also supported, e.g.:
 
@@ -105,7 +105,7 @@ Resources are immutable!
     1. Your infra spins up with maximal parallelization (create all 3 subnets at once after the VPC)
 - **Do** Use `apply` when you need the known value, e.g., to create an IAM policy that consumes an ARN output (`Input<string>` to `string`)
 - **Don't** create resources in `apply` (if at all possible) because they won't show in `pulumi preview` unless values are already known
-- Helper functions exist for creating working with Inputs and Outputs in all languages, e.g., `pulumi.jsonStringify()` `pulumi.interpolate()`
+- Helper functions exist for creating working with Inputs and Outputs in all languages, e.g., `pulumi.jsonStringify()`, `pulumi.interpolate()`
 
 ---
 
@@ -157,7 +157,7 @@ Full list: <https://www.pulumi.com/docs/concepts/options/>
 - Secrets may be stored in state files or stack configuration
 - **Secret Backends** Handle encryption and decryption of secrets
   - Pulumi Cloud is default backend, other DIY options available, e.g., KMS
-- Secret values in resources are encrypted automatically in the Pulumi state file, e.g., RDS master password.
+- Secret values in resources are encrypted automatically in the Pulumi state file, e.g., RDS master password
   - Leaking your state file will not leak secrets!
 - Stack config values can be marked as secret via `pulumi config set --secret`
   - Stack config files can be safely committed to version control!
@@ -183,7 +183,7 @@ Full list: <https://www.pulumi.com/docs/concepts/options/>
 
 # Default and Explicit Providers
 
-- **Default providers:** Do not need to be declared. These will use the stack config (or, e.g., AWS credential chain, if not specified).
+- **Default providers:** Do not need to be declared. These will use the stack config (or, e.g., AWS credential chain, if not specified)
 - **Explicit providers:** Declared as Pulumi resources and must be assigned in resource options:
 
     ```typescript
@@ -198,4 +198,4 @@ Full list: <https://www.pulumi.com/docs/concepts/options/>
     })
     ```
 
-  Use for multi-region deployments or e.g., creating a K8s cluster and deploying resources onto it in the same program.
+  Use for multi-region deployments or, e.g., creating a K8s cluster and deploying resources onto it in the same program

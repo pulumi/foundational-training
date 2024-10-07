@@ -218,9 +218,9 @@ marp: true
 
 * 1Password
 * AWS Secrets Manager
-* Azure Keyvault
+* Azure Key Vault
 * Google Cloud Secrets Manager
-* Hashicorp Vault
+* HashiCorp Vault
 
 ---
 
@@ -277,7 +277,7 @@ marp: true
 
 ---
 
-## Crossguard
+## CrossGuard
 
 ---
 

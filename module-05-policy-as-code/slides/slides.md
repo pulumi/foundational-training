@@ -4,22 +4,22 @@ paginate: true
 marp: true
 ---
 
-# **Module 07: Policy as Code**
+# **Module 05: Policy as Code**
 
 ---
 
 # Policy Control Types
 
 - **Preventative controls:**
-  - Run before a resource is provisioned.
+  - Run before a resource is provisioned
   - Examples: Pulumi Policy as Code, AWS Service Control Policies
-  - Advantage: Faster feedback.
+  - Advantage: Faster feedback
   - Disadvantage: Doesn't catch resources created out-of-band (e.g., Console)
 - **Detective controls:**
-  - Run after a resource is provisioned.
+  - Run after a resource is provisioned
   - Examples: AWS Config, Pulumi stack policies (on `update`, not `preview`)
   - Advantage: Catches everything., even console updates
-  - Disadvantage: Slower feedback, cloud-specific (necessarily).
+  - Disadvantage: Slower feedback, cloud-specific (necessarily)
 - Either may include remediation actions
 
 ---
@@ -41,10 +41,10 @@ marp: true
 
 # Enforcement Levels
 
-- `Disabled`: Do not run.
-- `Advisory`: Validate, print warning and always return zero.
-- `Mandatory`: Validate, print error, and return non-zero on failure.
-- `Remediate`: Transform the resource to try fix the issue, validate, print error and return non-zero on failure.
+- `Disabled`: Do not run
+- `Advisory`: Validate, print warning, and always return zero
+- `Mandatory`: Validate, print error, and return non-zero on failure
+- `Remediate`: Transform the resource to try fix the issue, validate, print error and return non-zero on failure
 - Can set a global default, or level per-policy
 
 ---
@@ -54,16 +54,16 @@ marp: true
 Each resource policy has the following fields:
 
 - `name`, `description`: (self-explanatory, required)
-- `enforcementLevel`: Default enforcement level (optional)
-- `remediateResource`: Function to fix a potential validation issue. Executes only if `enforcementLevel` is set to `remediate`. Executes _before_ `validateResource` (optional).
-- `validateResource`: Function to determine whether the resource complies. (required)
-  - Multiple functions can be defined to group similar resources, e.g., ALB and ELB log configuration.
+- `enforcementLevel`: Default enforcement level (optional, `advisory` default)
+- `remediateResource`: Function to fix a potential validation issue. Executes only if `enforcementLevel` is set to `remediate`. Executes _before_ `validateResource` (optional)
+- `validateResource`: Function to determine whether the resource complies (required)
+  - Multiple functions can be defined to group similar resources, e.g., ALB and ELB log configuration
 
 ---
 
 # Resource Validation Functions
 
-- `validateResourceOfType()` helper function in TS.
+- `validateResourceOfType()` helper function in TS
 - Must check type in Python, e.g.:
 
     ```python
@@ -71,7 +71,7 @@ Each resource policy has the following fields:
         return
     ```
 
-- Call `reportViolation` if validation fails.
+- Call `reportViolation` if validation fails
 
 ```typescript
 {
@@ -90,8 +90,8 @@ Each resource policy has the following fields:
 
 # Remediation Functions
 
-- If the enforcement level is `remediate`, `remediateResource` runs before `validateResource`.
-- Must `return` the resource after transforming.
+- If the enforcement level is `remediate`, `remediateResource` runs before `validateResource`
+- Must `return` the resource after transforming
 
 ```typescript
 remediateResource: remediateResourceOfType(aws.s3.Bucket, (bucket, args) => {
@@ -168,14 +168,14 @@ remediateResource: remediateResourceOfType(aws.s3.Bucket, (bucket, args) => {
 # Compliance-Ready Policies
 
 - Encapsulate rules for compliance frameworks: ISO 27001, PCI-DSS, CIS
-- Open-source
+- Open source
 - Select only needed policies using selectors:
   - `vendor`: `aws`, `azure`, `gcp`
   - `services`: `ec2`, `s3`, `rds`, etc.
-  - `topics`: `encryption`,`cost`, `backup`,`availability`
+  - `topics`: `encryption`, `cost`, `backup`, `availability`
   - `frameworks`: `pcidss`, `iso27001`, etc.
   - `severity`: `medium`, `high`, `critical`, etc.
-- `policyManager` contains settings to print a summary.
+- `policyManager` contains settings to print a summary
 
 More info: <https://www.pulumi.com/docs/using-pulumi/crossguard/compliance-ready-policies/>
 
@@ -183,7 +183,7 @@ More info: <https://www.pulumi.com/docs/using-pulumi/crossguard/compliance-ready
 
 # Running Policies (OSS/Client Side)
 
-- For OSS, policies must be present on disk.
+- For OSS, policies must be present on disk
 - `pulumi preview --policy-pack /path/to/policy-pack`
 - `pulumi up --policy-pack /path/to/policy-pack`
 - Can run multiple packs at once:
@@ -199,8 +199,8 @@ More info: <https://www.pulumi.com/docs/using-pulumi/crossguard/compliance-ready
 - Paid feature (currently Business Critical only)
 - Publish policy packs via `pulumi policy publish`
 - **Policy Group:** (some # of versioned policy packs) (policy pack config) + (some # of stacks)
-- Default Policy Group automatically includes all stacks.
-- When running `pulumi preview` or `pulumi up`, Pulumi CLI downloads the applicable packs and runs them. (Don't need to specify `--policy-pack`.)
+- Default Policy Group automatically includes all stacks
+- When running `pulumi preview` or `pulumi up`, Pulumi CLI downloads the applicable packs and runs them (don't need to specify `--policy-pack`)
 
 ---
 

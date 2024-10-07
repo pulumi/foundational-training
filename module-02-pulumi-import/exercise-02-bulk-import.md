@@ -9,7 +9,7 @@ In this exercise you will bulk import resources (typically created manually in t
     cd cdk && cdk deploy && cd -
     ```
 
-1. Install the dependencies for the account scraper script:
+2. Install the dependencies for the account scraper script:
 
     ```bash
     # Modify the following command as necessary for your environment (venv, poetry, etc):
@@ -17,7 +17,7 @@ In this exercise you will bulk import resources (typically created manually in t
     pip install -r requirements.txt # or pip3
     ```
 
-1. Run the account scraper:
+3. Run the account scraper:
 
     ```bash
     # from the boto3 directory,
@@ -29,22 +29,22 @@ In this exercise you will bulk import resources (typically created manually in t
 
     Note that this script will scan all VPCs and associated resources (subnets, route tables, etc.) in the account/region in which you run it.
 
-1. Create a Pulumi program:
+4. Create a Pulumi program:
 
     ```bash
     pulumi new aws-typescript -y --dir pulumi-import-exercise
     ```
 
-1. Import the resources you exported:
+5. Import the resources you exported:
 
     ```bash
     cd pulumi-import-exercise
     pulumi import -f ../boto3/pulumi-import.json > index.ts -y
     ```
 
-1. Run the `pulumi preview` command. Edit the program until the `pulumi preview` command shows no errors and no diff. The resources in this program are now under Pulumi management (although `pulumi import` protects them from deletion by default.)
+6. Run the `pulumi preview` command. Edit the program until the `pulumi preview` command shows no errors and no diff. The resources in this program are now under Pulumi management (although `pulumi import` protects them from deletion by default.)
 
-1. Finally, delete the stack with the imported resources in order to avoid accidentally modifying resources in your AWS environment:
+7. Finally, delete the stack with the imported resources in order to avoid accidentally modifying resources in your AWS environment:
 
     ```bash
     pulumi stack rm dev --force

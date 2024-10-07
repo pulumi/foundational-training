@@ -30,7 +30,7 @@ marp: true
 * **Re-usable** group of custom resources that will usually be deployed together
 * Similar to TF module or CDK construct
 * Gives ability to create abstractions over commonly used goals
-* Can have inputs and output
+* Can have inputs and outputs
 
 <!-- Re-usable emphasis -->
 
@@ -39,7 +39,7 @@ marp: true
 ## Building a Component Resource
 
 * Class that extends `pulumi.ComponentResource`
-* Create resources in or via contructor
+* Create resources in or via constructor
 * Outputs are properties of the class
 
 ---
@@ -48,7 +48,7 @@ marp: true
 
 ```typescript
 export interface MyComponentArgs {
-  bucketSuffix: pulumi.Input<string>,
+    bucketSuffix: pulumi.Input<string>,
 }
 
 export class MyComponent extends pulumi.ComponentResource {
@@ -81,7 +81,7 @@ export class MyComponent extends pulumi.ComponentResource {
 
 ```typescript
 export interface MyComponentArgs {
-  bucketSuffix: pulumi.Input<string>,
+    bucketSuffix: pulumi.Input<string>,
 }
 
 export interface MyComponentData {
@@ -130,7 +130,7 @@ export class MyComponent extends pulumi.ComponentResource {
 ```python
 @dataclass
 class MyComponentArgs:
-    bucket_suffix: pulumi.Input[str]
+  bucket_suffix: pulumi.Input[str]
 
 
 class MyComponent(pulumi.ComponentResource):
@@ -165,7 +165,7 @@ class MyComponent(pulumi.ComponentResource):
 
 ## Multi-language Components/Packages
 
-Multi-Language Components are ComponentResources that are compiled to a provider-like binary, have a schema, and SDKs generated in all Pulumi languages.
+Multi-Language Components are ComponentResources that are compiled to a provider-like binary, have a schema, and SDKs generated in all Pulumi languages
 
 * Examples: `awsx`, `eks`, etc.
 * Requires authoring a schema (less mature tooling compared to authoring providers)
@@ -177,6 +177,6 @@ Multi-Language Components are ComponentResources that are compiled to a provider
 
 Multi-language components are non-trivial to write and maintain, and are best suited for components that are consumed by a wide audience in multiple languages:
 
-* **For internal use** in very large, high-functioning orgs with many teams that run their own infra and do not use the same language. (MAANG-scale or SaaS platform orgs, e.g. Uber.)
-* **For use with customers** for large system implementers that want to reuse components across multiple engagements.
-* **For external use** for cloud providers who want to publish their own constructs to be consumed in all Pulumi languages.
+* **For internal use** in very large, high-functioning orgs with many teams that run their own infra and do not use the same language (MAANG-scale or SaaS platform orgs, e.g. Uber)
+* **For use with customers** for large system implementers that want to reuse components across multiple engagements
+* **For external use** for cloud providers who want to publish their own constructs to be consumed in all Pulumi languages

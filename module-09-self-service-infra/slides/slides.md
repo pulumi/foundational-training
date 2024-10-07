@@ -4,7 +4,7 @@ paginate: true
 marp: true
 ---
 
-# **Module 10: Self-service Infrastructure**
+# **Module 09: Self-service Infrastructure**
 
 ---
 

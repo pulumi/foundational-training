@@ -4,7 +4,7 @@ paginate: true
 marp: true
 ---
 
-# **Module 03: Introduction to Kubernetes**
+# **Module 99: Introduction to Kubernetes**
 
 ---
 
@@ -76,8 +76,8 @@ deployment = k8s.apps.v1.Deployment(
 
 * Upsert a resource by default (matching on `metadata.name`)
 * Most resources corresponding `XPatch` resources, e.g. `ConfigMapPatch`
-* Use the `pulumi.com/forcePatch` annotation to resolve conflicts with the existing version of the resource, rather than the patch that is being applied.
-* Default for SSA is `true`, can be turned off in provider config.
+* Use the `pulumi.com/forcePatch` annotation to resolve conflicts with the existing version of the resource, rather than the patch that is being applied
+* Default for SSA is `true`, can be turned off in provider config
 
 ---
 

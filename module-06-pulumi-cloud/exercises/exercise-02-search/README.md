@@ -24,7 +24,7 @@ Visit the search page: https://app.pulumi.com/stark-tech/resources
 
 4. Advanced filtering
 
-    * using the "View more" button, build up a search query
+    * using the [search syntax](https://www.pulumi.com/docs/pulumi-cloud/insights/search/#query-syntax), build up a search query
 
 5. Using natural language
 

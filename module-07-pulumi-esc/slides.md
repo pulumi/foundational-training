@@ -1,7 +1,7 @@
 ---
 theme: default
 paginate: true
-header: "Pulumi ESC"
+marp: true
 ---
 
 # **Module 07: Pulumi ESC**
@@ -116,6 +116,12 @@ pulumi env run aws-oidc-env -- aws s3 ls
 
 ---
 
+<style scoped>
+  pre {
+    font-size: 12pt;
+  }
+</style>
+
 ## Pulumi ESC: Importing other ESC Environments
 
 Environment `my-project/aws-base`:
@@ -151,14 +157,14 @@ values:
 # Pulumi ESC: Pulumi IaC Integration
 
 ```bash
-pulumi config env add aws-oidc-env --stack dev
+pulumi config env add default/aws-oidc-env --stack dev
 ```
 
 Running the above command causes the Stack file to be updated as:
 
 ```yaml
 environment:
-- aws-oidc-env
+  - default/aws-oidc-env
 ```
 
 ---
@@ -179,7 +185,7 @@ values:
 ```
 
 ```bash
-esc run local-k8s-env -- kubectl get namespaces
+esc run default/local-k8s-env -- kubectl get namespaces
 ```
 
 ---
@@ -203,18 +209,18 @@ esc run local-k8s-env -- kubectl get namespaces
 
 ## Features - Versioning
 
-- Versioning via `<environment-name>@<tag>` syntax
+- Versioning via `<project-name>/<environment-name>@<tag>` syntax
   - Built-in `latest` tag
   - Allows for reference pinning and rollbacks
 
 ```bash
 # see tag history
-esc env version history aws-oidc-env
+esc env version history default/aws-oidc-env
 # view a particular tag
-esc env open aws-oidc-env@1
-esc env open aws-oidc-env@latest
+esc env open default/aws-oidc-env@1
+esc env open default/aws-oidc-env@latest
 # find the diff in tags
-esc env diff aws-oidc-env@1 aws-oidc-env@latest
+esc env diff default/aws-oidc-env@1 default/aws-oidc-env@latest
 # assign a new tag
-esc env version tag aws-oidc-env@greatest @latest
+esc env version tag default/aws-oidc-env@greatest @latest
 ```
