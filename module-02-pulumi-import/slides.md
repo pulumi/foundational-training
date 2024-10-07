@@ -134,6 +134,12 @@ Additional Resources:
 
 ---
 
+# Exercise: Pulumi Import CLI
+
+See: `exercise-02-pulumi-import-cli.md`
+
+---
+
 # Scenario 2: CloudFormation/CDK (Coexist)
 
 1. Get functions
@@ -154,6 +160,12 @@ Additional Resources:
     ```
 
 **Note:** Pulumi/CDK interop exists, but is experimental
+
+---
+
+# Exercise: Coexisting with CloudFormation
+
+See: `exercise-02-cloudformation-coexist.md`
 
 ---
 
@@ -212,6 +224,12 @@ security_group = aws.ec2.SecurityGroup(
 
 ---
 
+# Exercise: Coexisting with Terraform
+
+See: `exercise-03-terraform-coexist.md`
+
+---
+
 # Scenario 3: Terraform (Replace)
 
 1. Convert Terraform code:
@@ -225,6 +243,12 @@ security_group = aws.ec2.SecurityGroup(
     ```bash
     pulumi import --from terraform path/to/terraform.tfstate
     ```
+
+---
+
+# Exercise: Replacing Terraform via Conversion and State Import
+
+See: `exercise-04-terraform-replace.md`
 
 ---
 

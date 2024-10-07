@@ -65,6 +65,12 @@ How we use stacks in our SaaS product (Pulumi Cloud):
 
 ---
 
+# Exercise: Using Multiple Stacks
+
+See: `exercise-01-multiple-stacks.md`
+
+---
+
 # Stack References
 
 - Retrieve outputs from one stack in another stack
@@ -159,3 +165,10 @@ const serviceSecGroup = new aws.ec2.SecurityGroup("security-group", {
   - Networking team/repos: VPCs, TGW, centralized egress, firewall rules, load balancers
   - Platform team/repos: EKS clusters, RDS clusters, S3 buckets, backup storage, container registries
   - Application teams/repos: Containers, related K8s resources
+
+---
+
+# Discussion: Organizing Programs
+
+- How do you organize repos/IaC codebases/stacks in your org or with your customers?
+- Do you agree with the presenter's recommendations? Why or why not?

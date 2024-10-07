@@ -86,6 +86,12 @@ Resources are immutable!
 
 ---
 
+# Exercise: Build a Pulumi Program on AWS
+
+See: `exercise-01-ecs-fargate.md`
+
+---
+
 # Inputs, Outputs, and Apply
 
 - **Inputs:** Values that may or may not be known and _may_ be supplied by the user, e.g., `aws.ec2.Instance.ami` is type `Input<string>`

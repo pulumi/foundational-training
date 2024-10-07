@@ -156,6 +156,12 @@ class MyComponent(pulumi.ComponentResource):
 
 ---
 
+# Exercise: Refactoring to Components
+
+See: `exercise-01-refactoring-ec2.md`
+
+---
+
 ## Sharing Code in a Single Language
 
 - Publish packages via npm, PyPI, etc.
