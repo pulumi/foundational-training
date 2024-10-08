@@ -241,7 +241,7 @@ See: `exercise-03-terraform-coexist.md`
 1. Import Terraform state:
 
     ```bash
-    pulumi import --from terraform path/to/terraform.tfstate
+    pulumi import --from terraform path/to/terraform.tfstate --protect=false
     ```
 
 ---

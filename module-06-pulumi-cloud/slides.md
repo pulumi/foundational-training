@@ -122,19 +122,19 @@ marp: true
 
 ### Overview
 
-![h:600px](./update-list.png)
+![h:600px](images/update-list.png)
 
 ---
 
 ### Changes
 
-![auto](./changes.png)
+![auto](images/changes.png)
 
 ---
 
 ### Code Links
 
-![auto](./individual-update.png)
+![auto](images/individual-update.png)
 
 ---
 
