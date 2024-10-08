@@ -4,7 +4,7 @@ paginate: true
 marp: true
 ---
 
-# **Module 07: Policy as Code**
+# **Module 05: Policy as Code**
 
 ---
 
@@ -75,15 +75,15 @@ Each resource policy has the following fields:
 
 ```typescript
 {
-    enforcementLevel: "mandatory",
-    name: "s3-tags",
-    description: "Ensure required tags are present on S3 buckets.",
-    validateResource: validateResourceOfType(aws.s3.Bucket, (bucket, args, reportViolation) => {
-        if (!bucket.tags || !bucket.tags["Department"]) {
-            reportViolation("S3 Bucket is missing required Department tag");
+    name: "aws-s3-bucket-enable-server-side-encryption",
+    description: "Check that S3 Bucket Server-Side Encryption (SSE) is enabled.",
+    enforcementLevel: "advisory",
+    validateResource: validateResourceOfType(Bucket, (bucket, args, reportViolation) => {
+        if (!bucket.serverSideEncryptionConfiguration) {
+            reportViolation("S3 Buckets Server-Side Encryption (SSE) should be enabled.");
         }
     }),
-},
+}
 ```
 
 ---
@@ -125,6 +125,25 @@ remediateResource: remediateResourceOfType(aws.s3.Bucket, (bucket, args) => {
     }),
 }
 ```
+
+---
+
+# Running Policies (OSS/Client Side)
+
+- For OSS, policies must be present on disk.
+- `pulumi preview --policy-pack /path/to/policy-pack`
+- `pulumi up --policy-pack /path/to/policy-pack`
+- Can run multiple packs at once:
+
+    ```bash
+    pulumi up --policy-pack /path/to/policy-pack-1  --policy-pack /path/to/policy-pack-2
+    ```
+
+---
+
+# Exercise: Authoring Resource Policies
+
+See: `exercise-01-authoring-resource-polices.md`
 
 ---
 
@@ -181,29 +200,6 @@ More info: <https://www.pulumi.com/docs/using-pulumi/crossguard/compliance-ready
 
 ---
 
-# Running Policies (OSS/Client Side)
-
-- For OSS, policies must be present on disk.
-- `pulumi preview --policy-pack /path/to/policy-pack`
-- `pulumi up --policy-pack /path/to/policy-pack`
-- Can run multiple packs at once:
-
-    ```bash
-    pulumi up --policy-pack /path/to/policy-pack-1  --policy-pack /path/to/policy-pack-2
-    ```
-
----
-
-# Server-Side Enforcement
-
-- Paid feature (currently Business Critical only)
-- Publish policy packs via `pulumi policy publish`
-- **Policy Group:** (some # of versioned policy packs) (policy pack config) + (some # of stacks)
-- Default Policy Group automatically includes all stacks.
-- When running `pulumi preview` or `pulumi up`, Pulumi CLI downloads the applicable packs and runs them. (Don't need to specify `--policy-pack`.)
-
----
-
 # Custom Configuration, Authoring
 
 Policy authors can define a config schema for each policy:
@@ -249,8 +245,24 @@ pulumi preview --policy-pack ../policy --policy-pack-config policy-config.json
 
 ---
 
+# Server-Side Enforcement
+
+- Paid feature (currently Business Critical only)
+- Publish policy packs via `pulumi policy publish`
+- **Policy Group:** (some # of versioned policy packs) (policy pack config) + (some # of stacks)
+- Default Policy Group automatically includes all stacks.
+- When running `pulumi preview` or `pulumi up`, Pulumi CLI downloads the applicable packs and runs them. (Don't need to specify `--policy-pack`.)
+
+---
+
 # Custom Configuration, Consuming (Server-Side Enforcement)
 
 Consumers can configure policy packs via the Pulumi Cloud UI:
 
 ![width:275px](policy-pack-config.png)
+
+---
+
+# Exercise: Server-Side Policy Enforcement
+
+See: `exercise-03-server-side-enforcement.md`
