@@ -1,4 +1,4 @@
-# Exercise 2: Bulk importing resources
+# Exercise 1: Bulk importing resources
 
 In this exercise you will bulk import resources (typically created manually in the console or via CloudFormation). This exercise uses a custom script using `boto3` to generate a bulk import JSON file for use with the `pulumi import` command, but learners are welcome to take their own approach to gather resources for import, including handwriting the file.
 

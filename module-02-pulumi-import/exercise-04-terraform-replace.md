@@ -22,16 +22,19 @@ In this exercise, you will take a Terraform program containing a VPC and convert
     # Wait for the resource creation
     ```
 
+1. Create a new Pulumi program:
+
+    ```bash
+    mkdir ../pulumi-convert-tf 
+    cd ../pulumi-convert-tf
+    pulumi new typescript # or pulumi new python
+    ```
+
 1. Convert the Terraform code to Pulumi
 
     ```bash
-    pulumi convert --from terraform --out ../pulumi-convert-tf-ts --language typescript
-    ```
-
-    or
-
-    ```bash
-    pulumi convert --from terraform --out ../pulumi-convert-tf-py --language python
+    cd ../terraform
+    pulumi convert --from terraform --out ../pulumi-convert-tf --language typescript # or python
     ```
 
     This command will generate code, but the resources will not yet be under Pulumi management because they have not been imported to your Pulumi state.
