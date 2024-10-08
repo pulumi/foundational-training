@@ -200,29 +200,6 @@ More info: <https://www.pulumi.com/docs/using-pulumi/crossguard/compliance-ready
 
 ---
 
-# Running Policies (OSS/Client Side)
-
-- For OSS, policies must be present on disk
-- `pulumi preview --policy-pack /path/to/policy-pack`
-- `pulumi up --policy-pack /path/to/policy-pack`
-- Can run multiple packs at once:
-
-    ```bash
-    pulumi up --policy-pack /path/to/policy-pack-1  --policy-pack /path/to/policy-pack-2
-    ```
-
----
-
-# Server-Side Enforcement
-
-- Paid feature (currently Business Critical only)
-- Publish policy packs via `pulumi policy publish`
-- **Policy Group:** (some # of versioned policy packs) (policy pack config) + (some # of stacks)
-- Default Policy Group automatically includes all stacks
-- When running `pulumi preview` or `pulumi up`, Pulumi CLI downloads the applicable packs and runs them (don't need to specify `--policy-pack`)
-
----
-
 # Custom Configuration, Authoring
 
 Policy authors can define a config schema for each policy:

@@ -207,41 +207,6 @@ marp: true
 
 ---
 
-### Secrets
-
-- Create secrets directly in ESC
-- Access secrets from third party providers
-
----
-
-### Secret providers supported
-
-- 1Password
-- AWS Secrets Manager
-- Azure Key Vault
-- Google Cloud Secrets Manager
-- HashiCorp Vault
-
----
-
-### Configuration
-
-- Configuration values shared across stacks
-- Available as environment variables or via Pulumi config class
-
----
-
-### Access Management
-
-- Restrict access to environments via teams
-- Read - can view plaintext values set in the environment
-- Open - can read dynamic values, secrets and run functions
-- Write - can update the environment
-
-<!-- There's a whole module on ESC so just want to go into how it works with Pulumi Cloud -->
-
----
-
 ## Deployments
 
 ---
@@ -270,24 +235,6 @@ marp: true
 
 - Drift detection
 - TTL on stacks
-
----
-
-### Demo
-
----
-
-## CrossGuard
-
----
-
-### Integration with Pulumi Cloud
-
-- Publish the policy packs as part of your CI/CD workflow
-- Add your stacks to Policy Groups
-- Policy packs are run during updates and previews
-
-<!-- There's a whole module on PaC so just want to go into how it works with Pulumi Cloud -->
 
 ---
 
