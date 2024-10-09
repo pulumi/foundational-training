@@ -22,12 +22,12 @@ This exercise assumes you've broken the ECS on Fargate exercise into two separat
 
     ```bash
     pulumi stack select dev && pulumi stack config useLogs false
-    pulumi stack select dev && pulumi stack config useLogs true
+    pulumi stack select prod && pulumi stack config useLogs true
     ```
 
 1. In the program, when the `useLogs` parameter is true, create a CloudWatch log group and have your ECS container log to the log group. (Be sure to look at the config value, not the current stack name as the latter is best practice.)
 
-1. Spin up both the prod and desc stacks of the ECS program:
+1. Spin up both the `dev` and `prod` stacks of the ECS program:
 
     ```bash
     pulumi stack select dev && pulumi up -y
@@ -38,5 +38,5 @@ This exercise assumes you've broken the ECS on Fargate exercise into two separat
 
     ```bash
     pulumi stack select dev && pulumi destroy -y
-    pulumi stack select dev && pulumi destroy -y
+    pulumi stack select prod && pulumi destroy -y
     ```

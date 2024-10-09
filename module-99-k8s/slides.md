@@ -4,14 +4,14 @@ paginate: true
 marp: true
 ---
 
-# **Module 03: Introduction to Kubernetes**
+# **Module 99: Introduction to Kubernetes**
 
 ---
 
 # Pulumi Kubernetes Provider - TypeScript
 
-* First native provider (no underlying TF provider dependency)
-* Strongly-typed standard resources:
+- First native provider (no underlying TF provider dependency)
+- Strongly-typed standard resources:
 
     ```typescript
     const deployment = new kubernetes.apps.v1.Deployment("deployment", {
@@ -34,8 +34,8 @@ marp: true
 
 # Pulumi Kubernetes Provider - Python
 
-* First native provider (no underlying TF provider dependency)
-* Strongly-typed standard resources:
+- First native provider (no underlying TF provider dependency)
+- Strongly-typed standard resources:
 
 ```python
 deployment = k8s.apps.v1.Deployment(
@@ -65,19 +65,19 @@ deployment = k8s.apps.v1.Deployment(
 
 # Amazon EKS Package
 
-* Contains component resources for common EKS constructs:
-  * Clusters
-  * Node Groups
-* Best suited for proofs of concept, getting started quickly
+- Contains component resources for common EKS constructs:
+  - Clusters
+  - Node Groups
+- Best suited for proofs of concept, getting started quickly
 
 ---
 
 # Server-side Apply
 
-* Upsert a resource by default (matching on `metadata.name`)
-* Most resources corresponding `XPatch` resources, e.g. `ConfigMapPatch`
-* Use the `pulumi.com/forcePatch` annotation to resolve conflicts with the existing version of the resource, rather than the patch that is being applied.
-* Default for SSA is `true`, can be turned off in provider config.
+- Upsert a resource by default (matching on `metadata.name`)
+- Most resources corresponding `XPatch` resources, e.g. `ConfigMapPatch`
+- Use the `pulumi.com/forcePatch` annotation to resolve conflicts with the existing version of the resource, rather than the patch that is being applied
+- Default for SSA is `true`, can be turned off in provider config
 
 ---
 
@@ -194,7 +194,7 @@ manifests
 
 # Helm
 
-* `helm.v3.Chart`: Templates the chart locally like `helm template`. ComponentResource containing each of the constituent, templated resources:
+- `helm.v3.Chart`: Templates the chart locally like `helm template`. ComponentResource containing each of the constituent, templated resources:
 
     ```text
         ├─ kubernetes:helm.sh/v3:Chart                  wp-chart                             create      
@@ -206,6 +206,6 @@ manifests
         etc.
     ```
 
-* `helm.v3.Release`: Single resource, full functionality of Helm CLI (hooks, etc.)
-* Guide: <https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case/#limitations>
-* Additional Helm Release options: <https://www.pulumi.com/registry/packages/kubernetes/api-docs/provider/#helmreleasesettings>
+- `helm.v3.Release`: Single resource, full functionality of Helm CLI (hooks, etc.)
+- Guide: <https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case/#limitations>
+- Additional Helm Release options: <https://www.pulumi.com/registry/packages/kubernetes/api-docs/provider/#helmreleasesettings>

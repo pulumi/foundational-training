@@ -74,7 +74,7 @@ Run `pulumi refresh --expect-no-changes` on a schedule:
 - Optionally, use a webhook to notify, e.g. Slack
 - Pulumi Deployments excels here
 
-Opinion: Do not automatically remediate drift. Alert and have a conversation. (But it does need to be remediated eventually.)
+Opinion: Do not automatically remediate drift. Alert and have a conversation (But it does need to be remediated eventually)
 
 ---
 

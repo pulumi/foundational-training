@@ -47,7 +47,7 @@ In this exercise, you will take a Terraform program containing a VPC and convert
     pulumi import --from terraform ../terraform/terraform.tfstate --protect=false --generate-code=false
     ```
 
-1. Check to see whether there any additional massaging is necessary. For example, you may need to change the tags from `name` to `Name`. (Loss of case-sensitivity for tag names in conversion from Terraform [is a known issue](https://github.com/pulumi/pulumi-converter-terraform/issues/100).)
+1. Check to see whether any additional massaging is necessary. For example, you may need to change the tags from `name` to `Name`. (Loss of case-sensitivity for tag names in conversion from Terraform [is a known issue](https://github.com/pulumi/pulumi-converter-terraform/issues/100).)
 
     Run the following command to see whether there is any drift between your Pulumi state file and your resources as declared in your Pulumi program:
 

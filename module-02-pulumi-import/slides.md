@@ -19,7 +19,7 @@ marp: true
 
 ## Strategies
 
-1. **Coexist:** Interoperate with existing resources that are not (and will not be) managed by Pulumi.
+1. **Coexist:** Interoperate with existing resources that are not (and will not be) managed by Pulumi
 1. **Replace:** Bring resources under Pulumi management, remove from other tool (if applicable)
 
 ## Common Scenarios
@@ -37,15 +37,15 @@ marp: true
 const vpc = aws.ec2.Vpc.get("existing-vpc", "vpc-aefe77d6");
 
 new aws.ec2.SecurityGroup("security-group", {
-  description: "No traffic for you",
-  vpcId: vpc.id
+    description: "No traffic for you",
+    vpcId: vpc.id
 });
 ```
 
-- Every Pulumi resource has a `get` function.
-- Takes 2 parameters: `name`, and `id`.
-- The `id` parameter is resource-specific and identical to the id used in `pulumi import`.
-- `get` will fail in preview if resource cannot be found.
+- Every Pulumi resource has a `get` function
+- Takes 2 parameters: `name`, and `id`
+- The `id` parameter is resource-specific and identical to the id used in `pulumi import`
+- `get` will fail in preview if resource cannot be found
 
 Docs: <https://www.pulumi.com/docs/concepts/resources/get/>
 
@@ -62,10 +62,10 @@ security_group = aws.ec2.SecurityGroup(
     # etc.
 ```
 
-- Every Pulumi resource has a `get` function.
-- Takes 2 parameters: `name`, and `id`.
-- The `id` parameter is resource-specific and identical to the id used in `pulumi import`.
-- `get` will fail in preview if resource cannot be found.
+- Every Pulumi resource has a `get` function
+- Takes 2 parameters: `name`, and `id`
+- The `id` parameter is resource-specific and identical to the id used in `pulumi import`
+- `get` will fail in preview if resource cannot be found
 
 Docs: <https://www.pulumi.com/docs/concepts/resources/get/>
 
@@ -83,8 +83,8 @@ pulumi import aws:ec2/vpc:Vpc my-vpc vpc-0f12a82357335a28f
 
 Does two things:
 
-1. Brings resources into Pulumi state file.
-1. Generates complete code (all properties).
+1. Brings resources into Pulumi state file
+1. Generates complete code (all properties)
 
 For each resource:
 
@@ -106,16 +106,16 @@ pulumi import -f path/to/file.json -o file.ts -y
 
 ```json
 {
- "resources": [
-   {
-     "type": "aws:ec2/vpc:Vpc",
-     "name": "my-vpc",
-     "id": "vpc-094958e4051c478c3"
+  "resources": [
+    {
+      "type": "aws:ec2/vpc:Vpc",
+      "name": "my-vpc",
+      "id": "vpc-094958e4051c478c3"
     },
-   {
-     "type": "aws:ec2/vpc:Vpc",
-     "name": "my-other-vpc",
-     "id": "vpc-0f12a82357335a28f"
+    {
+      "type": "aws:ec2/vpc:Vpc",
+      "name": "my-other-vpc",
+      "id": "vpc-0f12a82357335a28f"
     }
   ]
 }
@@ -159,7 +159,7 @@ See: `exercise-02-pulumi-import-cli.md`
     });
     ```
 
-**Note:** Pulumi/CDK interop exists, but is experimental.
+**Note:** Pulumi/CDK interop exists, but is experimental
 
 ---
 
@@ -173,7 +173,7 @@ See: `exercise-02-cloudformation-coexist.md`
 
 `pulumi import`
 
-**Note:** `cf2pulumi` is experimental.
+**Note:** `cf2pulumi` is experimental
 
 ---
 
@@ -192,9 +192,9 @@ const tfState = new terraform.state.RemoteStateReference("tf-state", {
 });
 
 new aws.ec2.SecurityGroup("security-group", {
-  description: "Allow all egress",
-  vpcId: tfState.getOutput("vpc_id"),
-  // etc
+    description: "Allow all egress",
+    vpcId: tfState.getOutput("vpc_id"),
+    // etc
 });
 ```
 
@@ -280,4 +280,4 @@ See: `exercise-04-terraform-replace.md`
 - [kube2pulumi](https://www.pulumi.com/kube2pulumi/): Convert K8s YAML files into Pulumi resources.
 - [crd2pulumi](https://github.com/pulumi/crd2pulumi): Convert K8s CustomResourceDefinitions into Pulumi components.
 
-**Note:** These will likely be converted into `pulumi convert` plugins.
+**Note:** These will likely be converted into `pulumi convert` plugins

@@ -2,7 +2,7 @@
 
 In this exercise, you will start with a single program that contains a VPC, and all the resources needed to run NGINX an ECS on Fargate workload in the VPC. This approach is fine for a simple scenario, but in more real-world scenarios with multiple workloads running in the same VPC, you'll likely want to re-use shared resources like the VPC and ALB in order to control for costs or to account for differing team ownership.
 
-1. Spin up the ECS on Fargate stack from module 01. If were unable to complete the exercise, ask an instructor for help:
+1. Spin up the ECS on Fargate stack from module 01. If you were unable to complete the exercise, ask an instructor for help:
 
     ```bash
     cd <monolithic-stack-dir>

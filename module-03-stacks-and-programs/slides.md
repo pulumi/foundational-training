@@ -50,7 +50,7 @@ marp: true
   - `pulumi config set logRetentionDays 90`
   - `pulumi config set apiKey abc123 --secret`
 - Commit all stack config files to git, but **be sure to correctly mark secrets!!!**
-- Can use ESC to manage config at scale.
+- Can use ESC to manage config at scale
 
 ---
 
@@ -59,7 +59,7 @@ marp: true
 How we use stacks in our SaaS product (Pulumi Cloud):
 
 - Individual developer stacks used w/feature branches
-- Staging stack on`main` branch w/continuous delivery
+- Staging stack on `main` branch w/continuous delivery
 - Production deployments on-demand
 - 139 stack config parameters
 
@@ -92,21 +92,21 @@ const privateSubnetIds = stackRef.getOutput("privateSubnetIds") as pulumi.Output
 
 # Stack Outputs/References: Best Practices
 
-**Do** share only what you _know_ is actually consumed downstream. (Limit fan-out.)
+**Do** share only what you _know_ is actually consumed downstream (limit fan-out)
 
-**Don't** add outputs "just in case". It's code and therefore is malleable. Submit a PR if a change is needed.
+**Don't** add outputs "just in case". It's code and therefore is malleable. Submit a PR if a change is needed
 
 This means:
 
 - Remove stack outputs when they are (definitively) no longer needed (code as documentation!)
 
-**Note:** Nuances apply if your organization is enormous where you can't possibly know all downstream consumers. In this case, be much more careful about breaking changes.
+**Note:** Nuances apply if your organization is enormous where you can't possibly know all downstream consumers. In this case, be much more careful about breaking changes
 
 ---
 
 # Stack Outputs/References: Best Practices
 
-**Do not** share entire resources. Unnecessary performance hit and churn on values.
+**Do not** share entire resources. Unnecessary performance hit and churn on values
 
 ```typescript
 // Do not do this:
