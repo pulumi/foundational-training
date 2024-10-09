@@ -60,31 +60,6 @@ Environments, secrets, and configuration
 
 ---
 
-# Pulumi ESC: Controls
-
-- RBAC
-- Audit logs
-
----
-
-# Pulumi ESC: Add'l Features
-
-- Standalone CLI: `esc`
-- Graphical key-value editor
-- Projects
-- Helper functions: JSON, Base64, etc. `fn::toBase64`
-- Pulumi Cloud provider
-- SDK
-- Webhooks
-
----
-
-## How it works
-
-![alt text](images/esc-architecture-diagram.png)
-
----
-
 # Pulumi ESC Example: AWS OIDC
 
 ```yaml
@@ -113,6 +88,37 @@ pulumi env run aws-oidc-env -- aws s3 ls
 1. Pulumi Cloud token authenticates
 1. Pulumi ESC RBAC authorizes
 1. OIDC creds will be fetched and passed to the command as env vars
+
+---
+
+# Exercise: AWS OIDC Credentials with ESC
+
+See: `exercise-01-aws-oidc.md`
+
+---
+
+# Pulumi ESC: Controls
+
+- RBAC
+- Audit logs
+
+---
+
+# Pulumi ESC: Add'l Features
+
+- Standalone CLI: `esc`
+- Graphical key-value editor
+- Projects
+- Helper functions: JSON, Base64, etc. `fn::toBase64`
+- Pulumi Cloud provider
+- SDK
+- Webhooks
+
+---
+
+## How it works
+
+![alt text](images/esc-architecture-diagram.png)
 
 ---
 
@@ -166,6 +172,8 @@ Running the above command causes the Stack file to be updated as:
 environment:
   - default/aws-oidc-env
 ```
+
+---
 
 ---
 
