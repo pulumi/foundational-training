@@ -4,21 +4,32 @@ In this exercise, you will initialize policy packs, write a basic resource polic
 
 The `infra` directory contains a Pulumi program that contains some basic (contrived) infrastructure resources. You will validate these resources against company policies.
 
-1. Initialize a new Pulumi policy pack based on the `aws-typescript` template:
+1. Initialize a new Pulumi policy pack based on the `aws-typescript` or `aws-python` template:
 
     ```bash
     # Ensure you are in the /exercises directory
-    pulumi policy new aws-typescript --dir my-company-policy
+    pulumi policy new aws-typescript --dir my-company-policy # or aws-python
     # wait for dependencies to download
     cd my-company-policy
     ```
 
-1. In the `index.ts` file, change the name of the policy pack to something like `my-company-policy-${YOUR_NAME}`. (Pulumi policy packs don't contain the name in `PulumiPolicy.yaml`, similar to Pulumi IaC programs - the pack's name is in the code.) Also, remove the policy that comes with the template. Your code should look something like the following, assuming you are Bugs Bunny or similarly named:
+1. In the `index.ts` or `__main__.py` file, change the name of the policy pack to something like `my-company-policy-${YOUR_NAME}`. (Pulumi policy packs don't contain the name in `PulumiPolicy.yaml` like to Pulumi IaC programs do - the pack's name is in the code.) Also, remove the policy that comes with the template. Your code should look something like the following, assuming you are Bugs Bunny or similarly named:
 
     ```typescript
     new PolicyPack("my-company-policy-bugs-bunny", {
         policies: [],
     });
+    ```
+
+    ```python
+    PolicyPack(
+      name="my-company-policy-jkodroff",
+      enforcement_level=EnforcementLevel.MANDATORY,
+      policies=[
+          s3_no_public_read,
+          s3_ensure_department_tag
+      ],
+    )
     ```
 
 1. Add an `advisory` resource policy ensuring all S3 buckets have a `Department` tag. Note that you will need to check whether `tags` is defined at all (it will be `undefined` in TS or `None` in Python) if no tags are defined before verifying whether the `Department` tags is defined.
