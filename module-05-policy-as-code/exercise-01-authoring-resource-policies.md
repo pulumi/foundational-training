@@ -26,6 +26,7 @@ The `infra` directory contains a Pulumi program that contains some basic (contri
 
     ```bash
     cd ../infra
+    npm i
     # pulumi up will also work similarly, but will actually provision the resources
     pulumi preview --policy-pack ../my-company-policy
     ```
