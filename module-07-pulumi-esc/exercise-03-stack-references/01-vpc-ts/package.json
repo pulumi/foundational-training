@@ -1,0 +1,12 @@
+{
+    "name": "module-07-ex-03-vpc",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^18",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@pulumi/awsx": "^2.16.1",
+        "@pulumi/pulumi": "^3.113.0"
+    }
+}

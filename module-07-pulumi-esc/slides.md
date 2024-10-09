@@ -60,10 +60,20 @@ Environments, secrets, and configuration
 
 ---
 
-# Pulumi ESC: Controls
+# Features - RBAC
 
-- RBAC
-- Audit logs
+- `read`: Members can view only plaintext key values (Configs)
+- `open`: Members can decrypt secrets + get dynamic credentials
+- `write`: Members can `open` + update the Environment
+- `admin`: Members can `write` + delete the Environment
+
+![alt text](images/esc-env-permissions.png)
+
+---
+
+# Features - Auditing
+
+![alt text](images/esc-audit-trail.png)
 
 ---
 
@@ -116,6 +126,27 @@ pulumi env run aws-oidc-env -- aws s3 ls
 
 ---
 
+# Pulumi ESC: Pulumi IaC Integration
+
+```bash
+pulumi config env add default/aws-oidc-env --stack dev
+```
+
+Running the above command causes the Stack file to be updated as:
+
+```yaml
+environment:
+  - default/aws-oidc-env
+```
+
+---
+
+# Exercise: AWS OIDC
+
+See: `exercise-01-aws-oidc.md`
+
+---
+
 <style scoped>
   pre {
     font-size: 12pt;
@@ -154,21 +185,6 @@ values:
 
 ---
 
-# Pulumi ESC: Pulumi IaC Integration
-
-```bash
-pulumi config env add default/aws-oidc-env --stack dev
-```
-
-Running the above command causes the Stack file to be updated as:
-
-```yaml
-environment:
-  - default/aws-oidc-env
-```
-
----
-
 # Pulumi ESC: File Output Example
 
 ```yaml
@@ -190,20 +206,9 @@ esc run default/local-k8s-env -- kubectl get namespaces
 
 ---
 
-# Features - RBAC
+# Exercise: Stack References and Files in ESC
 
-- `read`: Members can view only plaintext key values (Configs)
-- `open`: Members can decrypt secrets + get dynamic credentials
-- `write`: Members can `open` + update the Environment
-- `admin`: Members can `write` + delete the Environment
-
-![alt text](images/esc-env-permissions.png)
-
----
-
-# Features - Auditing
-
-![alt text](images/esc-audit-trail.png)
+See: `exercise-03-stack-refs-and-files.md`
 
 ---
 
