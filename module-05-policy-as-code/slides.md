@@ -200,6 +200,12 @@ More info: <https://www.pulumi.com/docs/using-pulumi/crossguard/compliance-ready
 
 ---
 
+# Exercise: Compliance Ready Policies
+
+See: `exercise-02-compliance-ready-policies.md`
+
+---
+
 # Custom Configuration, Authoring
 
 Policy authors can define a config schema for each policy:

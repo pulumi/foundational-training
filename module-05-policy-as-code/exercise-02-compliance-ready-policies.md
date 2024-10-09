@@ -14,7 +14,6 @@ In this exercise, you'll use compliance-ready policies to ensure your resources 
 
 1. Change the name of the policy pack to `compliance-ready-policies-your-name`.
 1. Change the generated selector so that all issues pertaining to the `ec2` are `mandatory`.
-1. Add a selector that brings in all `pcidss` rules for the `ec2` service as `advisory`.
 1. Run the policy pack:
 
     ```bash
@@ -24,7 +23,14 @@ In this exercise, you'll use compliance-ready policies to ensure your resources 
 
     You should see an error on your EC2 instance for having a public IP address.
 
-1. Remediate the mandatory issues and re-run the policy pack. Optionally, update the policy such that the advisory warnings are fully addressed.
+1. Remediate the issue on your EC2 instance by setting `associatePublicIpAddress` to `false`. (It must be `false` because if the value is undefined the instance will have a public IP if deployed into a public subnet.) Re-run the policy pack:
+
+    ```bash
+    pulumi preview --policy-pack ../compliance-ready-policies
+    ```
+
+    The policy should pass.
+
 1. You can run both sets, the compliance-ready policies and the policy pack you created earlier, by specifying the `--policy-pack` flag twice:
 
     ```bash
