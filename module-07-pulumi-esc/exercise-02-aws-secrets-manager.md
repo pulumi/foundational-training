@@ -6,6 +6,8 @@ You will build a Lambda function that queries the GitHub API.
 
 ## Setup Steps
 
+NOTE: This stack is written in TypeScript. You will need to install node/npm in order to complete these steps.
+
 1. Create a [GitHub personal token](https://github.com/settings/tokens?type=beta). The token can be read-only.
 1. Add the GitHub token as a secret config value to the setup infra for this exercise, e.g.:
 
@@ -19,6 +21,19 @@ You will build a Lambda function that queries the GitHub API.
 
     ```bash
     pulumi config env add aws/aws-oidc-admin
+    ```
+
+1. Deploy the infrastructure:
+
+    ```bash
+    npm i
+    pulumi up
+    ```
+
+    Note that if you are working from a shared Pulumi organization, you may need to first create a new stack:
+
+    ```bash
+    pulumi stack init <your-name>
     ```
 
 ## Exercise Steps
