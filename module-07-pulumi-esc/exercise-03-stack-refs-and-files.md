@@ -77,6 +77,13 @@ In this exercise, we'll explore a common multi-program infrastructure setup:
     # TODO
     ```
 
+1. Add the environment to your EKS stack config file:
+
+    ```bash
+    environment:
+      - your-project-name/esc-ex-03-vpc # Edit these as necessary to match your VPC stack
+    ```
+
 1. Preview the EKS cluster. You should see no changes because we've replaces a stack reference with the equivalent config via Pulumi ESC:
 
     ```bash
