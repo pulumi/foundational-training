@@ -31,14 +31,20 @@ marp: true
 
 ---
 
-# Get Functions: Reference any existing resource
+# Get Functions: Reference any existing resource (TypeScript)
 
 ```typescript
-const vpc = aws.ec2.Vpc.get("existing-vpc", "vpc-aefe77d6");
+const existingVpcId = "vpc-0340ffe6c77c3a42f";
+const existingVpc = aws.ec2.Vpc.get("existing-vpc", existingVpcId);
 
 new aws.ec2.SecurityGroup("security-group", {
-    description: "No traffic for you",
-    vpcId: vpc.id
+  vpcId: existingVpcId,
+  ingress: [{
+    fromPort: 80,
+    toPort: 80,
+    cidrBlocks: [existingVpc.cidrBlock],
+    protocol: "tcp"
+  }]
 });
 ```
 
@@ -51,15 +57,23 @@ Docs: <https://www.pulumi.com/docs/concepts/resources/get/>
 
 ---
 
-# Get Functions: Reference any existing resource
+# Get Functions: Reference any existing resource (Python)
 
 ```python
-vpc = aws.ec2.Vpc.get("name", "vpc-abc123")
+existing_vpc_id = "vpc-0340ffe6c77c3a42f"
+existing_vpc = aws.ec2.get_vpc("existing-vpc", id=existing_vpc_id)
 
-security_group = aws.ec2.SecurityGroup(
-    "my-security-group",
-    vpc_id=vpc.id
-    # etc.
+security_group = aws.ec2.SecurityGroup("security-group",
+    vpc_id=existing_vpc_id,
+    ingress=[
+        aws.ec2.SecurityGroupIngressArgs(
+            from_port=80,
+            to_port=80,
+            cidr_blocks=[existing_vpc.cidr_block],
+            protocol="tcp"
+        )
+    ]
+)
 ```
 
 - Every Pulumi resource has a `get` function
