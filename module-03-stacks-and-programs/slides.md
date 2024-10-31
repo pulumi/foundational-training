@@ -8,69 +8,6 @@ marp: true
 
 ---
 
-# Stack Configuration (Review)
-
-- Each stack has its own config file `Pulumi.{STACK_NAME}.yaml`, e.g.`Pulumi.dev.yaml` or `Pulumi.prod.yaml`
-- Setting config values:
-
-    ```bash
-    $ pulumi config set my-key my-value
-    $ cat Pulumi.dev.yaml
-    config:
-      project-name:my-key: my-value
-    ```
-
-- Reading config values:
-
-    ```typescript
-    const config = new pulumi.Config();
-    const optionalValue = config.get("some-optional-value") || "default-value";
-    const requiredValue = config.require("some-required-value");
-    // also, getBoolean(), getRequiredInt(), etc.
-    ```
-
----
-
-# Using Multiple Stacks in a Single Program
-
-- Represent roughly identical environments, e.g.:
-  - dev/stage/prod
-  - SaaS tenants
-  - primary/disaster recovery
-- Create a new stack: `pulumi stack init prod`
-- Change the current stack: `pulumi stack select staging`
-- List stacks: `pulumi stack ls`
-
----
-
-# Stack Config w/Multiple Stacks
-
-- Use config to control differences, e.g.:
-  - `pulumi config set desiredNodeCount 3`
-  - `pulumi config set logRetentionDays 90`
-  - `pulumi config set apiKey abc123 --secret`
-- Commit all stack config files to git, but **be sure to correctly mark secrets!!!**
-- Can use ESC to manage config at scale
-
----
-
-# Organizing Stacks, Example: Pulumi Cloud @ Pulumi
-
-How we use stacks in our SaaS product (Pulumi Cloud):
-
-- Individual developer stacks used w/feature branches
-- Staging stack on `main` branch w/continuous delivery
-- Production deployments on-demand
-- 139 stack config parameters
-
----
-
-# Exercise: Using Multiple Stacks
-
-See: `exercise-01-multiple-stacks.md`
-
----
-
 # Stack References
 
 - Retrieve outputs from one stack in another stack
@@ -104,7 +41,7 @@ This means:
 
 ---
 
-# Stack Outputs/References: Best Practices
+# Stack Outputs/References: Best Practices Cont'd
 
 **Do not** share entire resources. Unnecessary performance hit and churn on values
 
@@ -168,7 +105,76 @@ const serviceSecGroup = new aws.ec2.SecurityGroup("security-group", {
 
 ---
 
-# Discussion: Organizing Programs
+# Exercise: Multiple Programs
+
+See: `exercise-01-refactor-to-multiple-programs.md`
+
+---
+
+# Stack Configuration (Review)
+
+- Each stack has its own config file `Pulumi.{STACK_NAME}.yaml`, e.g.`Pulumi.dev.yaml` or `Pulumi.prod.yaml`
+- Setting config values:
+
+    ```bash
+    $ pulumi config set my-key my-value
+    $ cat Pulumi.dev.yaml
+    config:
+      project-name:my-key: my-value
+    ```
+
+- Reading config values:
+
+    ```typescript
+    const config = new pulumi.Config();
+    const optionalValue = config.get("some-optional-value") || "default-value";
+    const requiredValue = config.require("some-required-value");
+    // also, getBoolean(), getRequiredInt(), etc.
+    ```
+
+---
+
+# Using Multiple Stacks in a Single Program
+
+- Represent roughly identical environments, e.g.:
+  - dev/stage/prod
+  - SaaS tenants
+  - primary/disaster recovery
+- Create a new stack: `pulumi stack init prod`
+- Change the current stack: `pulumi stack select staging`
+- List stacks: `pulumi stack ls`
+
+---
+
+# Stack Config w/Multiple Stacks
+
+- Use config to control differences, e.g.:
+  - `pulumi config set desiredNodeCount 3`
+  - `pulumi config set logRetentionDays 90`
+  - `pulumi config set apiKey abc123 --secret`
+- Commit all stack config files to git, but **be sure to correctly mark secrets!!!**
+- Can use ESC to manage config at scale
+
+---
+
+# Organizing Stacks, Example: Pulumi Cloud @ Pulumi
+
+How we use stacks in our SaaS product (Pulumi Cloud):
+
+- Individual developer stacks used w/feature branches
+- Staging stack on `main` branch w/continuous delivery
+- Production deployments on-demand
+- 139 stack config parameters
+
+---
+
+# Exercise: Using Multiple Stacks
+
+See: `exercise-02-multiple-stacks.md`
+
+---
+
+# Discussion: Organizing Stacks and Programs
 
 - How do you organize repos/IaC codebases/stacks in your org or with your customers?
 - Do you agree with the presenter's recommendations? Why or why not?
