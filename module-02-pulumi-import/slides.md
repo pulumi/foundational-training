@@ -31,35 +31,40 @@ marp: true
 
 ---
 
-# Get Functions: Reference any existing resource
+# Get Functions: Reference any existing resource (TypeScript)
 
 ```typescript
-const vpc = aws.ec2.Vpc.get("existing-vpc", "vpc-aefe77d6");
+const existingVpcId = "vpc-0340ffe6c77c3a42f";
+const existingVpc = aws.ec2.Vpc.get("existing-vpc", existingVpcId);
 
 new aws.ec2.SecurityGroup("security-group", {
-    description: "No traffic for you",
-    vpcId: vpc.id
-});
+  vpcId: existingVpcId,
+  ingress: [{
+    cidrBlocks: [existingVpc.cidrBlock],
+    // ...
+})
 ```
 
 - Every Pulumi resource has a `get` function
 - Takes 2 parameters: `name`, and `id`
-- The `id` parameter is resource-specific and identical to the id used in `pulumi import`
+- `id` parameter is resource-specific and identical to the id used in `pulumi import`
 - `get` will fail in preview if resource cannot be found
 
 Docs: <https://www.pulumi.com/docs/concepts/resources/get/>
 
 ---
 
-# Get Functions: Reference any existing resource
+# Get Functions: Reference any existing resource (Python)
 
 ```python
-vpc = aws.ec2.Vpc.get("name", "vpc-abc123")
-
+vpc_id = "vpc-aefe77d6"
+existing_vpc = aws.ec2.Vpc.get("existing_vpc", vpc_id)
 security_group = aws.ec2.SecurityGroup(
-    "my-security-group",
-    vpc_id=vpc.id
-    # etc.
+    "security-group",
+    vpc_id=vpc_id,
+    ingress=[aws.ec2.SecurityGroupIngressArgs(
+        cidr_blocks=[existing_vpc.cidr_block]
+    # etc...
 ```
 
 - Every Pulumi resource has a `get` function
@@ -136,7 +141,7 @@ Additional Resources:
 
 # Exercise: Pulumi Import CLI
 
-See: `exercise-02-pulumi-import-cli.md`
+See: `exercise-01-pulumi-import-cli.md`
 
 ---
 

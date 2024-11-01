@@ -1,5 +1,5 @@
 
-# Exercise 1: Consuming CloudFormation stack outputs
+# Exercise 2: Consuming CloudFormation stack outputs
 
 In this exercise, you'll learn how organizations using CDK or CloudFormation can consume stack outputs using Pulumi.
 
