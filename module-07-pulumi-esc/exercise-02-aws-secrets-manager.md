@@ -73,7 +73,8 @@ The `setup` stack will take a GitHub token, place it in AWS Secrets Manager, and
 1. Deploy the Lambda function.
 
     ```bash
-    cd ../exercise
+    cd ..
+    npm i
     pulumi up -y
     ```
 
