@@ -4,8 +4,6 @@ In this exercise, you'll see how ESC integrates with popular secrets managers li
 
 You will build a Lambda function that queries the GitHub API.
 
-NOTE: The Lambda function is written in NodeJS as NodeJS Lambda functions are significantly easier to deploy compared to Python. You will need to install NodeJS in order to complete these steps.
-
 ## Setup Steps
 
 The `setup` stack will take a GitHub token, place it in AWS Secrets Manager, and generate an ESC environment that reads the secret.
@@ -19,7 +17,7 @@ The `setup` stack will take a GitHub token, place it in AWS Secrets Manager, and
     pulumi config set githubToken github_pat_abc123 --secret # Replace value with your token
     ```
 
-1. (Optional) If you want to use ESC OIDC credentials, add them to this stack:
+1. (Optional) If you want to use the AWS ESC OIDC credentials (see first step of Exercise 1), add them to this stack:
 
     ```bash
     pulumi config env add aws/aws-oidc-admin
@@ -45,6 +43,9 @@ The `setup` stack will take a GitHub token, place it in AWS Secrets Manager, and
     ```
 
 ## Exercise Steps
+
+> [!IMPORTANT]
+> You will need to install NodeJS in order to complete this exercise as the Lambda function is written in NodeJS for ease of packaging.
 
 1. Check out the generated ESC environment in the Pulumi Cloud console. Note that it reuses the OIDC credentials we set up earlier. These OIDC credentials are the role that Pulumi Cloud will use to access the secrets in AWS Secrets Manager.
 
