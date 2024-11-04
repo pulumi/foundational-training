@@ -16,7 +16,7 @@ The `setup` stack will take a GitHub token, place it in AWS Secrets Manager, and
     ```bash
     cd exercise-02-aws-secrets-manager
     cd setup
-    pulumi config set githubToken github_pat_11AADEH5Q0MJ9dUZbsyruI_n49twNSe6zTIKmCNwZ5458492eugfiohdjksRL7ZyDGNLVQQR1ZfQcSxj --secret 
+    pulumi config set githubToken github_pat_abc123 --secret # Replace value with your token
     ```
 
 1. (Optional) If you want to use ESC OIDC credentials, add them to this stack:
