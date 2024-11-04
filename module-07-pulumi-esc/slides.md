@@ -185,6 +185,12 @@ values:
 
 ---
 
+# Exercise: AWS Secrets Manager and Importing Environments
+
+See: `exercise-02-aws-secrets-manager.md`
+
+---
+
 # Pulumi ESC: File Output Example
 
 ```yaml
