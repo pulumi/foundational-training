@@ -36,7 +36,8 @@ values:
 // TODO: Remove this random suffix once this is resolved:
 // https://github.com/pulumi/pulumi-pulumiservice/issues/424
 const suffix = new random.RandomString("env-name-suffix", {
-  length: 6
+  length: 6,
+  special: false
 });
 
 const org = pulumi.getOrganization();
