@@ -4,7 +4,7 @@ This exercise shows you how to consume OIDC credentials in AWS using Pulumi ESC.
 
 ## OIDC and CLI Commands
 
-1. If you do not yet have OIDC configured between Pulumi Cloud and your AWS account, deploy the OIDC solution in a blank directory:
+1. If you do not yet have OIDC configured between your Pulumi Cloud organization and your AWS account, deploy the OIDC solution in a blank directory. This only needs to be done once per combination of Pulumi Cloud organization and AWS account:
 
     ```bash
     mkdir aws-ts-oidc-provider-pulumi-cloud

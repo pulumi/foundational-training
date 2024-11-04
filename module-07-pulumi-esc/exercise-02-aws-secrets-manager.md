@@ -56,11 +56,11 @@ The `setup` stack will take a GitHub token, place it in AWS Secrets Manager, and
     npm i
     ```
 
-1. Add the environment to the exercise stack. Note that because the environment imports the OIDC credentials we used earlier, we do not need to add the OIDC environment separately.
+1. Add the generated ESC environment to the exercise stack. Note that because the environment imports the OIDC credentials we used earlier, we do not need to add the OIDC environment separately, e.g..
 
     ```bash
     cd ..
-    pulumi config env add foundational-training/aws-secrets-h4hUa6
+    pulumi config env add foundational-training/aws-secrets-h4hUa6 # substitute your environment's name
     ```
 
 1. Check out the code and note how the code has a required secret config value. ESC will pull this value automatically from AWS Secrets Manager from the environment you set up earlier:
