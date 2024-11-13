@@ -64,8 +64,6 @@ In this exercise, you will create two projects: the first will create two resour
 
 10. Same as before, note that the `consumedPetName` value is plaintext and `consumedPassword` is a secret. You can run `pulumi stack output consumedPetName` or `pulumi stack output consumedPassword --show-secret` to show the values.
 
-11. Run `pulumi destroy` to remove these resources, then change to the other folder and do the same: `cd ../output-references && pulumi destroy` [^2]
+11. Although it is good practice to delete resources that are unused, even if they're free, we're not going to destroy these as we'll leave them for a later exercise using ESC.
 
 [^1]: The `-y` argument here fills out all the responses to the wizard with the default options and creates a `dev` stack.
-
-[^2]: The `Random*` resources are free in terms of that there is no cloud infrastructure to incur cost, but it's always good practice to remove them to tidy up.
