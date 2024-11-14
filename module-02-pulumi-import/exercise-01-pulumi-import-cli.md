@@ -96,6 +96,7 @@ In this exercise you will use the Pulumi CLI to import resources into a stack. T
     pulumi stack rm dev --force
     ```
 
+The `--force` argument will delete the stack, but will leave any resources that are currently deployed. If you do not use this then the CLI will warn you that there are still resources.
 1. Tear down the CloudFormation stack:
 
     ```bash
