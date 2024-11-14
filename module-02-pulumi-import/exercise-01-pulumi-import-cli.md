@@ -1,51 +1,104 @@
-# Exercise 1: Bulk importing resources
+# Exercise 1: The `pulumi import` command
 
-In this exercise you will bulk import resources (typically created manually in the console or via CloudFormation). This exercise uses a custom script using `boto3` to generate a bulk import JSON file for use with the `pulumi import` command, but learners are welcome to take their own approach to gather resources for import, including handwriting the file.
+In this exercise you will use the Pulumi CLI to import resources into a stack. There are two ways to use the `pulumi import` command:
 
-1. Deploy the CDK stack if your account/region has no VPCs or similar resources:
+1. Importing a single resource by supplying all arguments at the command line.
+1. Importing multiple resources by passing a JSON file to the `pulumi import` command.
+
+## Setup Steps
+
+1. Deploy some AWS resources (a VPC and two subnets) by running the following command. We will bring these resources under Pulumi management:
 
     ```bash
-    # Skip this step if already deployed the CDK in the previous step
-    cd cdk && cdk deploy && cd -
+    aws cloudformation deploy --template-file exercise-01-cfn.yaml --stack-name pulumi-import-ex-01 --capabilities CAPABILITY_NAMED_IAM --region us-east-1
     ```
 
-1. Install the dependencies for the account scraper script:
+    Note the IDs of the VPC and subnets that are exported as values:
 
     ```bash
-    # Modify the following command as necessary for your environment (venv, poetry, etc):
-    cd boto3
-    pip install -r requirements.txt # or pip3
+    aws cloudformation list-exports --region us-east-1
     ```
 
-1. Run the account scraper:
+1. Create a Pulumi program and change to the directory containing the program:
 
     ```bash
-    # from the boto3 directory,
-    python3 account_scraper.py > pulumi-import.json && cd -
-    #
-    # If your AWS region is not set then run as:
-    # AWS_DEFAULT_REGION=us-east-1 python3 account_scraper.py > pulumi-import.json && cd -
+    mkdir pulumi-import-ex-01
+    cd pulumi-import-ex-01
+    pulumi new aws-typescript -y
     ```
 
-    Note that this script will scan all VPCs and associated resources (subnets, route tables, etc.) in the account/region in which you run it.
-
-1. Create a Pulumi program:
+    or, for Python:
 
     ```bash
-    pulumi new aws-typescript -y --dir pulumi-import-exercise
+    mkdir pulumi-import-ex-01
+    cd pulumi-import-ex-01
+    pulumi new aws-python -y
+    ```
+
+    Remove any resources contained in the generated program.
+
+## Importing a Single Resource from the Command Line
+
+1. Navigate to the [Pulumi Registry](https://www.pulumi.com/registry/) and look up the command to import a VPC resource. The syntax will be at the bottom of the VPC resource's page in the AWS provider.
+
+    > [!IMPORTANT]
+    > Be sure to substitue the VPC ID from the CloudFormation stack you deployed earlier.
+
+    Run the command.
+
+1. After running the command, you will see the code for the resource in the command line output in the same language of your Pulumi program. Copy and paste the generated code into your program and run the following command:
+
+    ```bash
+    pulumi preview
+    ```
+
+    You should see no diff. If you do see a diff, massage the generated code and re-run `pulumi preview` until there is no diff.
+
+## Importing Multiple Resources from the Command Line
+
+1. Create a file called `pulumi-import.json` in the same directory as your Pulumi program. Create the file contents similar to the following (note that you will have to swap the `id` fields for the actual subnet ids):
+
+    ```json
+    {
+        "resources": [
+            {
+                "type": "aws:ec2/subnet:Subnet",
+                "name": "imported-subnet-1",
+                "id": "subnet-abc123"
+            },
+            {
+                "type": "aws:ec2/subnet:Subnet",
+                "name": "imported-subnet-2",
+                "id": "subnet-xyz987"
+            }
+        ]
+    }
     ```
 
 1. Import the resources you exported:
 
     ```bash
-    cd pulumi-import-exercise
-    pulumi import -f ../boto3/pulumi-import.json > index.ts -y
+    pulumi import -f pulumi-import.json
     ```
 
-1. Run the `pulumi preview` command. Edit the program until the `pulumi preview` command shows no errors and no diff. The resources in this program are now under Pulumi management (although `pulumi import` protects them from deletion by default.)
+    Copy the resulting code into your Pulumi program.
 
-1. Finally, delete the stack with the imported resources in order to avoid accidentally modifying resources in your AWS environment:
+1. Run the `pulumi preview` command. Edit the program until the `pulumi preview` command shows no errors and no diff. The resources in this program are now under Pulumi management.
+
+> [!IMPORTANT] 
+> Note the `protect` flag that is added. This stops the resources from being deleted by Pulumi, but it does not prevent them from being deleted in AWS.
+
+## Cleaning Up
+
+1. Delete the stack with the imported resources:
 
     ```bash
     pulumi stack rm dev --force
+    ```
+
+The `--force` argument will delete the stack, but will leave any resources that are currently deployed. If you do not use this then the CLI will warn you that there are still resources.
+1. Tear down the CloudFormation stack:
+
+    ```bash
+    aws cloudformation delete-stack --stack-name pulumi-import-ex-01 --region us-east-1
     ```

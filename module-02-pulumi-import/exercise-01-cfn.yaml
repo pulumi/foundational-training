@@ -1,0 +1,56 @@
+Resources:
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: pulumi-import-ex-01
+  Subnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      CidrBlock: 10.0.0.0/18
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: pulumi-import-ex-01-public-01
+      VpcId:
+        Ref: Vpc
+  Subnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+          - 1
+          - Fn::GetAZs: ""
+      CidrBlock: 10.0.64.0/18
+      MapPublicIpOnLaunch: true
+      Tags:
+      Tags:
+        - Key: Name
+          Value: pulumi-import-ex-01-public-02
+      VpcId:
+        Ref: Vpc
+Outputs:
+  VpcId:
+    Value:
+      Ref: Vpc
+    Export:
+      Name: ex-01-vpc-id
+  SubnetId1:
+    Value:
+      Ref: Subnet1
+    Export:
+      Name: ex-01-subnet-01-id
+  SubnetId2:
+    Value:
+      Ref: Subnet2
+    Export:
+      Name: ex-01-subnet-02-id
