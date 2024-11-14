@@ -64,7 +64,7 @@ In this exercise you will use the Pulumi CLI to import resources into a stack. T
             {
                 "type": "aws:ec2/subnet:Subnet",
                 "name": "imported-subnet-1",
-                "id": "subnet-abc123" // substitute with the actual subnet ID
+                "id": "subnet-abc123"
             },
             {
                 "type": "aws:ec2/subnet:Subnet",
