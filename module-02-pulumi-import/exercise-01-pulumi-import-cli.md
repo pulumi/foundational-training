@@ -56,7 +56,7 @@ In this exercise you will use the Pulumi CLI to import resources into a stack. T
 
 ## Importing Multiple Resources from the Command Line
 
-1. Create a file called `pulumi-import.json` in the same directory as your Pulumi program. Create the file contents similar to the following:
+1. Create a file called `pulumi-import.json` in the same directory as your Pulumi program. Create the file contents similar to the following (note that you will have to swap the `id` fields for the actual subnet ids):
 
     ```json
     {
