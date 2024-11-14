@@ -96,5 +96,5 @@ In this exercise you will use the Pulumi CLI to import resources into a stack. T
 1. Tear down the CloudFormation stack:
 
     ```bash
-    aws cloudformation delete-stack --stack-name pulumi-import-ex-01
+    aws cloudformation delete-stack --stack-name pulumi-import-ex-01 --region us-east-1
     ```
