@@ -10,7 +10,7 @@ In this exercise you will use the Pulumi CLI to import resources into a stack. T
 1. Deploy some AWS resources (a VPC and two subnets) by running the following command. We will bring these resources under Pulumi management:
 
     ```bash
-    aws cloudformation deploy --template-file exercise-01-cfn.yaml --stack-name pulumi-import-ex-01 --capabilities CAPABILITY_NAMED_IAM
+    aws cloudformation deploy --template-file exercise-01-cfn.yaml --stack-name pulumi-import-ex-01 --capabilities CAPABILITY_NAMED_IAM --region us-east-1
     ```
 
     Note the IDs of the VPC and subnets that are exported as values:
