@@ -83,7 +83,10 @@ In this exercise you will use the Pulumi CLI to import resources into a stack. T
 
     Copy the resulting code into your Pulumi program.
 
-1. Run the `pulumi preview` command. Edit the program until the `pulumi preview` command shows no errors and no diff. The resources in this program are now under Pulumi management (although `pulumi import` protects them from deletion by default.)
+1. Run the `pulumi preview` command. Edit the program until the `pulumi preview` command shows no errors and no diff. The resources in this program are now under Pulumi management.
+
+> [!IMPORTANT] 
+> Note the `protect` flag that is added. This stops the resources from being deleted by Pulumi, but it does not prevent them from being deleted in AWS.
 
 ## Cleaning Up
 
