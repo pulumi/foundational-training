@@ -16,7 +16,7 @@ In this exercise you will use the Pulumi CLI to import resources into a stack. T
     Note the IDs of the VPC and subnets that are exported as values:
 
     ```bash
-    aws cloudformation list-exports
+    aws cloudformation list-exports --region us-east-1
     ```
 
 1. Create a Pulumi program and change to the directory containing the program:
