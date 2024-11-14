@@ -55,3 +55,5 @@ You may also want to install k9s, which adds a text user interface (TUI), which 
    ```
 
 1. Now you can run `pulumi up` and you should see similar results to the exercise in module 03.
+
+1. Once you're done, run `pulumi destroy` and `pulumi stack rm dev` in both folders to tidy things up. You might also want to delete the environment you created above: `pulumi env rm {projectname}/{environmentname}`.
