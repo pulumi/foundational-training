@@ -35,7 +35,7 @@ In this exercise you will use the Pulumi CLI to import resources into a stack. T
     pulumi new aws-python -y
     ```
 
-    Remove any resources contained in the generated program and any config in the stack file that sets the AWS region.
+    Remove any resources contained in the generated program.
 
 ## Importing a Single Resource from the Command Line
 
