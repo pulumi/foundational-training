@@ -24,15 +24,7 @@ In this exercise you will use the Pulumi CLI to import resources into a stack. T
     ```bash
     mkdir pulumi-import-ex-01
     cd pulumi-import-ex-01
-    pulumi new aws-typescript -y
-    ```
-
-    or, for Python:
-
-    ```bash
-    mkdir pulumi-import-ex-01
-    cd pulumi-import-ex-01
-    pulumi new aws-python -y
+    pulumi new aws-typescript -y # or pulumi new aws-python -y
     ```
 
     Remove any resources contained in the generated program.
@@ -97,6 +89,7 @@ In this exercise you will use the Pulumi CLI to import resources into a stack. T
     ```
 
 The `--force` argument will delete the stack, but will leave any resources that are currently deployed. If you do not use this then the CLI will warn you that there are still resources.
+
 1. Tear down the CloudFormation stack:
 
     ```bash

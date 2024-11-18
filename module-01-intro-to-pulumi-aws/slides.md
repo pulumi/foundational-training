@@ -75,15 +75,20 @@ Resources are immutable!
 # Resources: Auto-naming
 
 - Auto-naming allows multiple stacks in the same environment (AWS account + region)
-- The Pulumi name will influence the physical name, e.g. `new aws.s3.Bucket("my-bucket", ...` -> A bucket named `my-bucket-abc123`
+- The Pulumi name will influence the physical name, e.g. `new aws.s3.BucketV2("my-bucket", ...` -> A bucket named `my-bucket-abc123`
 - Explicit naming also supported, e.g.:
 
     ```typescript
-    new aws.s3.Bucket("my-bucket", {
+    new aws.s3.BucketV2("my-bucket", {
       bucket: "the-exact-bucket-name",
     });
     ```
 
+    ```python
+    aws.s3.BucketV2("my-bucket",
+      bucket="the-exact-bucket-name"
+      )
+    ```
 ---
 
 # Exercise: Build a Pulumi Program on AWS
@@ -97,7 +102,7 @@ See: `exercise-01-ecs-fargate.md`
 - **Inputs:** Values that may or may not be known and _may_ be supplied by the user, e.g., `aws.ec2.Instance.ami` is type `Input<string>`
 - **Outputs:** Values that may or may not be known, and cannot be entered by the user, e.g., `aws.ec2.Instance.arn` is type `Output<string>`
 - **Apply:** Method to get the raw value of an Input or Output (once it's known)
-- Inputs and Outputs may be complex types, e.g., `aws.s3.Bucket.BucketWebsite` (static site config)
+- Inputs and Outputs may be complex types, e.g., `aws.s3.BucketV2.BucketWebsites` (static site config)
 - All inputs are also available outputs!
 - Inputs and Outputs work like promises in JS. `apply()` is like `.then()`
 
@@ -117,13 +122,25 @@ See: `exercise-01-ecs-fargate.md`
 
 # Resource Options
 
+TypeScript:
 ```typescript
-const bucket = new aws.s3.Bucket("my-customer-data", {}, {
-    protect: true,
+const bucket = new aws.s3.BucketV2("my-customer-data",
+    {},
+    {
+      protect: true,
 })
 ```
 
-Greatest hits:
+Python:
+```typescript
+bucket = aws.s3.BucketV2("my-customer-data",
+    opts=ResourceOptions(protect=True)
+)
+```
+
+---
+
+# Resource Options - Greatest Hits:
 
 - `alias`: Assign additional Pulumi name(s) to resources to enable refactoring
 - `deleteBeforeReplace`: Override the default behavior and delete a resource before replacing it (useful when names must be unique)
@@ -147,14 +164,29 @@ Full list: <https://www.pulumi.com/docs/concepts/options/>
       project-name:my-key: my-value
     ```
 
+---
+
+# Stack Configuration - Reading
+
 - Reading config values:
 
-    ```typescript
-    const config = new pulumi.Config();
-    const optionalValue = config.get("some-optional-value") || "default-value";
-    const requiredValue = config.require("some-required-value");
-    // also, getBoolean(), getRequiredInt(), etc.
-    ```
+TypeScript:
+
+  ```typescript
+  const config = new pulumi.Config();
+  const optionalValue = config.get("some-optional-value") || "default-value";
+  const requiredValue = config.require("some-required-value");
+  // also, getBoolean(), getRequiredInt(), etc.
+  ```
+
+Python:
+
+  ```python
+  config = pulumi.Config()
+  optionalValue = config.get("some-optional-value") or "default-value"
+  requiredValue = config.require("some-required-value")
+  # also, get_bool(), require_int(), etc.
+  ```
 
 ---
 
@@ -190,18 +222,36 @@ Full list: <https://www.pulumi.com/docs/concepts/options/>
 # Default and Explicit Providers
 
 - **Default providers:** Do not need to be declared. These will use the stack config (or, e.g., AWS credential chain, if not specified)
-- **Explicit providers:** Declared as Pulumi resources and must be assigned in resource options:
-
-    ```typescript
-    const bucket = new aws.s3.Bucket("n-virginia-bucket"); // Assuming client is set up for us-east-1
-
-    const awsProvider = new aws.Provider("explicit-provider", {
-        region: "us-east-2"
-    })
-
-    const bucket = new aws.s3.Bucket("ohio-bucket", {}, {
-        provider: awsProvider
-    })
-    ```
+- **Explicit providers:** Declared as Pulumi resources and must be assigned in resource options
 
   Use for multi-region deployments or, e.g., creating a K8s cluster and deploying resources onto it in the same program
+
+---
+
+# Default and Explicit Providers, cont'd
+
+  TypeScript:
+
+  ```typescript
+  const bucket = new aws.s3.BucketV2("n-virginia-bucket"); // Assuming client is set up for us-east-1
+
+  const awsProvider = new aws.Provider("explicit-provider", {
+      region: "us-east-2"
+  })
+  const bucketOhio = new aws.s3.BucketV2("ohio-bucket", {}, {
+      provider: awsProvider
+  })
+  ```
+
+  Python:
+
+  ```python
+  bucket = aws.s3.BucketV2("n-virginia-bucket") # Assuming client is set up for us-east-1
+
+  awsProvider = aws.Provider("explicit-provider", 
+      region="us-east-2"
+  )
+  bucketOhio = aws.s3.BucketV2("ohio-bucket",
+      opts=ResourceOptions(provider=awsProvider)
+  )
+  ```

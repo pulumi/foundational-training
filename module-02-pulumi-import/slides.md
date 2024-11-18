@@ -145,7 +145,7 @@ See: `exercise-01-pulumi-import-cli.md`
 
 ---
 
-# Scenario 2: CloudFormation/CDK (Coexist)
+# Scenario 2: CloudFormation/CDK (Coexist) in TS
 
 1. Get functions
 1. Reference CloudFormation Stack Outputs:
@@ -162,6 +162,29 @@ See: `exercise-01-pulumi-import-cli.md`
         instanceType: "t3.micro",
         subnetId: subnetId,
     });
+    ```
+
+**Note:** Pulumi/CDK interop exists, but is experimental
+
+---
+
+# Scenario 2: CloudFormation/CDK (Coexist) in Python
+
+1. Get functions
+1. Reference CloudFormation Stack Outputs:
+
+    ```python
+    network = aws.cloudformation.get_stack_output(
+        name="my-network-stack"
+    )
+
+    subnetId = network.outputs["SubnetId"]
+
+    web = aws.ec2.Instance("web",
+        ami="ami-0adc0e3ef2558cb1f",
+        instance_type="t3.micro",
+        subnet_id=subnetId,
+    )
     ```
 
 **Note:** Pulumi/CDK interop exists, but is experimental
@@ -186,7 +209,7 @@ See: `exercise-02-cloudformation-coexist.md`
 
 ---
 
-# Scenario 3: Terraform (Coexist)
+# Scenario 3: Terraform (Coexist) in TS
 
 Reference TF state outputs with the Pulumi Terraform Provider (not in the Pulumi registry):
 
@@ -205,25 +228,22 @@ new aws.ec2.SecurityGroup("security-group", {
 
 ---
 
-# Scenario 3: Terraform (Coexist)
+# Scenario 3: Terraform (Coexist) in Python
 
 Reference TF state outputs with the Pulumi Terraform Provider (not in the Pulumi registry):
 
-```typescript
+```python
 import pulumi_aws as aws
 import pulumi_terraform as terraform
 
-tf_state = terraform.state.RemoteStateFile(
-    "tf-state",
+tf_state = terraform.state.RemoteStateFile("tf-state",
     backend_type="local",
-    path="/path/to/terraform.tfstate"
+    args=LocalBackendArgs(path="/path/to/terraform.tfstate")
 )
 
-vpc_id = tf_state.get_output("vpc_id")
-
-security_group = aws.ec2.SecurityGroup(
-    "my-security-group",
-    vpc_id=vpc_id
+security_group = aws.ec2.SecurityGroup("my-security-group",
+    description="Allow all egress",
+    vpc_id=tf_state.get_output("vpc_id")
 )
 ```
 
@@ -257,7 +277,7 @@ See: `exercise-04-terraform-replace.md`
 
 ---
 
-# Scenario 4: Kubernetes YAML (Coexist)
+# Scenario 4: Kubernetes YAML (Coexist) in TS
 
 1. Single YAML File:
 
@@ -273,6 +293,29 @@ See: `exercise-04-terraform-replace.md`
     const guestbook = new k8s.yaml.ConfigGroup("manifests", {
         files: [ path.join("yaml", "*.yaml") ],
     });
+    ```
+
+1. `k8s.helm.v3.Chart`: Like `helm template`
+1. `k8s.helm.v3.Release`: Like `helm install`
+
+---
+
+# Scenario 4: Kubernetes YAML (Coexist) in Python
+
+1. Single YAML File:
+
+    ```python
+    k8s.yaml.ConfigFile("manifest",
+        file="manifest.yaml"
+    )
+    ```
+
+1. Directory of YAML files:
+
+    ```python
+    guestbook = k8s.yaml.ConfigGroup("manifests",
+        files=[os.path.join("yaml", "*.yaml")]
+    )
     ```
 
 1. `k8s.helm.v3.Chart`: Like `helm template`

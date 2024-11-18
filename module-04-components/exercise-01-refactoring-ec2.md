@@ -1,4 +1,4 @@
-# Exercise 01: Refactoring to Components
+# Exercise 01: Refactoring to ComponentResources
 
 In this exercise, you will take a VPC and a simple EC2 workload and refactor the latter into a ComponentResource.
 
@@ -50,6 +50,56 @@ In this exercise, you will take a VPC and a simple EC2 workload and refactor the
         Name: "components-refactor",
       },
     });
+    ```
+
+    In Python:
+
+    ```python
+    import pulumi
+    import pulumi_awsx as awsx
+    import pulumi_aws as aws
+
+    vpc = awsx.ec2.Vpc("components-refactor",
+      nat_gateways={
+          "strategy": awsx.ec2.NatGatewayStrategy.SINGLE
+      }
+    )
+
+    subnet_id = vpc.private_subnet_ids.apply(lambda ids: ids[0])
+
+    sg = aws.ec2.SecurityGroup("security-group",
+        vpc_id=vpc.vpc_id,
+        description="Allow all outbound traffic and no inbound traffic",
+        egress=[{
+            "protocol": "-1",
+            "fromPort": 0,
+            "toPort": 0,
+            "cidrBlocks": ["0.0.0.0/0"],
+        }],
+        tags={
+            "Name": "components-refactor"
+        }
+    )
+
+    ami = aws.ec2.get_ami_output(
+        most_recent=True,
+        owners=["amazon"],
+        filters=[{
+            "name": "name",
+            "values": ["amzn2-ami-hvm-*-x86_64-gp2"]
+        }]
+    )
+
+    aws.ec2.Instance("my-server",
+        subnet_id=subnet_id,
+        instance_type=aws.ec2.InstanceType.T3_MICRO,
+        ami=ami.id,
+        vpc_security_group_ids=[sg.id],
+        associate_public_ip_address=True,
+        tags={
+            "Name": "components-refactor"
+        }
+    )
     ```
 
 1. Create a new file to hold the component. `workload.ts` in TypeScript, `workload.py` in Python, etc.

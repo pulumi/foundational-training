@@ -1,6 +1,4 @@
-# Module 06: Components - Exercises
-
-## Exercise: Refactoring to ComponentResources
+# Exercise 02: Refactoring to ComponentResources (ECS on Fargate)
 
 In an exercise in the stacks module, we created an ECS on Fargate workload and separated it into 2 separate stacks. We'll now take the workload resources and refactor them into a ComponentResource so they can be reused to create multiple Fargate workloads without unnecessarily repeating code.
 
