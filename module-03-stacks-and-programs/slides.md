@@ -14,6 +14,12 @@ marp: true
 - Limit blast radius
 - Define areas of ownership
 
+---
+
+# Stack References
+
+TypeScript:
+
 ```typescript
 const stackRef = new pulumi.StackReference("other-stack", {
   name: "org-name/project-name/stack-name"
@@ -23,6 +29,17 @@ const vpcId = stackRef.getOutput("vpcId"); // implicitly pulumi.Output<string>
 const privateSubnetIds = stackRef.getOutput("privateSubnetIds") as pulumi.Output<string[]>;
 
 // use outputs to create additional resources
+```
+
+Python:
+
+```python
+stack_ref = pulumi.StackReference("org-name/project-name/stack-name")
+
+vpc_id = stack_ref.get_output("vpcId") # implicitly pulumi.Output<string>
+private_subnet_ids = stack_ref.get_output("privateSubnetIds") # pulumi.Output<string[]>
+
+# use outputs to create additional resources
 ```
 
 ---
@@ -41,7 +58,7 @@ This means:
 
 ---
 
-# Stack Outputs/References: Best Practices Cont'd
+# Stack Outputs/References: Best Practices Cont'd (TS)
 
 **Do not** share entire resources. Unnecessary performance hit and churn on values
 
@@ -63,9 +80,34 @@ const vpcId = stackRef.getOutput("vpcId");
 const existingVpc = aws.ec2.Vpc.Get(vpcId);
 const serviceSecGroup = new aws.ec2.SecurityGroup("security-group", {
   vpcId: vpcId,
-  ingress: [{
-    cidrBlocks: [vpc.cidrBlock],
-    // ...
+  // ...
+```
+
+---
+
+# Stack Outputs/References: Best Practices (in Python)
+
+**Do not** share entire resources. Unnecessary performance hit and churn on values
+
+```python
+# Do not do this:
+vpc = awsx.ec2.Vpc("my-full-vpc")
+```
+
+**Do** share stable IDs and query for the entire object in the referencing stack, e.g.:
+
+```python
+# Parent stack:
+vpc = awsx.ec2.Vpc("my-full-vpc")
+pulumi.export("vpc_id", vpc.vpc_id)
+```
+
+```python
+vpc_id = stack_ref.get_output("vpcId")
+existing_vpc = aws.ec2.get_vpc(id=vpc_id)
+serviceSecGroup = aws.ec2.SecurityGroup("security-group",
+  vpc_id=vpc_id,
+  # ...
 ```
 
 ---
@@ -123,14 +165,29 @@ See: `exercise-01-refactor-to-multiple-programs.md`
       project-name:my-key: my-value
     ```
 
+---
+
+# Stack Configuration - Reading
+
 - Reading config values:
 
-    ```typescript
-    const config = new pulumi.Config();
-    const optionalValue = config.get("some-optional-value") || "default-value";
-    const requiredValue = config.require("some-required-value");
-    // also, getBoolean(), getRequiredInt(), etc.
-    ```
+TypeScript:
+
+  ```typescript
+  const config = new pulumi.Config();
+  const optionalValue = config.get("some-optional-value") || "default-value";
+  const requiredValue = config.require("some-required-value");
+  // also, getBoolean(), getRequiredInt(), etc.
+  ```
+
+Python:
+
+  ```python
+  config = pulumi.Config()
+  optionalValue = config.get("some-optional-value") or "default-value"
+  requiredValue = config.require("some-required-value")
+  # also, get_bool(), require_int(), etc.
+  ```
 
 ---
 

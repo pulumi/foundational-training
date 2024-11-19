@@ -28,14 +28,14 @@ In this exercise, you'll learn how organizations with existing Terraform codebas
 1. Create a new Pulumi program:
 
     ```bash
-    pulumi new typescript -y --dir pulumi-tf-outputs # or pulumi new python -y
+    pulumi new typescript -y --dir pulumi-tf-outputs # or: pulumi new python -y [...]
     ```
 
 1. Install the Pulumi Terraform Provider and the Pulumi AWS Provider:
 
     ```bash
     cd pulumi-tf-outputs
-    npm i @pulumi/terraform @pulumi/aws
+    npm i @pulumi/terraform @pulumi/aws # or pip install pulumi-terraform pulumi-aws
     ```
 
 1. In your Pulumi program, use the `terraform.state.RemoteStateReference` resource to reference the TF state file on disk, read the value of the `vpc_id` (a string) and `private_subnet_ids` (an array of strings) outputs, and store them in local variables.

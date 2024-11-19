@@ -27,7 +27,7 @@ In this exercise, you'll learn how organizations using CDK or CloudFormation can
     mkdir pulumi-cf-outputs
     cd pulumi-cf-outputs
     pulumi new typescript -y # or pulumi new python -y
-    npm i @pulumi/aws
+    npm i @pulumi/aws # or pip install pulumi-aws
     ```
 
 1. In your Pulumi program, use the `aws.cloudformation.getStackOutput` resource to reference the `CdkStack` CloudFormation stack, read the value of the `vpcId` and `privateSubnetId0` outputs and store them in local variables. (Note that the `Output` part of `getStackOutput` refers to the fact that the values returned are Pulumi Outputs. The function returns a CloudFormation stack, not its individual CloudFormation stack outputs.)
