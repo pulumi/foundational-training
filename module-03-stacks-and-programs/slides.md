@@ -16,13 +16,11 @@ marp: true
 
 ```typescript
 const stackRef = new pulumi.StackReference("other-stack", {
-  name: "org-name/project-name/stack-name",
+    name: "org-name/project-name/stack-name",
 });
 
 const vpcId = stackRef.getOutput("vpcId"); // implicitly pulumi.Output<string>
-const privateSubnetIds = stackRef.getOutput(
-  "privateSubnetIds"
-) as pulumi.Output<string[]>;
+const privateSubnetIds = stackRef.getOutput("privateSubnetIds") as pulumi.Output<string[]>;
 
 // use outputs to create additional resources
 ```
@@ -79,7 +77,7 @@ const serviceSecGroup = new aws.ec2.SecurityGroup("security-group", {
 - Pulumi Cloud automatically prevents concurrent stack updates
 - Things that change together should live together:
 
-  If you see yourself consistently making changes in multiple repos (app or infra code) or multiple folders, then your code organization is probably not optimal.
+    If you see yourself consistently making changes in multiple repos (app or infra code) or multiple folders, then your code organization is probably not optimal.
 
 ---
 
@@ -118,21 +116,21 @@ See: `exercise-01-refactor-to-multiple-programs.md`
 - Each stack has its own config file `Pulumi.{STACK_NAME}.yaml`, e.g.`Pulumi.dev.yaml` or `Pulumi.prod.yaml`
 - Setting config values:
 
-  ```bash
-  $ pulumi config set my-key my-value
-  $ cat Pulumi.dev.yaml
-  config:
-    project-name:my-key: my-value
-  ```
+    ```bash
+    $ pulumi config set my-key my-value
+    $ cat Pulumi.dev.yaml
+    config:
+      project-name:my-key: my-value
+    ```
 
 - Reading config values:
 
-  ```typescript
-  const config = new pulumi.Config();
-  const optionalValue = config.get("some-optional-value") || "default-value";
-  const requiredValue = config.require("some-required-value");
-  // also, getBoolean(), getRequiredInt(), etc.
-  ```
+    ```typescript
+    const config = new pulumi.Config();
+    const optionalValue = config.get("some-optional-value") || "default-value";
+    const requiredValue = config.require("some-required-value");
+    // also, getBoolean(), getRequiredInt(), etc.
+    ```
 
 ---
 
