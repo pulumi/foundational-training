@@ -13,46 +13,46 @@ You may also want to install k9s, which adds a text user interface (TUI), which 
 
 1. We're going to refer to the projects that you created in module 03. If you don't have those available, you can find it in the `exercise-01-stack-references` folder alongside this guide. Make sure that you at least have the resources in the `output-references` project.
 
-   ```bash
-   cd exercise-03-stack-references/output-references
-   pulumi stack init {stackname}
-   pulumi up
-   ```
+    ```bash
+    cd exercise-03-stack-references/output-references
+    pulumi stack init {stackname}
+    pulumi up
+    ```
 
 1. In the Pulumi Cloud console, create an environment similar to the following:
 
-   ```yaml
-   values:
-     stackRefs:
-       fn::open::pulumi-stacks:
-         stacks:
-           vpcInfra:
-             stack: output-references/{stackname} # Replace this with the path to your VPC stack
-     pulumiConfig:
-       password: ${stackRefs.passwordValue}
-       petName: ${stackRefs.petName}
-   ```
+    ```yaml
+    values:
+        stackRefs:
+            fn::open::pulumi-stacks:
+                stacks:
+                    vpcInfra:
+                        stack: output-references/{stackname} # Replace this with the path to your VPC stack
+        pulumiConfig:
+            password: ${stackRefs.passwordValue}
+            petName: ${stackRefs.petName}
+    ```
 
-   Open the environment to verify that the `pulumiConfig` outputs have values.
+    Open the environment to verify that the `pulumiConfig` outputs have values.
 
 1. You'll need to add the environment to your stack config (`Pulumi.dev.yaml` where `dev` is the name of the stack). You can do this in one or two ways:
 
-   1. Run a command: `pulumi env config add {projectname}/{environmentname}`
-   1. Edit the `Pulumi.dev.yaml` file directly so it contains the following (you'll need to create the file if it's not already there):
+    1. Run a command: `pulumi env config add {projectname}/{environmentname}`
+    1. Edit the `Pulumi.dev.yaml` file directly so it contains the following (you'll need to create the file if it's not already there):
 
-      ```yaml
-      environment:
-          - {projectname}/{environmentname}
-      ```
+        ```yaml
+        environment:
+            - {projectname}/{environmentname}
+        ```
 
 1. In the `read-resources` project, you'll be removing or commenting out the lines related to stack references and replacing them with the following:
 
-   ```
-   const config = new pulumi.Config();
+    ```
+    const config = new pulumi.Config();
 
-   export const password = config.get("password");
-   export const petName = config.get("petName");
-   ```
+    export const password = config.get("password");
+    export const petName = config.get("petName");
+    ```
 
 1. Now you can run `pulumi up` and you should see similar results to the exercise in module 03.
 
