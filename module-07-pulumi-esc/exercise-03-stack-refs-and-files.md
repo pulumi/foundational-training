@@ -51,15 +51,15 @@ In this exercise, we'll explore a common multi-program infrastructure setup:
 
     ```yaml
     values:
-      stackRefs:
-        fn::open::pulumi-stacks:
-          stacks:
-            vpcInfra:
-              stack: vpc-program-name/dev # Replace this with the path to your VPC stack
-      pulumiConfig:
-        vpcId: ${stackRefs.vpcInfra.vpcId}
-        publicSubnetIds: ${stackRefs.vpcInfra.publicSubnetIds}
-        privateSubnetIds: ${stackRefs.vpcInfra.privateSubnetIds}
+        stackRefs:
+            fn::open::pulumi-stacks:
+                stacks:
+                    vpcInfra:
+                        stack: vpc-program-name/dev # Replace this with the path to your VPC stack
+        pulumiConfig:
+            vpcId: ${stackRefs.vpcInfra.vpcId}
+            publicSubnetIds: ${stackRefs.vpcInfra.publicSubnetIds}
+            privateSubnetIds: ${stackRefs.vpcInfra.privateSubnetIds}
     ```
 
     Open the environment in the console to verify that the `pulumiConfig` outputs have values.
@@ -74,7 +74,9 @@ In this exercise, we'll explore a common multi-program infrastructure setup:
     ```
 
     ```python
-    # TODO
+    config = new pulumi.Config()
+    vpc_id = config.require("vpc_id")
+    public_subnet_ids = config.require_object("public_subnet_ids")
     ```
 
 1. Add the environment to your EKS stack config file:
@@ -96,14 +98,14 @@ In this exercise, we'll explore a common multi-program infrastructure setup:
 
     ```yaml
     values:
-      stacks:
-        fn::open::pulumi-stacks:
-          stacks:
-            eks-cluster:
-              stack: eks-program-name/dev # Change this to match the name of your EKS program/stack
-      kubeconfig: {'fn::toJSON': "${stacks.eks-cluster.kubeconfig}"}
-      files:
-        KUBECONFIG: ${kubeconfig}
+        stacks:
+            fn::open::pulumi-stacks:
+                stacks:
+                    eks-cluster:
+                        stack: eks-program-name/dev # Change this to match the name of your EKS program/stack
+        kubeconfig: { "fn::toJSON": "${stacks.eks-cluster.kubeconfig}" }
+        files:
+            KUBECONFIG: ${kubeconfig}
     ```
 
     Open the environment in the Pulumi Cloud console to ensure that the environment is correct.
@@ -123,8 +125,9 @@ In this exercise, we'll explore a common multi-program infrastructure setup:
 1. Add the following section at the end of your environment (under `values`) to configure the default Kubernetes provider with the EKS Kubeconfig:
 
     ```yaml
-      pulumiConfig:
+    pulumiConfig:
         kubernetes:kubeconfig: ${kubeconfig}
+    ```
 
 1. Spin up the stack containing NGINX:
 
