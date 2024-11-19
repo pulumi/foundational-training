@@ -1,6 +1,6 @@
-# Exercise 02: Using Multiple Stacks
+# Exercise 03: Using Multiple Stacks
 
-This exercise assumes you've broken the ECS on Fargate exercise into two separate programs in Exercise 01.
+This exercise assumes you've broken the ECS on Fargate exercise into two separate programs in Exercise 02.
 
 1. In the directory with the VPC, create a new stack:
 

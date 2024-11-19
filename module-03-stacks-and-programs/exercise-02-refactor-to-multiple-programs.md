@@ -1,4 +1,4 @@
-# Exercise 01: Refactoring to multiple programs
+# Exercise 02: Refactoring to multiple programs
 
 In this exercise, you will start with a single program that contains a VPC, and all the resources needed to run NGINX an ECS on Fargate workload in the VPC. This approach is fine for a simple scenario, but in more real-world scenarios with multiple workloads running in the same VPC, you'll likely want to re-use shared resources like the VPC and ALB in order to control for costs or to account for differing team ownership.
 
@@ -32,6 +32,6 @@ In this exercise, you will start with a single program that contains a VPC, and 
     curl $(pulumi stack output nginxUrl)
     ```
 
-1. Tear down all the infrastructure in this exercise, but keep the code broken into separate programs for Exercise 02.
+1. Tear down all the infrastructure in this exercise, but keep the code broken into separate programs for Exercise 03.
 
 For an extra challenge, re-attempt the exercise by moving the workload resources _without deleting the running NGINX workload_ by using the `pulumi import` command. (We generally recommend spinning up new infrastructure and transitioning workloads over to it, but this is not always possible.)

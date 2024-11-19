@@ -22,7 +22,7 @@ TypeScript:
 
 ```typescript
 const stackRef = new pulumi.StackReference("other-stack", {
-  name: "org-name/project-name/stack-name"
+    name: "org-name/project-name/stack-name",
 });
 
 const vpcId = stackRef.getOutput("vpcId"); // implicitly pulumi.Output<string>
@@ -119,7 +119,7 @@ serviceSecGroup = aws.ec2.SecurityGroup("security-group",
 - Pulumi Cloud automatically prevents concurrent stack updates
 - Things that change together should live together:
 
-  If you see yourself consistently making changes in multiple repos (app or infra code) or multiple folders, then your code organization is probably not optimal.
+    If you see yourself consistently making changes in multiple repos (app or infra code) or multiple folders, then your code organization is probably not optimal.
 
 ---
 
