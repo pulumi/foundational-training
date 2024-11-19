@@ -4,13 +4,13 @@ In this exercise, you will create two projects: the first will create two resour
 
 1. Create a new folder and two sub-folders. Then change to the `output-references` folder:
 
-    ```bash
-    mkdir stack-references-exercise
-    mkdir -p stack-references-exercise/output-references
-    mkdir -p stack-references-exercise/read-references
+   ```bash
+   mkdir stack-references-exercise
+   mkdir -p stack-references-exercise/output-references
+   mkdir -p stack-references-exercise/read-references
 
-    cd stack-references-exercise/output-references
-    ```
+   cd stack-references-exercise/output-references
+   ```
 
 2. Create a new project: `pulumi new typescript -y` [^1]
 
@@ -18,22 +18,22 @@ In this exercise, you will create two projects: the first will create two resour
 
 4. In the index.ts create a `Random Pet` resource and a `Random Password` resource:
 
-    ```typescript
-    import * as random from "@pulumi/random";
+   ```typescript
+   import * as random from "@pulumi/random";
 
-    const myPassword = new random.RandomPassword("myPassword", {
-        length: 20,
-    });
+   const myPassword = new random.RandomPassword("myPassword", {
+     length: 20,
+   });
 
-    const myPet = new random.RandomPet("myPet", {
-        length: 2,
-    });
+   const myPet = new random.RandomPet("myPet", {
+     length: 2,
+   });
 
-    export const passwordValue = myPassword.result;
-    export const petName = myPet.id;
-    ```
+   export const passwordValue = myPassword.result;
+   export const petName = myPet.id;
+   ```
 
-    The reason that there are two outputs is that the `.result` output of the `RandomPassword` resource is a secret and the `.id` output of the RandomPet resource is not. This means that you will be able to see what the two different types look like in the console.
+   The reason that there are two outputs is that the `.result` output of the `RandomPassword` resource is a secret and the `.id` output of the RandomPet resource is not. This means that you will be able to see what the two different types look like in the console.
 
 5. Run `pulumi up`. You will see that the value of the `petName` output is in plaintext and the `passwordValue` output is `[secret]` as a mask. If you would like to see the plaintext value of this, you can run `pulumi stack output passwordValue --show-secret`. You can see the value of the `petName` output you can run `pulumi stack output petName` and you don't need the `--show-secret` argument.
 
@@ -43,22 +43,22 @@ In this exercise, you will create two projects: the first will create two resour
 
 8. Copy and paste the following into the `index.ts`:
 
-    ```typescript
-    import * as pulumi from "@pulumi/pulumi";
+   ```typescript
+   import * as pulumi from "@pulumi/pulumi";
 
-    const stackRef = new pulumi.StackReference("{orgname}/{projectname}/dev");
+   const stackRef = new pulumi.StackReference("{orgname}/{projectname}/dev");
 
-    const petName = stackRef.getOutput("petName");
-    const password = stackRef.getOutput("passwordValue");
+   const petName = stackRef.getOutput("petName");
+   const password = stackRef.getOutput("passwordValue");
 
-    export const consumedPetName = petName;
-    export const consumedPassword = password;
-    ```
+   export const consumedPetName = petName;
+   export const consumedPassword = password;
+   ```
 
-    Note the following:
+   Note the following:
 
-    - `{orgname}` is the organisation or account name that you're using
-    - `{projectname}` is the project name. If you didn't use the `-y` flag when creating the project or named the folder something different, this may have a different value
+   - `{orgname}` is the organisation or account name that you're using
+   - `{projectname}` is the project name. If you didn't use the `-y` flag when creating the project or named the folder something different, this may have a different value
 
 9. Run `pulumi up`
 

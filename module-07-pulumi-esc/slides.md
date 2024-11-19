@@ -180,7 +180,6 @@ values:
   foo: bar # Sample workload-specific-config
   environmentVariables:
     AWS_REGION: us-east-1 # <-- overrides base value
-
 ```
 
 ---
