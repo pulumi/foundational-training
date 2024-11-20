@@ -8,6 +8,18 @@ marp: true
 
 ---
 
+# Overview
+
+- What is Pulumi?
+- Pulumi product landscape
+- Pulumi CLI
+- Resources
+- Inputs and Outputs
+- Configuration and Secrets
+- Default and explicit Providers
+
+---
+
 ![What is Pulumi?](./images/what-is-pulumi.png "What is Pulumi?")
 
 ---
@@ -24,7 +36,7 @@ marp: true
 
 -   **Pulumi IaC:** Infrastructure as code, any language, any cloud, open source
 -   **Pulumi PaC:** Author compliance and security controls in NodeJS or Python, works against any Pulumi program, open source
--   **Pulumi ESC (environments, secrets, config):** Compose environments of static config, static and dynamic secrets, pass to Pulumi programs or CLI commands
+-   **Pulumi ESC:** Compose environments of static config, static and dynamic secrets, pass to Pulumi programs or CLI commands
 -   **Pulumi Cloud:** Pulumi's managed SaaS product
 
 ---
@@ -68,30 +80,47 @@ Every resource takes the same 3 parameters:
 1. **args:** Resource-specific inputs, e.g. Bucket name, website config, lifecycle
 1. **options:** Common properties that control the resource lifecycle
 
-Resources are immutable!
-
 ---
 
 # Resources: Auto-naming
 
 -   Auto-naming allows multiple stacks in the same environment (AWS account + region)
 -   The Pulumi name will influence the physical name, e.g. `new aws.s3.BucketV2("my-bucket", ...` -> A bucket named `my-bucket-abc123`
--   Explicit naming also supported, e.g.:
+-   Explicit naming is also supported
 
-Typescript:
+---
+
+# Auto-naming: Typescript:
+
+```typescript
+new aws.s3.BucketV2("my-bucket");
+
+// creates an s3 bucket called my-bucket-123456
+```
 
 ```typescript
 new aws.s3.BucketV2("my-bucket", {
     bucket: "the-exact-bucket-name",
 });
-```
 
-Python:
+// creates an S3 bucket called the-exact-bucket-name
+```
+---
+
+# Auto-naming: Python:
+
+```python
+aws.s3.BucketV2("my-bucket")
+
+# creates an s3 bucket called my-bucket-123456
+```
 
 ```python
 aws.s3.BucketV2("my-bucket",
     bucket="the-exact-bucket-name"
 )
+
+# creates an S3 bucket called the-exact-bucket-name
 ```
 
 ---
@@ -130,13 +159,7 @@ See: `exercise-01-ecs-fargate.md`
 TypeScript:
 
 ```typescript
-const bucket = new aws.s3.BucketV2(
-    "my-customer-data",
-    {},
-    {
-        protect: true,
-    },
-);
+const bucket = new aws.s3.BucketV2("my-customer-data", {}, { protect: true });
 ```
 
 Python:
@@ -226,6 +249,12 @@ requiredValue = config.require("some-required-value")
 
 ---
 
+# Demo
+
+<!-- show stack confirm and secrets-->
+
+---
+
 # Default and Explicit Providers
 
 -   **Default providers:** Do not need to be declared. These will use the stack config (or, e.g., AWS credential chain, if not specified)
@@ -246,13 +275,10 @@ const awsProvider = new aws.Provider("explicit-provider", {
     region: "us-east-2",
 });
 const bucketOhio = new aws.s3.BucketV2(
-    "ohio-bucket",
-    {},
-    {
-        provider: awsProvider,
-    },
-);
+    "ohio-bucket", {}, { provider: awsProvider });
 ```
+
+---
 
 Python:
 
@@ -267,3 +293,14 @@ bucketOhio = aws.s3.BucketV2("ohio-bucket",
 )
 ```
 
+---
+
+# Recap
+
+- What is Pulumi?
+- Pulumi product landscape
+- Pulumi CLI
+- Resources
+- Inputs and Outputs
+- Configuration and Secrets
+- Default and explicit Providers

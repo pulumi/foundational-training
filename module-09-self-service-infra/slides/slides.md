@@ -128,6 +128,5 @@ Rest api should deploy function url with input passed as environment variable to
 ## Backstage Plugin
 
 - Build Backstage templates to deploy infrastructure through Pulumi
-- Pro Tip: Don't just this unless you're either using Backstage already or are 100% committed to using Backstage
 
 <!-- it's a pain to run -->

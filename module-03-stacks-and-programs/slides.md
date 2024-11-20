@@ -8,11 +8,21 @@ marp: true
 
 ---
 
+# Overview
+
+- Stack references
+- Different ways to organise your projects and stacks
+- Configuring multiple stacks
+- How we handle multiple stacks at Pulumi
+
+---
+
 # Stack References
 
 - Retrieve outputs from one stack in another stack
 - Limit blast radius
 - Define areas of ownership
+
 
 ---
 
@@ -114,7 +124,7 @@ serviceSecGroup = aws.ec2.SecurityGroup("security-group",
 
 # Organizing Programs: Principles
 
-- Align with team ownership and the org chart (Conway's Law)
+- Align with team ownership and the org chart
 - Limit blast radius
 - Pulumi Cloud automatically prevents concurrent stack updates
 - Things that change together should live together:
@@ -228,6 +238,15 @@ How we use stacks in our SaaS product (Pulumi Cloud):
 # Exercise: Using Multiple Stacks
 
 See: `exercise-02-multiple-stacks.md`
+
+---
+
+# Recap
+
+- Stack references
+- Different ways to organise your projects and stacks
+- Configuring multiple stacks
+- How we handle multiple stacks at Pulumi
 
 ---
 

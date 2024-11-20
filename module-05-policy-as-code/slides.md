@@ -8,6 +8,20 @@ marp: true
 
 ---
 
+# Overview
+
+- What do we mean by Policy as code?
+- Types of Policy control
+- CrossGuard
+- Enforcement Levels
+- Resource Validation
+- Resource Remediation
+- Stack Validation
+- Compliance-Ready policies
+- Server-side enforcement
+
+---
+
 # Policy Control Types
 
 -   **Preventative controls:**
@@ -285,52 +299,6 @@ See: `exercise-02-compliance-ready-policies.md`
 
 ---
 
-# Custom Configuration, Authoring
-
-Policy authors can define a config schema for each policy:
-
-```json
-configSchema: {
-    properties: {
-        "excludeBaseImageVulns": {
-            default: false,
-            type: "boolean"
-        },
-        "pulumiProgramAbsPath": {
-            type: "string"
-        },
-        "severityThreshold": {
-            default: "critical",
-            enum: ["low", "medium", "high", "critical"]
-        },
-    },
-```
-
----
-
-# Custom Configuration, Consuming (Open Source)
-
-Consumers can author a JSON file with config values:
-
-```json
-{
-    "snyk-container-scan": {
-        // policy name
-        "excludeBaseImageVulns": true,
-        "pulumiProgramAbsPath": "/Users/jkodroff/src/jkodroff/demo-pulumi-policy-snyk/infra",
-        "severityThreshold": "high"
-    }
-}
-```
-
-And pass via the CLI:
-
-```bash
-pulumi preview --policy-pack ../policy --policy-pack-config policy-config.json
-```
-
----
-
 # Server-Side Enforcement
 
 -   Paid feature (currently Business Critical only)
@@ -352,3 +320,17 @@ Consumers can configure policy packs via the Pulumi Cloud UI:
 # Exercise: Server-Side Policy Enforcement
 
 See: `exercise-03-server-side-enforcement.md`
+
+---
+
+# Recap
+
+- What do we mean by Policy as code?
+- Types of Policy control
+- CrossGuard
+- Enforcement Levels
+- Resource Validation
+- Resource Remediation
+- Stack Validation
+- Compliance-Ready policies
+- Server-side enforcement

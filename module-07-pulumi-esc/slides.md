@@ -77,7 +77,7 @@ Environments, secrets, and configuration
 
 ---
 
-# Pulumi ESC: Add'l Features
+# Pulumi ESC: Additional Features
 
 - Standalone CLI: `esc`
 - Graphical key-value editor
