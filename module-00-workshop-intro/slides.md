@@ -50,7 +50,7 @@ marp: true
 ## Piers Karsenbarg
 Solutions Architect
 
-## Engin Dieri
+## Engin Diri
 Senior Solutions Architect
 
 ---
@@ -58,9 +58,8 @@ Senior Solutions Architect
 # Introductions - Who are you?
 
 1. Name
-1. Company and Job
-1. Experience with AWS
-1. Experience with IaC
+1. Company and Job Title
+1. What you want to get out of this?
 
 ---
 
