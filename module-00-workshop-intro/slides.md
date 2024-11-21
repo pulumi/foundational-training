@@ -48,9 +48,11 @@ marp: true
 # Introductions - Who are we?
 
 ## Piers Karsenbarg
+
 Solutions Architect
 
 ## Engin Diri
+
 Senior Solutions Architect
 
 ---
@@ -62,5 +64,15 @@ Senior Solutions Architect
 1. What you want to get out of this?
 
 ---
+
+# Slides and exercises
+
+GitHub: https://github.com/pulumi/foundational-training/tree/munich-nov-2024
+
+```bash
+git clone -b munich-nov-2024 --single-branch https://github.com/pulumi/foundational-training
+```
+
+--
 
 # Questions before we start?
