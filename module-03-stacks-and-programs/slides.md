@@ -231,6 +231,36 @@ See: `exercise-02-multiple-stacks.md`
 
 ---
 
+# Resource Aliases
+
+- Allow refactoring resources without replacing them
+- Enable zero-downtime migrations when restructuring stacks
+- Maintain resource identity when moving between stacks
+
+```python
+# Example of using a resource alias
+bucket = s3.Bucket("my-bucket",
+    # ... other properties ...
+    opts=pulumi.ResourceOptions(
+        aliases=[
+            # This tells Pulumi that this resource was previously defined in another stack
+            pulumi.Alias(name="my-bucket", stack="organization/project/other-stack")
+        ]
+    ))
+```
+
+---
+
+# Exercise: Refactoring with Resource Aliases
+
+See: `exercise-03-refactor-with-alias.md`
+
+- Learn how to split a monolithic stack into multiple stacks
+- Use resource aliases to maintain resource identity
+- Achieve zero-downtime migration of infrastructure
+
+---
+
 # Discussion: Organizing Stacks and Programs
 
 - How do you organize repos/IaC codebases/stacks in your org or with your customers?

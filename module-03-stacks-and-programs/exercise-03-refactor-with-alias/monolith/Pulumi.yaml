@@ -1,0 +1,6 @@
+name: monolith
+description: A monolithic Pulumi program containing both shared and workload resources
+runtime:
+  name: python
+  options:
+    virtualenv: venv

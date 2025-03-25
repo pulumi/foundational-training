@@ -1,0 +1,6 @@
+name: shared
+description: A Pulumi program containing shared resources
+runtime:
+  name: python
+  options:
+    virtualenv: venv

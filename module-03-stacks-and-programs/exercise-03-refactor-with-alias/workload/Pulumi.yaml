@@ -1,0 +1,6 @@
+name: workload
+description: A Pulumi program containing workload-specific resources
+runtime:
+  name: python
+  options:
+    virtualenv: venv
