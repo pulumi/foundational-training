@@ -231,26 +231,6 @@ See: `exercise-02-multiple-stacks.md`
 
 ---
 
-# Resource Aliases
-
-- Allow refactoring resources without replacing them
-- Enable zero-downtime migrations when restructuring stacks
-- Maintain resource identity when moving between stacks
-
-```python
-# Example of using a resource alias
-bucket = s3.Bucket("my-bucket",
-    # ... other properties ...
-    opts=pulumi.ResourceOptions(
-        aliases=[
-            # This tells Pulumi that this resource was previously defined in another stack
-            pulumi.Alias(name="my-bucket", stack="organization/project/other-stack")
-        ]
-    ))
-```
-
----
-
 # Exercise: Refactoring with Resource Aliases
 
 See: `exercise-03-refactor-with-alias.md`
@@ -258,6 +238,92 @@ See: `exercise-03-refactor-with-alias.md`
 - Learn how to split a monolithic stack into multiple stacks
 - Use resource aliases to maintain resource identity
 - Achieve zero-downtime migration of infrastructure
+
+---
+
+# Resource Protection
+
+- Prevent accidental deletion of critical infrastructure resources
+- Particularly important for production environments
+- Applied using the `protect` resource option
+
+```typescript
+// TypeScript
+const bucket = new aws.s3.Bucket("protected-bucket", {
+    // resource properties
+}, {
+    protect: true, // This resource cannot be deleted until protection is removed
+});
+```
+
+```python
+# Python
+bucket = aws.s3.Bucket("protected-bucket",
+    # resource properties
+    opts=pulumi.ResourceOptions(
+        protect=True  # This resource cannot be deleted until protection is removed
+    )
+)
+```
+
+---
+
+# Removing Resource Protection
+
+- To remove protection, update the resource with `protect: false`
+- Run `pulumi up` to apply the change
+- Then you can delete the resource with `pulumi destroy`
+
+```typescript
+// TypeScript
+const bucket = new aws.s3.Bucket("protected-bucket", {
+    // resource properties
+}, {
+    protect: false, // Protection removed
+});
+```
+
+```python
+# Python
+bucket = aws.s3.Bucket("protected-bucket",
+    # resource properties
+    opts=pulumi.ResourceOptions(
+        protect=False  # Protection removed
+    )
+)
+```
+
+---
+
+# Resource Protection: Best Practices
+
+- Use for critical production infrastructure (databases, storage, networking)
+- Apply conditionally based on stack configuration
+- Combine with stack-level access controls for defense in depth
+- Document protected resources and removal procedures
+
+```typescript
+// TypeScript: Conditional protection based on stack
+const config = new pulumi.Config();
+const shouldProtect = config.getBoolean("protectResources") || false;
+
+const bucket = new aws.s3.Bucket("protected-bucket", {
+    // resource properties
+}, {
+    protect: shouldProtect, // Protected only in certain stacks
+});
+```
+
+---
+
+# Exercise: Resource Protection
+
+See: `exercise-04-resource-protection.md`
+
+- Learn how to apply the `protect` resource option
+- Configure protection conditionally based on stack
+- Experience the safeguards that prevent accidental deletion
+- Practice removing protection when resources need to be deleted
 
 ---
 
